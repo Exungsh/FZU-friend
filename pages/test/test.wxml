@@ -1,0 +1,7 @@
+<!-- 顶部办理状态 -->
+<view class="topView" style="position:fixed;top:49px;left:0;z-index:200">
+  <block wx:for="{{statusList}}" wx:key="id">
+    <view id="{{item.id}}" class="{{item.id == isChecked ? 'active':''}} topChild" bindtap="choiceStatus">{{item.statusName}}</view>
+    
+</block>
+</view>

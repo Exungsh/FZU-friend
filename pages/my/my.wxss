@@ -1,0 +1,61 @@
+/* pages/my/my.wxss */
+.top {
+  height: 230rpx;
+  margin-bottom: 25rpx;
+  background-color: #f0f9f6;
+}
+.head{
+  display:block;
+  float: left;
+  height: 130rpx;
+  width: 130rpx;
+  margin: 50rpx 35rpx;
+  border-radius: 65rpx;
+  background-color:#588c7e;
+}
+.head image{
+  height: 130rpx;
+  width: 130rpx;
+  border-radius: 65rpx;
+}
+.title{
+  float: left;
+  height: 190rpx;
+  width: 500rpx;
+  margin:35rpx 0;
+}
+.name{
+  height: 80rpx;
+  width: 500rpx;
+  line-height: 80rpx;
+  font-size: 18px;
+  color: #487267;
+}
+.intro{
+  height: 40rpx;
+  width: 500rpx;
+  line-height: 40rpx;
+  font-size: 13px;
+  color:#487267;
+}
+.focus{
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 13px;
+  color:#487267;
+}
+.activity{
+  height: 100rpx;
+  background-color:#f0f9f6;
+  margin-bottom: 4rpx;
+  line-height: 90rpx;
+  padding-left: 30rpx;
+  color:#487267;
+}
+.blacklist{
+  height: 100rpx;
+  background-color:#f0f9f6;
+  line-height: 90rpx;
+  padding-left: 30rpx;
+  color:#487267;
+}

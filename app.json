@@ -1,0 +1,45 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/friend/friend",
+    "pages/my/my",
+    "pages/test/test",
+    "pages/logs/logs",
+    "pages/publish/publish"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#588c7e",
+    "navigationBarTitleText": "福友阁",
+    "navigationBarTextStyle":"white",
+    "enablePullDownRefresh": true,
+    "backgroundColor": "#588c7e"
+  },
+  "tabBar": {
+    "list": [
+    {
+      "selectedIconPath": "icon/Leftbar_mine_selected.png",
+      "iconPath": "icon/Leftbar_mine_unselected.png",
+      "pagePath": "pages/friend/friend",
+      "text": "朋友"
+    },
+    {
+      "selectedIconPath": "icon/huodongxiangqu.png",
+      "iconPath": "icon/huodongxiangqu_1.png",
+      "pagePath": "pages/index/index",
+      "text": "活动"
+    },
+    {
+      "selectedIconPath": "icon/Leftbar_cloud_selected.png",
+      "iconPath": "icon/Leftbar_cloud_unselected.png",
+      "pagePath": "pages/my/my",
+      "text": "我的"
+    }
+  ],
+    "color": "#c2d0cc",
+    "selectedColor": "#c2d0cc",
+    "backgroundColor": "#588c7e"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

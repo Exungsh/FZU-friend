@@ -1,0 +1,87 @@
+<form style="display: flex;flex-direction: column;height: calc(100vh - 100rpx);font-size: 13px;color: #487267;padding: 30rpx 30rpx;" catchsubmit="formSubmit">
+  <view style="display: flex;align-items: center;height: 80rpx;background-color: #f0f9f6;margin-bottom: 20rpx;border-radius: 25rpx;">
+    <text style="padding-left: 30rpx;">活动名称</text>
+    <input type="text" placeholder="请输入活动名称" style="flex: 1;text-align: center;" name="name"/>
+  </view>
+
+  <view style="display: flex;align-items: center;height: 80rpx;background-color: #f0f9f6;margin-bottom: 20rpx;border-radius: 25rpx;">
+    <text style="padding-left:30rpx;">活动地点</text>
+    <input type="text" placeholder="请输入活动地点" style="flex: 1;text-align: center;" name="place"/>
+  </view>
+
+  <view style="display: flex;align-items: center;height: 80rpx;background-color: #f0f9f6;margin-bottom: 20rpx;border-radius: 25rpx;">
+    <text style="padding-left:30rpx;">活动日期</text>
+    <picker mode="date" value="{{date}}" start="2022-11-01"  bindchange="bindDateChange" style="flex: 1;" name="date">
+      <view class="picker" style="text-align: center;">
+        {{date}}
+      </view>
+    </picker>
+  </view>
+
+  <view style="display: flex;align-items: center;height: 80rpx;background-color: #f0f9f6;margin-bottom: 20rpx;border-radius: 25rpx;">
+    <text style="padding-left:30rpx;">活动时间</text>
+    <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange" style="flex: 1;" name="time">
+      <view class="picker" style="text-align: center;">
+        {{time}}
+      </view>
+    </picker>
+  </view>
+
+  <view style="display: flex;align-items: center;height: 80rpx;background-color: #f0f9f6;margin-bottom: 20rpx;border-radius: 25rpx;">
+    <text style="padding-left:30rpx;">参加人数</text>
+    <slider value="1" name="joinNum" show-value min="1" max ="20" style="flex: 1;padding-left: 40rpx;" block-size="20" activeColor="#000"></slider>
+  </view>
+
+  <view style="display: flex;align-items: center;background-color: #f0f9f6;margin-bottom: 20rpx;border-radius: 25rpx;">
+    <text style="padding-left:30rpx;">活动详情</text>
+    <textarea name="detail"  placeholder="请输入活动详情" style="height: 150rpx;flex: 1;padding-left: 50rpx;padding-top: 30rpx;"></textarea>
+  </view>
+
+  <view style="display: flex;align-items: center;height: 80rpx;background-color: #f0f9f6;margin-bottom: 20rpx;border-radius: 25rpx;">
+    <text style="padding-left:30rpx;">性别</text>
+    <radio-group bindchange="radioChange_limit" style="flex: 1;padding-left: 50rpx;" name="render">
+        <label wx:for="{{limit}}" wx:key="{{limit.value}}">
+            <radio value="{{item.value}}"/>
+            <text decode="true">{{item.name}}&nbsp;</text>
+        </label>
+      </radio-group>
+  </view>
+
+  <view style="display: flex;align-items: center;height: 80rpx;background-color: #f0f9f6;margin-bottom: 20rpx;border-radius: 25rpx;">
+    <text style="padding-left:30rpx;">标签选择</text>
+    <radio-group bindchange="radioChange_tag" style="flex: 1;padding-left: 30rpx;" name="big_tag">
+        <label wx:for="{{tag}}" wx:key="{{tag.value}}">
+            <radio value="{{item.value}}"/>
+            <text decode="true">{{item.name}}&nbsp;</text>
+        </label>
+      </radio-group>
+  </view>
+
+  <view wx:if="{{tag[0].checked}}" style="display: flex;align-items: center;background-color: #f0f9f6;margin-bottom: 20rpx;border-radius: 25rpx;padding:15rpx 0;">
+    <radio-group  bindchange="radioChange_tag_sport" style="flex: 1;padding-left: 30rpx;" name="small_tag">
+        <label wx:for="{{tag_sport}}" wx:key="{{tag_sport.value}}">
+            <radio value="{{item.value}}"/>
+            <text decode="true" style="margin-right:10rpx">{{item.name}}&nbsp;</text>
+        </label>
+    </radio-group>
+  </view>
+
+  <view wx:if="{{tag[1].checked}}" style="display: flex;align-items: center;background-color: #f0f9f6;margin-bottom: 20rpx;border-radius: 25rpx;padding:15rpx 0;">
+    <radio-group  bindchange="radioChange_tag_food" style="flex: 1;padding-left: 30rpx;" name="small_tag">
+        <label wx:for="{{tag_food}}" wx:key="{{tag_food.value}}">
+            <radio value="{{item.value}}"/>
+            <text decode="true" style="margin-right:10rpx">{{item.name}}&nbsp;</text>
+        </label>
+    </radio-group>
+  </view>
+
+  <view wx:if="{{tag[2].checked}}" style="display: flex;align-items: center;background-color: #f0f9f6;margin-bottom: 20rpx;border-radius: 25rpx;padding:15rpx 0;">
+    <radio-group  bindchange="radioChange_tag_entertain" style="flex: 1;padding-left: 30rpx;" name="small_tag">
+        <label wx:for="{{tag_entertain}}" wx:key="{{tag_entertain.value}}">
+            <radio value="{{item.value}}"/>
+            <text decode="true" style="margin-right:10rpx">{{item.name}}&nbsp;</text>
+        </label>
+    </radio-group>
+  </view>
+  <button type="primary" formType="submit" style="background-color: #588c7e;margin-top: 40rpx;border-radius: 60rpx;">发布活动</button>
+</form>

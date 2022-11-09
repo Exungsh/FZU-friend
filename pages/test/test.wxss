@@ -1,0 +1,23 @@
+/* pages/test/test.wxss */
+.topView {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e1e1;
+}
+
+.topChild {
+  width: 20%;
+  height: 48px;
+  text-align: center;
+  line-height: 3.4;
+  font-size: 14px;
+  color: #333333;
+}
+
+/*点击时按钮状态*/
+.active {
+  color: #E31904;
+  border-bottom: 2px solid #E31904;
+}

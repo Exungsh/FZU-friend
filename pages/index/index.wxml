@@ -1,0 +1,42 @@
+<view style="height: 20px;"></view>
+<view class="search">
+  <input type="text" name="" id="" placeholder="Search" />
+</view>
+<view class="nav">
+  <ul>
+    <li id="nav_1">
+      <button bindtap="sport" style="color:{{nav1color}};background-color:{{nav1bgc}}">运动</button>
+    </li>
+    <li id="nav_2">
+      <button bindtap="food" style="color:{{nav2color}};background-color:{{nav2bgc}}">吃喝</button>
+    </li>
+    <li id="nav_3">
+      <button bindtap="entertain" style="color:{{nav3color}};background-color:{{nav3bgc}}">
+        娱乐
+      </button>
+    </li>
+  </ul>
+</view>
+<view class="select">
+  <view wx:for="{{showtaglist}}" wx:key="id" id="{{bigtag+'_'+item.id}}" class="{{bigtag+'_'+item.id == isChecked ? 'active':''}} tag" bindtap="choiceStatus">
+    {{item.tag}}
+  </view>
+</view>
+<view class="content">
+  <view class="activity" wx:for="{{showactivitylist}}" wx:key="id" id="item.id">
+    <view class="title">
+      <image src="{{item.head}}" class="head"></image>
+      <view style="float: left;height: 80rpx;width: 320rpx;margin-left: 30rpx;">
+        <view style="height: 50rpx;width: 320rpx;font-size: 36rpx;">{{item.name}}</view>
+        <view style="height: 30rpx;width: 320rpx;line-height: 30rpx;font-size: 22rpx;">
+          {{item.date}}
+        </view>
+      </view>
+      <view class="join">Join</view>
+    </view>
+    <view class="intro">
+      {{item.intro}}
+    </view>
+  </view>
+</view>
+<view class="publish" bindtap="publish">+</view>

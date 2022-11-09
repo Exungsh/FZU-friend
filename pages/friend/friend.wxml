@@ -1,0 +1,27 @@
+<view style="height: 40rpx;"></view>
+<view class="nav">
+  <ul>
+    <li id="nav_1"><button bindtap="recommend" style="color:{{nav1color}};background-color:{{nav1bgc}}">推荐</button></li>
+    <li id="nav_2"><button bindtap="recent" style="color:{{nav2color}};background-color:{{nav2bgc}}">最近</button></li>
+  </ul>
+</view>
+<view class="content">
+  <view class="activity" wx:for="{{friendlist}}" wx:key = "id">
+    <view class="title">
+      <image src="" class="head"></image>
+      <view style="float: left;height: 80rpx;width: 320rpx;margin-left: 30rpx;">
+        <view style="height: 50rpx;width: 320rpx;font-size: 36rpx;">
+        {{item.name}}</view>
+        <view style="height: 30rpx;width: 320rpx;line-height: 30rpx;font-size: 22rpx;">{{item.intro}}</view>
+      </view>
+      <view class="follow">Follow</view>
+    </view>
+    <view class="tags">
+      <ul>
+        <li wx:for="{{item.friend_tag}}">
+          <view>{{item}}</view>
+        </li>
+      </ul>
+    </view>
+ </view>
+</view>

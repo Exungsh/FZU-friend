@@ -1,0 +1,22 @@
+<!--pages/my/my.wxml-->
+<view style="height: 40rpx;"></view>
+<view class="top">
+  <view class="head">
+    <image src="head.png"></image>
+  </view>
+  <view class="title">
+    <view class="name">
+      Exungsh
+    </view>
+    <view class="intro">
+      简介:test
+    </view>
+    <view class="focus">
+      51 关注 | 48 朋友
+    </view>
+  </view>
+</view>
+<view class="activity">Recent Activity</view>
+<view class="blacklist">
+  Blacklist
+</view>
