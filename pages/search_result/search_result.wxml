@@ -1,0 +1,22 @@
+<view style="height: 20px;"></view>
+<view class="search" style="display: flex;align-items: center;">
+  <input type="text" name="search" id="search" value="{{search}}" style="text-align: center;background-color: #f0f9f6;width: 90%; height: 40px;border-radius: 20px;margin:0 auto;font-size: 14px;color: #4b756a;" bindtap="toSearch" />
+</view>
+<view style="height: 20px;"></view>
+<view class="content">
+  <view class="activity" wx:for="{{result}}" wx:key="id" id="item.id">
+    <view class="title">
+      <image src="{{item.img}}" class="head"></image>
+      <view style="float: left;height: 80rpx;width: 320rpx;margin-left: 30rpx;">
+        <view style="height: 50rpx;width: 320rpx;font-size: 36rpx;">{{item.aName}}</view>
+        <view style="height: 30rpx;width: 320rpx;line-height: 30rpx;font-size: 22rpx;">
+          {{item.time}}
+        </view>
+      </view>
+      <view class="join">Join</view>
+    </view>
+    <view class="intro">
+      {{item.introduce}}
+    </view>
+  </view>
+</view>

@@ -1,6 +1,6 @@
 <view style="height: 20px;"></view>
 <view class="search">
-  <input type="text" name="" id="" placeholder="Search" />
+ <view name="search" id="search" placeholder="Search" bindtap="Search">Search</view>
 </view>
 <view class="nav">
   <ul>

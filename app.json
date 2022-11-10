@@ -1,11 +1,14 @@
 {
   "pages":[
+
     "pages/index/index",
     "pages/friend/friend",
     "pages/my/my",
     "pages/test/test",
     "pages/logs/logs",
-    "pages/publish/publish"
+    "pages/publish/publish",
+    "pages/search/search",
+    "pages/search_result/search_result"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -34,6 +37,12 @@
       "iconPath": "icon/Leftbar_cloud_unselected.png",
       "pagePath": "pages/my/my",
       "text": "我的"
+    },
+    {
+      "selectedIconPath": "icon/huodongxiangqu.png",
+      "iconPath": "icon/huodongxiangqu_1.png",
+      "pagePath": "pages/test/test",
+      "text": "test"
     }
   ],
     "color": "#c2d0cc",

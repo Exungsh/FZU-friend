@@ -4,12 +4,12 @@ const app = getApp()
 
 Page({
   data: {
-    bigtag:"0",
-    smalltag:"0",
+    bigtag: "0",
+    smalltag: "0",
     isChecked: null,
     showtaglist: [],
     showactivitylist: [],
-    datadict : [{
+    datadict: [{
         "taglist": [{
             "id": 0,
             "tag": "sport0"
@@ -21,20 +21,20 @@ Page({
         ],
         "activitylist": [
           [{
-            "id": "0",
-            "name": "sport0",
-            "head": "",
-            "date": "2022-11-09",
-            "intro": "This is a test introduce, I have to type a lot of words to reach the second line.And this is a test of overflow."
-          },
-          {
-            "id": "0",
-            "name": "sport0",
-            "head": "",
-            "date": "2022-11-09",
-            "intro": "This is a test introduce, I have to type a lot of words to reach the second line.And this is a test of overflow."
-          }
-        ],
+              "id": "0",
+              "name": "sport0",
+              "head": "",
+              "date": "2022-11-09",
+              "intro": "This is a test introduce, I have to type a lot of words to reach the second line.And this is a test of overflow."
+            },
+            {
+              "id": "0",
+              "name": "sport0",
+              "head": "",
+              "date": "2022-11-09",
+              "intro": "This is a test introduce, I have to type a lot of words to reach the second line.And this is a test of overflow."
+            }
+          ],
           [{
             "id": "1",
             "name": "sport1",
@@ -104,10 +104,10 @@ Page({
     var code = e.currentTarget.id;
     this.setData({
       isChecked: code,
-      smalltag:code[2]
+      smalltag: code[2]
     });
     this.setData({
-      showactivitylist:this.data.datadict[this.data.bigtag]["activitylist"][this.data.smalltag]
+      showactivitylist: this.data.datadict[this.data.bigtag]["activitylist"][this.data.smalltag]
     });
   },
   // 事件处理函数
@@ -117,17 +117,20 @@ Page({
     })
   },
   onLoad() {},
-  onReady(){
+  onReady() {
     this.setData({
-      showtaglist: this.data.datadict[0]["taglist"],
-      bigtag:"0"
-    }),
-    this.setData(
-      {
-        isChecked:"0_0",
-        showactivitylist:this.data.datadict[0]["activitylist"][0]
-      }
-    )
+        showtaglist: this.data.datadict[0]["taglist"],
+        bigtag: "0"
+      }),
+      this.setData({
+        isChecked: "0_0",
+        showactivitylist: this.data.datadict[0]["activitylist"][0]
+      })
+  },
+  Search() {
+    wx.navigateTo({
+      url: '/pages/search/search',
+    })
   },
   publish() {
     wx.navigateTo({
@@ -136,26 +139,24 @@ Page({
   },
   sport() {
     this.setData({
-      showtaglist: this.data.datadict[0]["taglist"],
-      bigtag:"0",
-      nav1bgc: "#f0f9f6",
-      nav1color: "#588c7e",
-      nav2bgc: "#588c7e",
-      nav2color: "#f0f9f6",
-      nav3bgc: "#588c7e",
-      nav3color: "#f0f9f6",
-    }),
-    this.setData(
-      {
-        isChecked:"0_0",
-        showactivitylist:this.data.datadict[0]["activitylist"][0]
-      }
-    )
+        showtaglist: this.data.datadict[0]["taglist"],
+        bigtag: "0",
+        nav1bgc: "#f0f9f6",
+        nav1color: "#588c7e",
+        nav2bgc: "#588c7e",
+        nav2color: "#f0f9f6",
+        nav3bgc: "#588c7e",
+        nav3color: "#f0f9f6",
+      }),
+      this.setData({
+        isChecked: "0_0",
+        showactivitylist: this.data.datadict[0]["activitylist"][0]
+      })
   },
   food() {
     this.setData({
       showtaglist: this.data.datadict[1]["taglist"],
-      bigtag:"1",
+      bigtag: "1",
       nav1color: "#f0f9f6",
       nav1bgc: "#588c7e",
       nav2color: "#588c7e",
@@ -163,17 +164,15 @@ Page({
       nav3bgc: "#588c7e",
       nav3color: "#f0f9f6",
     });
-    this.setData(
-      {
-        isChecked:"1_0",
-        showactivitylist:this.data.datadict[1]["activitylist"][0]
-      }
-    )
+    this.setData({
+      isChecked: "1_0",
+      showactivitylist: this.data.datadict[1]["activitylist"][0]
+    })
   },
   entertain() {
     this.setData({
       showtaglist: this.data.datadict[2]["taglist"],
-      bigtag:"2",
+      bigtag: "2",
       nav1color: "#f0f9f6",
       nav1bgc: "#588c7e",
       nav2bgc: "#588c7e",
@@ -181,11 +180,9 @@ Page({
       nav3color: "#588c7e",
       nav3bgc: "#f0f9f6",
     });
-    this.setData(
-      {
-        isChecked:"2_0",
-        showactivitylist:this.data.datadict[2]["activitylist"][0]
-      }
-    )
+    this.setData({
+      isChecked: "2_0",
+      showactivitylist: this.data.datadict[2]["activitylist"][0]
+    })
   }
 })

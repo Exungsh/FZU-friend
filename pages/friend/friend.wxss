@@ -60,7 +60,6 @@
   background-color: #f0f9f6;
   padding-top: 40rpx;
   margin-bottom: 20rpx;
-  box-shadow: 5px 5px 5px rgba(81, 81, 81, 0.321);
 }
 
 .activity .head {

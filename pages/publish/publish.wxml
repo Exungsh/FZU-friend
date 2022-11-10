@@ -29,7 +29,7 @@
 
   <view style="display: flex;align-items: center;height: 80rpx;background-color: #f0f9f6;margin-bottom: 20rpx;border-radius: 25rpx;">
     <text style="padding-left:30rpx;">参加人数</text>
-    <slider value="1" name="joinNum" show-value min="1" max ="20" style="flex: 1;padding-left: 40rpx;" block-size="20" activeColor="#000"></slider>
+    <slider value="1" name="joinNum" show-value min="1" max ="20" style="flex: 1;padding-left: 40rpx;" block-size="20" activeColor="#588c7e"></slider>
   </view>
 
   <view style="display: flex;align-items: center;background-color: #f0f9f6;margin-bottom: 20rpx;border-radius: 25rpx;">

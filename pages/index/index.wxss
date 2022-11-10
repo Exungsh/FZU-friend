@@ -25,13 +25,15 @@
   margin-bottom: 20px;
 }
 
-.search input {
+.search view {
   height: 40px;
   width: 90%;
+  line-height: 40px;
   margin: 0 auto;
   border-radius: 20px;
   background-color: #f0f9f6;
   font-size: 14px;
+  color:#588c7e;
 }
 
 /* 导航 */
@@ -108,7 +110,6 @@
   background-color: #f0f9f6;
   padding-top: 40rpx;
   margin-bottom: 20rpx;
-  box-shadow: 5px 5px 5px rgba(81, 81, 81, 0.321);
 }
 
 .activity .head {
