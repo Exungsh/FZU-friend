@@ -1,36 +1,44 @@
 /* pages/my/my.wxss */
+/* 头像等个人信息所处行 */
 .top {
-  height: 230rpx;
-  margin-bottom: 25rpx;
+  height: 240rpx;
   background-color: #f0f9f6;
 }
+
+/* 头像背景框 */
 .head{
   display:block;
   float: left;
-  height: 130rpx;
-  width: 130rpx;
-  margin: 50rpx 35rpx;
-  border-radius: 65rpx;
+  height: 180rpx;
+  width: 180rpx;
+  margin: 30rpx 35rpx;
+  border-radius: 50%;
   background-color:#588c7e;
 }
+/* 头像图片 */
 .head image{
-  height: 130rpx;
-  width: 130rpx;
-  border-radius: 65rpx;
+  height: 180rpx;
+  width: 180rpx;
+  border-radius: 50%;
 }
+
+/* 头像右侧个人信息集 */
 .title{
   float: left;
   height: 190rpx;
   width: 500rpx;
   margin:35rpx 0;
 }
+
 .name{
   height: 80rpx;
   width: 500rpx;
   line-height: 80rpx;
-  font-size: 18px;
+  font-size: 20px;
   color: #487267;
+  font-weight: bold;
 }
+
 .intro{
   height: 40rpx;
   width: 500rpx;
@@ -38,24 +46,72 @@
   font-size: 13px;
   color:#487267;
 }
+
+/* 朋友、关注、粉丝 */
 .focus{
-  height: 40rpx;
-  line-height: 40rpx;
+  display: inline-block;
+  height: 60rpx;
+  line-height: 60rpx;
   font-size: 13px;
   color:#487267;
 }
-.activity{
-  height: 100rpx;
+
+/* 需跳转页面的标签 */
+.jump_details{
   background-color:#f0f9f6;
-  margin-bottom: 4rpx;
-  line-height: 90rpx;
-  padding-left: 30rpx;
+  line-height: 80rpx;
+  border-radius: 3px;
+  margin-bottom: 1px;
+  padding-left: 5%;
+}
+/* 隐私相关 */
+.privacy{
+  box-sizing: border-box;
+  padding-left: 35rpx;
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 15px;
+  font-weight: bold;
+  color: #487267;
+  margin-top: 30rpx;
+}
+.item{
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
   color:#487267;
 }
-.blacklist{
-  height: 100rpx;
-  background-color:#f0f9f6;
-  line-height: 90rpx;
-  padding-left: 30rpx;
-  color:#487267;
+
+.numble{
+  display: inline-block;
+  position: relative; left:40px; top: 3px;
+  text-align: left;
+  font-size: 15px;
 }
+
+.arrow{
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #999;
+  border-right: 2px solid #999;
+  position: absolute;
+  right: 15px;
+  transform: rotate(45deg);
+  margin-top:-27px;
+  margin-right: 20rpx;
+}
+
+/* 分界线 */
+.home-header-line {
+  background: #e0e3da;
+  width: 90%;
+  height: 2rpx;
+}
+
+/* 开关键 */
+.switch_C{
+  display: inline-block;
+  position: relative; top: -1px;left:30%;
+}
+

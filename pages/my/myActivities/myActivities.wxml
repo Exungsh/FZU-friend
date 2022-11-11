@@ -1,0 +1,19 @@
+<!--pages/my/myActivities/myActivities.wxml-->
+<view style="height: 20px;"></view>
+
+<view class="content">
+  <view class="activity"  wx:for="{[]}">
+    <view class="title">
+      <image src="" class="head"></image>
+      <view class="item">
+        <view class="name">
+        Activity Name</view>
+        <view class="id">YY-MM-DD-HH-MM</view>
+      </view>
+      <view class="join">quit</view>
+    </view>
+    <view class="intro">
+      This is a test introduce, I have to type a lot of words to reach the second line.And this is a test of overflow.
+    </view>
+  </view>
+</view>

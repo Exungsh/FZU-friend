@@ -1,29 +1,11 @@
-// pages/my/my.js
+// pages/my/myFriends/myFriends.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    name: "Exungsh", 
-    intro: '...',
-    friendnumble: 51,
-    follownumble: 48,
-    followednumble: 104,
-    account:''
-  },
 
-  //swich开关
-  switchChange: function (e){
-    console.log('switch1 发生 change 事件，携带值为', e.detail.value)
-  },
-
-  //获取微信号
-  getNumble: function (e) {
-    this.setData({
-      numble: e.detail.value
-    })
-    console.log(this.data.numble);
   },
 
   /**

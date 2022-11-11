@@ -6,17 +6,59 @@
   </view>
   <view class="title">
     <view class="name">
-      Exungsh
+      {{name}}
     </view>
     <view class="intro">
-      简介:test
+      简介: {{intro}}
     </view>
     <view class="focus">
-      51 关注 | 48 朋友
+      <navigator url="../my/myFriends/myFriends" open-type="navigate" hover-class="navigator-hover" style="margin-right: 10rpx;">
+      {{friendnumble}} 朋友 |
+      </navigator>
+    </view>
+    <view class="focus">
+      <navigator url="../my/myFollow/myFollow" open-type="navigate" hover-class="navigator-hover" style="margin-right: 10rpx;">
+       {{follownumble}} 关注 | 
+      </navigator>
+    </view> 
+    <view class="focus">
+      <navigator url="../my/myFans/myFans" open-type="navigate" hover-class="navigator-hover">
+       {{followednumble}} 粉丝
+      </navigator>
     </view>
   </view>
 </view>
-<view class="activity">Recent Activity</view>
-<view class="blacklist">
-  Blacklist
+<view class="privacy">
+  账户
 </view>
+<view class="jump_details">
+  <navigator url="../my/myProfile/myProfile" open-type="navigate" hover-class="navigator-hover" style="font-size: 14px;color: #487267;">个人资料</navigator>
+  <view class="arrow"></view>
+</view>
+<view class="jump_details">
+  <navigator url="../my/myActivities/myActivities" open-type="navigate" hover-class="navigator-hover" style="font-size: 14px;color: #487267;">我的活动</navigator>
+  <view class="arrow"></view>
+</view>
+<view class="jump_details">
+  <navigator url="../my/blacklist/blacklist" open-type="navigate" hover-class="navigator-hover" style="font-size: 14px;color: #487267;">黑名单</navigator>
+  <view class="arrow"></view>
+</view>
+<view class="privacy">
+  隐私
+</view>
+
+<view class="jump_details">
+  <view class="item">
+    微信号
+    <view class="numble">
+      <input placeholder="请输入微信号" type="numeber" bindinput="getNumble" style="font-size: 13px;display: inline-block;position: relative; top: 2px;left: -20rpx;"></input>
+    </view>
+  </view>
+  
+
+  <view class="item" style="width: 100%;">
+      他人是否可在朋友界面找到你
+        <switch checked bindchange="switchChange" style="margin-left: 30%;"></switch>
+  </view>
+</view>
+

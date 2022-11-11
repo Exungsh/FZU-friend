@@ -1,0 +1,23 @@
+<!--pages/my/blacklist/blacklist.wxml-->
+<view style="height: 40rpx;"></view>
+
+<view class="content">
+  <view class="activity" wx:for="{[]}" wx:key = "id">
+    <view class="title">
+      <image src="" class="head"></image>
+      <view class="item">
+        <view class="item_name">
+        姓名</view>
+        <view class="item_intro">个性签名</view>
+      </view>
+      <view class="unfollow">取消关注</view>
+    </view>
+    <view class="tags">
+      <ul>
+        <li wx:for="{[]}">
+          <view>tag</view>
+        </li>
+      </ul>
+    </view>
+ </view>
+</view>

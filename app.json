@@ -4,6 +4,12 @@
     "pages/index/index",
     "pages/friend/friend",
     "pages/my/my",
+    "pages/my/myProfile/myProfile",
+    "pages/my/myActivities/myActivities",
+    "pages/my/blacklist/blacklist",
+    "pages/my/myFans/myFans",
+    "pages/my/myFollow/myFollow",
+    "pages/my/myFriends/myFriends",
     "pages/test/test",
     "pages/logs/logs",
     "pages/publish/publish",
@@ -37,12 +43,6 @@
       "iconPath": "icon/Leftbar_cloud_unselected.png",
       "pagePath": "pages/my/my",
       "text": "我的"
-    },
-    {
-      "selectedIconPath": "icon/huodongxiangqu.png",
-      "iconPath": "icon/huodongxiangqu_1.png",
-      "pagePath": "pages/test/test",
-      "text": "test"
     }
   ],
     "color": "#c2d0cc",

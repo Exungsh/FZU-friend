@@ -1,0 +1,149 @@
+.top {
+  height: 240rpx;
+  margin-bottom: 25rpx;
+}
+
+.head{
+  position: relative; left:135px; top: 5px;
+  display:block;
+  float: left;
+  height: 180rpx;
+  width: 180rpx;
+  margin: 30rpx 35rpx;
+  border-radius: 65rpx;
+  background-color:#588c7e;
+}
+.head image{
+  height: 180rpx;
+  width: 180rpx;
+  border-radius: 65rpx;
+}
+
+.editpencil{
+  position: relative; left:100px; top: 100px;
+}
+
+.editpencil image{
+  height: 40rpx;
+  width: 40rpx;
+  border-radius: 65rpx;
+}
+
+.black{
+  margin-bottom: 20rpx;
+  box-shadow: 5px 5px 5px rgba(81, 81, 81, 0.321);
+  background-color:#f0f9f6;
+  line-height: 80rpx;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  text-indent: 10px;
+}
+
+.editvalue{
+  display: inline-block;
+  position: relative; left:40px; top: 3px;
+  text-align: left;
+  font-size: 15px;
+}
+
+/* 标签相关 */
+.showtag {
+  text-indent: 10px;
+  height: 80rpx;
+  width: 500rpx;
+  line-height: 80rpx;
+  font-size: 15px;
+  color: #487267;
+}
+
+.tagblack {
+  width: 100%;
+  height: 80px;
+  box-shadow: 5px 5px 5px rgba(81, 81, 81, 0.321);
+  background-color:#f0f9f6;
+}
+
+.tag{
+  position: relative;
+  left: 10px;
+  width: auto;
+  margin: auto;
+  margin-top: 10px;
+  color: #588c7e;
+  float: left;
+  height: 40rpx;
+  padding: 0 20rpx;
+  border-radius: 20px;
+  border: #588c7e solid 1.5px;
+  line-height: 40rpx;
+  font-size: 25rpx;
+  margin-right: 15rpx;
+}
+
+/* 弹窗事件 */
+.background{
+  width: 100%;
+  height: 100%;
+  position: fixed;/*fixed属性值的解释：相对于我们当前的界面进行绝对定位，不随屏幕的滑动而滑动*/
+  top: 0; left: 0;/*top=0和left=0的作用是确认组件4个定点的一个坐标，如果不进行确认则该组件前面的组件会影响它*/
+  background: #000;
+  opacity: 0.2;/*设置背景的透明度（取值范围为0~1）*/
+  overflow: hidden;/*该属性的功能是隐藏溢出，就是当我们现在的这个组件里面有其他组件，并且其他组件的宽或者高大于我们当前组件的宽或高时（按照正常情况，父组件的宽高都为0，没有被子组件撑起来，故不会显示），正常显示子组件，并同时正常显示父组件*/
+  z-index: 1000;/*堆叠顺序,有时候我们设置的组件可能会有重叠的部分，那重叠的部分到底是显示哪一个组件呢？这就得靠我们的z-index属性了，z-index的属性值越高则它就越容易显示在我们的页面。注意点：只有在我们设置了position属性时，z-index才会起效果，否则是不会出现效果的*/
+}
+/* 弹窗界面样式 */
+.box{
+    /* height: 400px;设置弹窗的宽和高 */
+    /* width: 400px; */
+    border-width: 5px;
+    border-color: black;
+    box-shadow: black;
+    overflow: hidden;/*隐藏溢出*/
+    position: absolute; height: 300px; width: 300px;/*以当前页面为参考物，进行页面的固定*/
+    left: 60px;
+    top: 250px;
+    bottom: 0;/*4个定点中一个定点的确认*/
+    z-index: 2000;/*堆叠顺序*/
+    background: #f0f9f6;/*背景颜色*/
+    text-align: center;/*组件内部字体居中*/
+    border-radius: 20px;
+}
+
+.bigtag {
+  position: relative;
+  top: 30px;
+  display: flex;
+  align-items: center;
+  height: 80rpx;
+  background-color: #f0f9f6;
+  margin-bottom: 20rpx;
+  border-radius: 25rpx;
+}
+
+.smalltag {
+  position: relative;
+  top: 30px;
+  display: flex;
+  align-items: center;
+  background-color: #f0f9f6;
+  margin-bottom: 20rpx;
+  border-radius: 25rpx;
+  padding:15rpx 0;
+}
+
+/* 弹窗确认 */
+.confirm{
+  position: relative;
+  top: 50px;
+  left:75px;
+  width: 150px;
+  /* margin-bottom: 20rpx; */
+  box-shadow: 5px 5px 5px rgba(81, 81, 81, 0.321);
+  background-color:#11b880;
+  line-height: 80rpx;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  text-indent: 10px;
+}
