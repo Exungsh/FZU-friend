@@ -2,18 +2,19 @@
 <view style="height: 20px;"></view>
 
 <view class="content">
-  <view class="activity"  wx:for="{[]}">
+  <view class="activity" wx:for="{{myactivitylist}}" wx:key="id" id="item.id">
     <view class="title">
-      <image src="" class="head"></image>
-      <view class="item">
-        <view class="name">
-        Activity Name</view>
-        <view class="id">YY-MM-DD-HH-MM</view>
+      <image src="{{item.head}}" class="head"></image>
+      <view style="float: left;height: 80rpx;width: 320rpx;margin-left: 30rpx;">
+        <view style="height: 50rpx;width: 320rpx;font-size: 36rpx;">{{item.name}}</view>
+        <view style="height: 30rpx;width: 320rpx;line-height: 30rpx;font-size: 22rpx;">
+          {{item.date}}
+        </view>
       </view>
-      <view class="join">quit</view>
+      <view class="more">More</view>
     </view>
     <view class="intro">
-      This is a test introduce, I have to type a lot of words to reach the second line.And this is a test of overflow.
+      {{item.intro}}
     </view>
   </view>
 </view>

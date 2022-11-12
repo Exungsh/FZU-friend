@@ -3,7 +3,31 @@ Page({
   /**
    * 页面的初始数据
    */
-
+  data:{
+    myactivitylist:[
+      {
+        "id": "0",
+        "name": "entertain0",
+        "head": "",
+        "date": "2022-11-09",
+        "intro": "This is a test introduce, I have to type a lot of words to reach the second line.And this is a test of overflow."
+      },
+      {
+        "id": "0",
+        "name": "entertain0",
+        "head": "",
+        "date": "2022-11-09",
+        "intro": "This is a test introduce, I have to type a lot of words to reach the second line.And this is a test of overflow."
+      },
+      {
+        "id": "0",
+        "name": "entertain0",
+        "head": "",
+        "date": "2022-11-09",
+        "intro": "This is a test introduce, I have to type a lot of words to reach the second line.And this is a test of overflow."
+      }
+    ]
+  },
   test() {
     console("hello")
   },

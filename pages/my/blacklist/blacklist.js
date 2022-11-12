@@ -3,6 +3,31 @@ Page({
   /**
    * 页面的初始数据
    */
+  data:{
+    blacklist:[
+      {
+        "id":"0",
+        "head":"",
+        "name":"test",
+        "intro":"this is a intro",
+        "friend_tag":["tag1","tag2","tag3"]
+      },
+      {
+        "id":"0",
+        "head":"",
+        "name":"test",
+        "intro":"this is a intro",
+        "friend_tag":["tag1","tag2","tag3"]
+      },
+      {
+        "id":"0",
+        "head":"",
+        "name":"test",
+        "intro":"this is a intro",
+        "friend_tag":["tag1","tag2","tag3"]
+      }
+    ]
+  },
 
   test() {
     console("hello")

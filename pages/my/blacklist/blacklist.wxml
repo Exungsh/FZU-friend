@@ -1,21 +1,20 @@
 <!--pages/my/blacklist/blacklist.wxml-->
 <view style="height: 40rpx;"></view>
-
 <view class="content">
-  <view class="activity" wx:for="{[]}" wx:key = "id">
+  <view class="activity" wx:for="{{blacklist}}" wx:key = "id">
     <view class="title">
-      <image src="" class="head"></image>
-      <view class="item">
-        <view class="item_name">
-        姓名</view>
-        <view class="item_intro">个性签名</view>
+      <image src="{{item.head}}" class="head"></image>
+      <view style="float: left;height: 80rpx;width: 320rpx;margin-left: 30rpx;">
+        <view style="height: 50rpx;width: 320rpx;font-size: 36rpx;">
+        {{item.name}}</view>
+        <view style="height: 30rpx;width: 320rpx;line-height: 30rpx;font-size: 22rpx;">{{item.intro}}</view>
       </view>
       <view class="unblack">取消拉黑</view>
     </view>
     <view class="tags">
       <ul>
-        <li wx:for="{[]}">
-          <view>tag</view>
+        <li wx:for="{{item.friend_tag}}">
+          <view>{{item}}</view>
         </li>
       </ul>
     </view>
