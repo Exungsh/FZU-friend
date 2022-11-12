@@ -15,11 +15,10 @@ Page({
   },
   is_myfriend(_id) {
     this.is_friend=false
-    for(var i=0;i<app.globalData.my_friends.length;++i) {
-      if(_id==app.globalData.my_friends[i]) {
-        // console.log(app.globalData.my_friends[i])
+    for(var i=0;i<app.globalData.my_follow.length;++i) {
+      if(_id==app.globalData.my_follow[i]) {
         this.is_friend=true
-        app.globalData.my_friends.splice(i,1)
+        app.globalData.my_follow.splice(i,1)
       }
     }
   },
@@ -34,7 +33,6 @@ Page({
     console.log(num)
     if(this.data.flag==1) {
       this.data.datalist1[num].follow*=-1
-      console.log(this.data.datalist1[num].follow)
       this.setData({
         friendlist: this.data.datalist1,
         nav1bgc: "#f0f9f6",
@@ -95,17 +93,16 @@ Page({
     this.is_myfriend(_id)
     setTimeout(()=>{
       if(this.is_friend==false) {
-        app.globalData.my_friends.push(_id)
+        app.globalData.my_follow.push(_id)
       }
     },200)
     setTimeout(()=>{
-      console.log(app.globalData.my_friends)
       db.collection('user').where({
         _id: app.globalData.my_id
       })
       .update({
         data: {
-          friends: _.set(app.globalData.my_friends)
+          my_follow: _.set(app.globalData.my_follow)
         }
       })
     },500)
@@ -121,7 +118,7 @@ Page({
     var array=[]
 
     db.collection('user').where({
-      _id:_.neq(app.globalData.my_id).and(_.nin(app.globalData.my_hmd)).and(_.nin(app.globalData.my_friends)),
+      _id:_.neq(app.globalData.my_id).and(_.nin(app.globalData.my_hmd)).and(_.nin(app.globalData.my_follow)),
       isfind:_.eq(true),
       friend_tag: _.all([my_tag[0]]).or(_.all([my_tag[1]])).or(_.all([my_tag[2]])).or(_.all([my_tag[3]])).or(_.all([my_tag[4]])).or(_.all([my_tag[5]]))
     })
@@ -186,7 +183,7 @@ Page({
     }
     setTimeout(()=>{
       db.collection('user').where({
-        _id:_.neq(app.globalData.my_id).and(_.nin(app.globalData.my_hmd)).and(_.nin(app.globalData.my_friends)).and(_.in(recent_id)),
+        _id:_.neq(app.globalData.my_id).and(_.nin(app.globalData.my_hmd)).and(_.nin(app.globalData.my_follow)).and(_.in(recent_id)),
         isfind:_.eq(true)
       })
       .get({

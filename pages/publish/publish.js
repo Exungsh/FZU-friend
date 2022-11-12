@@ -1,39 +1,117 @@
 // pages/publish/publish.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     date: "请选择日期",
     time: "请选择时间",
-    limit: [
-      {value: 'noLimit', name: '无限制'},
-      {value: 'onlyMale', name: '只限男生'},
-      {value: 'onlyFemale', name: '只限女生'}
+    limit: [{
+        value: 'noLimit',
+        name: '无限制'
+      },
+      {
+        value: 'onlyMale',
+        name: '只限男生'
+      },
+      {
+        value: 'onlyFemale',
+        name: '只限女生'
+      }
     ],
-    tag: [
-      {value: 'sport', name: '运动'},
-      {value: 'food', name: '吃喝'},
-      {value: 'entertain', name: '娱乐'}
+    tag: [{
+        value: 'all_sport',
+        name: '运动'
+      },
+      {
+        value: 'all_ch',
+        name: '吃喝'
+      },
+      {
+        value: 'all_entertainment',
+        name: '娱乐'
+      }
     ],
-    tag_sport: [
-      {value: 'badminton', name: '羽毛球'}, {value: 'basketball', name: '篮球'}, {value: 'table tennis', name: '乒乓球'}, {value: 'running', name: '跑步'}, {value: 'fitness', name: '健身'},{value: 'volleyball', name: '排球'}, {value: 'football', name: '足球'},  {value: 'tennis', name: '网球'}, {value: 'swimming', name: '游泳'}, {value: 'others', name: '其他'}
-    ],
-    tag_food: [
-      {value: 'barbecue', name: '烧烤'}, {value: 'malatang', name: '麻辣烫'}, {value: 'milk tea', name: '奶茶'}, {value: 'hot pot', name: '火锅'}, {value: 'coffee', name: '咖啡'}, {value: 'Japanese cuisine', name: '日料'}, {value: 'Sichuan Cuisine', name: '川菜'}, {value: 'snack', name: '小吃'}, {value: 'fried chicken', name: '炸鸡'}, {value: 'buffet', name: '自助餐'}, {value: 'others', name: '其他'}
-    ],
-    tag_entertain: [
-       {value: 'movie', name: '电影'}, {value: 'The script to kill', name: '剧本杀'}, {value: 'role-playing games', name: '桌游'}, {value: 'KTV', name: 'KTV'}, {value: 'Secret room escape', name: '密室逃脱'}, {value: 'live house', name: 'live house'}, 
-       {value: 'shopping', name: '逛街'}, {value: 'others', name: '其他'}
+    tag_sport: [{
+      value: 'Badminton',
+      name: '羽毛球'
+    }, {
+      value: 'Basketball',
+      name: '篮球'
+    }, {
+      value: 'Table_Tennis',
+      name: '乒乓球'
+    }, {
+      value: 'Running',
+      name: '跑步'
+    }, {
+      value: 'Volleyball',
+      name: '排球'
+    }, {
+      value: 'Fitness',
+      name: '健身'
+    }, {
+      value: 'Soccer',
+      name: '足球'
+    }, {
+      value: 'other_movement',
+      name: '其他'
+    }],
+    tag_food: [{
+      value: 'Barbecue',
+      name: '烧烤'
+    }, {
+      value: 'malatang',
+      name: '麻辣烫'
+    }, {
+      value: 'drinks',
+      name: '饮品'
+    }, {
+      value: 'hot_pot',
+      name: '火锅'
+    }, {
+      value: 'Japanese_cuisine',
+      name: '日料'
+    }, {
+      value: 'Sichuan_cuisine',
+      name: '川菜'
+    }, {
+      value: 'fried_chicken',
+      name: '炸鸡'
+    }, {
+      value: 'other_ch',
+      name: '其他'
+    }],
+    tag_entertain: [{
+        value: 'Games',
+        name: '游戏'
+      }, {
+        value: 'movies',
+        name: '电影'
+      }, {
+        value: 'script_murder',
+        name: '剧本杀'
+      }, {
+        value: 'board_games',
+        name: '桌游'
+      }, {
+        value: 'KTV',
+        name: 'KTV'
+      }, {
+        value: 'room_escape',
+        name: '密室逃脱'
+      }, {
+        value: 'live_house',
+        name: 'live house'
+      },
+      {
+        value: 'other_entertainment',
+        name: '其他'
+      }
     ]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
-  },
+  onLoad(options) {},
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -158,5 +236,30 @@ Page({
       }
     })
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    wx.cloud.init();
+    const db = wx.cloud.database();
+    console.log('名', e.detail.value.big_tag);
+    //插入大类
+    db.collection(e.detail.value.big_tag).add({
+      data: {
+        name: e.detail.value.name,
+        head: "",
+        date: e.detail.value.date,
+        intro: e.detail.value.detail
+      }
+    })
+    //插入小类
+    db.collection(e.detail.value.small_tag).add({
+      data: {
+        name: e.detail.value.name,
+        head: "",
+        date: e.detail.value.date,
+        intro: e.detail.value.detail
+      }
+    })
   },
+  publish(){
+    wx.navigateBack({
+    })
+  }
 })

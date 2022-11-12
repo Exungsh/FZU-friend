@@ -1,34 +1,56 @@
 // pages//friend.js
+const app=getApp()
 Page({
   /**
    * 页面的初始数据
    */
   data:{
-    blacklist:[
-      {
-        "id":"0",
-        "head":"",
-        "name":"test",
-        "intro":"this is a intro",
-        "friend_tag":["tag1","tag2","tag3"]
-      },
-      {
-        "id":"0",
-        "head":"",
-        "name":"test",
-        "intro":"this is a intro",
-        "friend_tag":["tag1","tag2","tag3"]
-      },
-      {
-        "id":"0",
-        "head":"",
-        "name":"test",
-        "intro":"this is a intro",
-        "friend_tag":["tag1","tag2","tag3"]
-      }
-    ]
+    blacklist:[]
   },
-
+  async intohmd(e) {
+    wx.cloud.init({
+      env: 'cloud1-3gbbimin78182c5d'
+    })
+    const db = wx.cloud.database()
+    const _ = db.command
+    var num=e.currentTarget.dataset.num
+    var that=this
+    if(this.data.blacklist[num].in_hmd==1) {
+      this.data.blacklist[num].in_hmd=0
+      async function del_hmd() {
+        for(var i=0;i<app.globalData.my_hmd.length;++i) {
+          if(app.globalData.my_hmd[i]==that.data.blacklist[num].id) {
+            app.globalData.my_hmd.splice(i,1)
+          }
+        }
+      }
+      await del_hmd()
+      db.collection("user").where({
+        _id: app.globalData.my_id
+      })
+      .update({
+        data: {
+          hmd: _.set(app.globalData.my_hmd)
+        }
+      })
+    }
+    else {
+      this.data.blacklist[num].in_hmd=1
+      async function join_hmd() {
+        app.globalData.my_hmd.push(that.data.blacklist[num].id)
+      }
+      await join_hmd()
+      db.collection("user").where({
+        _id: app.globalData.my_id
+      })
+      .update({
+        data: {
+          hmd: _.set(app.globalData.my_hmd)
+        }
+      })
+    }
+    console.log(this.data.blacklist[num].in_hmd)
+  },
   test() {
     console("hello")
   },
@@ -50,7 +72,36 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    wx.cloud.init({
+      env: 'cloud1-3gbbimin78182c5d'
+    })
+    const db = wx.cloud.database()
+    const _ = db.command
+    var array = []
+    var that = this;
+    db.collection('user').where({
+      _id:_.in(app.globalData.my_hmd)
+    }).get().then(
+      (res)=>{
+        for(var i=0;i<res.data.length;++i){
+          var hmd={
+            "num": i,
+            "id": res.data[i]._id,
+            "head": res.data[i].head_img,
+            "name": res.data[i].name,
+            "intro": res.data[i].intro,
+            "friend_tag": res.data[i].tags,
+            "in_hmd": 1
+          }
+          array.push(hmd)
+        }
+      }
+    ).then(()=>{
+      console.log("wuyu")
+      that.setData({
+        blacklist: array
+      })
+    })
   },
 
   /**

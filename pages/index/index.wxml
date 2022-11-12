@@ -1,6 +1,6 @@
 <view style="height: 20px;"></view>
 <view class="search">
- <view name="search" id="search" placeholder="Search" bindtap="Search">Search</view>
+  <view name="search" id="search" placeholder="Search" bindtap="Search">Search</view>
 </view>
 <view class="nav">
   <ul>
@@ -32,11 +32,37 @@
           {{item.date}}
         </view>
       </view>
-      <view class="join">Join</view>
+      <view class="join" bindtap="showfloat" id="{{item.id}}">Join</view>
     </view>
     <view class="intro">
       {{item.intro}}
     </view>
   </view>
 </view>
+<view style="height: 30px;line-height: 10px; text-align: center;color: #588c7e;font-size: 12px;margin-top: 15px;">
+我是有底线的 :-)
+</view>
 <view class="publish" bindtap="publish">+</view>
+<view class="float_window" style="display: {{float_flag==1?'block':'none'}}; position: fixed; background-color:#f0f9f6;border-radius: 40rpx; height: 90%;width: 80%;left: 10%;top: 5%;box-shadow: 0.000vw 0.000vw 72.275vw 72.275vw rgba(100, 109, 102, 0.335);">
+  <!-- 标题、关闭 -->
+  <view style="height: 80rpx;margin-top: 10rpx;line-height: 80rpx;margin-bottom: 20rpx;">
+    <view style="display: inline-block;width: 15%;"></view>
+    <view class="float_title">{{activity_detail.name}}</view>
+    <view class="float_close" bindtap="closefloat">×</view>
+  </view>
+  <!-- 人数、日期、介绍 -->
+  <view style="color: #487267;">
+    <view class="float_baseinfor">
+      <text style="font-weight: bold;">活动人数：</text>
+      <text style="color: #7aac9e;">{{activity_detail.people_now}}</text> / <text>{{activity_detail.people_need}}</text>
+    </view>
+    <view class="float_baseinfor">
+      <text style="font-weight: bold;">活动时间：</text>
+      <text>{{activity_detail.date}}</text>
+    </view>
+    <view class="float_baseinfor float_intro">
+      <text style="font-weight: bold;">活动详情：</text>
+      <text>{{activity_detail.intro}}</text>
+    </view>
+  </view>
+</view>

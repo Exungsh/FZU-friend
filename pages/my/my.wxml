@@ -2,7 +2,7 @@
 <view style="height: 40rpx;"></view>
 <view class="top">
   <view class="head">
-    <image src="head.png"></image>
+    <image src="{{head_img}}"></image>
   </view>
   <view class="title">
     <view class="name">
@@ -13,17 +13,17 @@
     </view>
     <view class="focus">
       <navigator url="../my/myFriends/myFriends" open-type="navigate" hover-class="navigator-hover" style="margin-right: 10rpx;">
-      {{friendnumble}} 朋友 |
+        {{friendnumble}} 朋友 |
       </navigator>
     </view>
     <view class="focus">
       <navigator url="../my/myFollow/myFollow" open-type="navigate" hover-class="navigator-hover" style="margin-right: 10rpx;">
-       {{follownumble}} 关注 | 
+        {{follownumble}} 关注 |
       </navigator>
-    </view> 
+    </view>
     <view class="focus">
       <navigator url="../my/myFans/myFans" open-type="navigate" hover-class="navigator-hover">
-       {{followednumble}} 粉丝
+        {{followednumble}} 粉丝
       </navigator>
     </view>
   </view>
@@ -54,11 +54,10 @@
       <input placeholder="请输入微信号" type="numeber" bindinput="getNumble" style="font-size: 13px;display: inline-block;position: relative; top: 2px;left: -20rpx;"></input>
     </view>
   </view>
-  
 
-  <view class="item" style="width: 100%;">
-      他人是否可在朋友界面找到你
-        <switch checked bindchange="switchChange" style="margin-left: 30%;"></switch>
+
+  <view class="item">
+    <text style="display: inline-block; width: 80%;">他人是否可在朋友界面找到你</text>
+    <switch checked bindchange="switchChange" color="#588c7e"></switch>
   </view>
 </view>
-

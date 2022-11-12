@@ -41,7 +41,7 @@
     <text style="padding-left:30rpx;">性别</text>
     <radio-group bindchange="radioChange_limit" style="flex: 1;padding-left: 50rpx;" name="render">
         <label wx:for="{{limit}}" wx:key="{{limit.value}}">
-            <radio value="{{item.value}}"/>
+            <radio value="{{item.value}}" color="#588c7e"/>
             <text decode="true">{{item.name}}&nbsp;</text>
         </label>
       </radio-group>
@@ -51,7 +51,7 @@
     <text style="padding-left:30rpx;">标签选择</text>
     <radio-group bindchange="radioChange_tag" style="flex: 1;padding-left: 30rpx;" name="big_tag">
         <label wx:for="{{tag}}" wx:key="{{tag.value}}">
-            <radio value="{{item.value}}"/>
+            <radio value="{{item.value}}" color="#588c7e"/>
             <text decode="true">{{item.name}}&nbsp;</text>
         </label>
       </radio-group>
@@ -60,7 +60,7 @@
   <view wx:if="{{tag[0].checked}}" style="display: flex;align-items: center;background-color: #f0f9f6;margin-bottom: 20rpx;border-radius: 25rpx;padding:15rpx 0;">
     <radio-group  bindchange="radioChange_tag_sport" style="flex: 1;padding-left: 30rpx;" name="small_tag">
         <label wx:for="{{tag_sport}}" wx:key="{{tag_sport.value}}">
-            <radio value="{{item.value}}"/>
+            <radio value="{{item.value}}" color="#588c7e"/>
             <text decode="true" style="margin-right:10rpx">{{item.name}}&nbsp;</text>
         </label>
     </radio-group>
@@ -69,7 +69,7 @@
   <view wx:if="{{tag[1].checked}}" style="display: flex;align-items: center;background-color: #f0f9f6;margin-bottom: 20rpx;border-radius: 25rpx;padding:15rpx 0;">
     <radio-group  bindchange="radioChange_tag_food" style="flex: 1;padding-left: 30rpx;" name="small_tag">
         <label wx:for="{{tag_food}}" wx:key="{{tag_food.value}}">
-            <radio value="{{item.value}}"/>
+            <radio value="{{item.value}}" color="#588c7e"/>
             <text decode="true" style="margin-right:10rpx">{{item.name}}&nbsp;</text>
         </label>
     </radio-group>
@@ -78,10 +78,10 @@
   <view wx:if="{{tag[2].checked}}" style="display: flex;align-items: center;background-color: #f0f9f6;margin-bottom: 20rpx;border-radius: 25rpx;padding:15rpx 0;">
     <radio-group  bindchange="radioChange_tag_entertain" style="flex: 1;padding-left: 30rpx;" name="small_tag">
         <label wx:for="{{tag_entertain}}" wx:key="{{tag_entertain.value}}">
-            <radio value="{{item.value}}"/>
+            <radio value="{{item.value}}" color="#588c7e"/>
             <text decode="true" style="margin-right:10rpx">{{item.name}}&nbsp;</text>
         </label>
     </radio-group>
   </view>
-  <button type="primary" formType="submit" style="background-color: #588c7e;margin-top: 40rpx;border-radius: 60rpx;">发布活动</button>
+  <button type="primary" formType="submit" style="background-color: #588c7e;margin-top: 50rpx;border-radius: 60rpx;font-size: 14px;" bindtap="publish">发布活动</button>
 </form>

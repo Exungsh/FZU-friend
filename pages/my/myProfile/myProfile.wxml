@@ -2,7 +2,7 @@
 
 <view class="top">
   <view class="head">
-    <image src="../head.png"></image>
+    <image src="{{head_img}}"></image>
   </view>
   <view class="editpencil">
     <image src="../bianji.png"></image>
@@ -12,14 +12,14 @@
 <view class="black">
   昵称
   <view class="editvalue">
-    <input placeholder="name" bindinput="getName"></input>
+    <input placeholder="name" bindinput="getName" bindconfirm="comfire_name"></input>
   </view>
 </view>
 
 <view class="black">
   简介
   <view class="editvalue">
-    <input placeholder="..." bindinput="getIntro"></input>
+    <input placeholder="..." bindinput="getIntro" bindconfirm="comfire_intro"></input>
   </view>
 </view>
 

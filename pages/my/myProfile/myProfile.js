@@ -1,4 +1,6 @@
 // pages/my/myProfile/myProfile.js
+const app=getApp()
+
 Page({
 
   /**
@@ -7,7 +9,8 @@ Page({
   data: {
     name: '',
     intro: '...',
-    mytag: ['篮球', '羽毛球', '密室逃脱',  '乒乓球',  '烧烤'],
+    head_img: '',
+    mytag: [],
     now_state:null,
     tag: [
       {value: 'sport', name: '运动'},
@@ -32,11 +35,53 @@ Page({
     console.log("昵称为： ", this.data.name)
   },
 
+  comfire_name:function(e) {
+    this.setData({
+      name: e.detail.value
+    })
+    app.globalData.my_name= this.data.name
+    console.log(app.globalData.my_name)
+    wx.cloud.init({
+      env: 'cloud1-3gbbimin78182c5d'
+    })
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('user').where({
+      _id: app.globalData.my_id
+    })
+    .update({
+      data: {
+        name: _.set(this.data.name)
+      }
+    })
+  },
+
   getIntro: function(e) {
     this.setData({
       intro: e.detail.value
     })
     console.log("简介为： ", this.data.intro)
+  },
+
+  comfire_intro: function(e) {
+    this.setData({
+      intro: e.detail.value
+    })
+    app.globalData.userInfo= this.data.intro
+    console.log(app.globalData.userInfo)
+    wx.cloud.init({
+      env: 'cloud1-3gbbimin78182c5d'
+    })
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('user').where({
+      _id: app.globalData.my_id
+    })
+    .update({
+      data: {
+        intro: _.set(this.data.intro)
+      }
+    })
   },
 
   chooseTag: function(e) {
@@ -127,7 +172,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    
   },
 
   /**
@@ -141,7 +186,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.setData({
+      name: app.globalData.my_name,
+      intro: app.globalData.userInfo,
+      head_img: app.globalData.head_img,
+      mytag: app.globalData.my_tags
+    })
   },
 
   /**

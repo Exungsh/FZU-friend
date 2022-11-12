@@ -1,23 +1,4 @@
 /**index.wxss**/
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #aaa;
-}
-
-.userinfo-avatar {
-  overflow: hidden;
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.usermotto {
-  margin-top: 200px;
-}
-
 /* 搜索 */
 .search {
   height: 40px;
@@ -33,7 +14,7 @@
   border-radius: 20px;
   background-color: #f0f9f6;
   font-size: 14px;
-  color:#588c7e;
+  color: #588c7e;
 }
 
 /* 导航 */
@@ -78,7 +59,7 @@
   white-space: nowrap;
 }
 
-::-webkit-scrollbar {
+.select::-webkit-scrollbar {
   width: 0;
   height: 0;
   color: transparent;
@@ -174,9 +155,38 @@
   height: 80rpx;
   width: 80rpx;
   background-color: #588c7e;
-  color:#f0f9f6;
+  color: #f0f9f6;
   border-radius: 40rpx;
   line-height: 74rpx;
   text-align: center;
   font-size: 50rpx;
+}
+
+.float_title {
+  display: inline-block;
+  width: 70%;
+  height: 100%;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #487267;
+}
+
+.float_close {
+  display: inline-block;
+  width: 15%;
+  height: 100%;
+  text-align: center;
+  font-size: 24px;
+}
+
+.float_baseinfor {
+  height: 60rpx;
+  line-height: 60rpx;
+  padding: 0 50rpx;
+  font-size: 14px;
+}
+.float_intro{
+  height: 180rpx;
+  overflow-y: scroll;
 }

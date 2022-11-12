@@ -90,18 +90,6 @@
   font-size: 15px;
 }
 
-.arrow{
-  width: 8px;
-  height: 8px;
-  border-top: 2px solid #999;
-  border-right: 2px solid #999;
-  position: absolute;
-  right: 15px;
-  transform: rotate(45deg);
-  margin-top:-27px;
-  margin-right: 20rpx;
-}
-
 /* 分界线 */
 .home-header-line {
   background: #e0e3da;
@@ -112,6 +100,5 @@
 /* 开关键 */
 .switch_C{
   display: inline-block;
-  position: relative; top: -1px;left:30%;
 }
 

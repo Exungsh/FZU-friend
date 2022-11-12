@@ -9,7 +9,7 @@
         {{item.name}}</view>
         <view style="height: 30rpx;width: 320rpx;line-height: 30rpx;font-size: 22rpx;">{{item.intro}}</view>
       </view>
-      <view class="unblack">取消拉黑</view>
+      <view class="unblack" data-num="{{item.num}}" bindtap="intohmd">{{item.in_hmd==1?'取消拉黑':'拉黑'}}</view>
     </view>
     <view class="tags">
       <ul>
