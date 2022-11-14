@@ -13,25 +13,17 @@ Page({
     datalist2: [],
     friendlist: []
   },
-  is_myfriend(_id) {
-    this.is_friend=false
-    for(var i=0;i<app.globalData.my_follow.length;++i) {
-      if(_id==app.globalData.my_follow[i]) {
-        this.is_friend=true
-        app.globalData.my_follow.splice(i,1)
-      }
-    }
-  },
-  follow(e) {
+
+  async follow(e) {
     wx.cloud.init({
       env: 'cloud1-3gbbimin78182c5d'
     })
     const db = wx.cloud.database()
     const _ = db.command
+    var that= this
     var _id=e.currentTarget.dataset._id
     var num=e.currentTarget.dataset.num
-    console.log(num)
-    if(this.data.flag==1) {
+    if(this.data.flag==-1) {
       this.data.datalist1[num].follow*=-1
       this.setData({
         friendlist: this.data.datalist1,
@@ -62,7 +54,6 @@ Page({
     }
     else {
       this.data.datalist2[num].follow*=-1
-      console.log(this.data.datalist2[num].follow)
       this.setData({
         friendlist: this.data.datalist2,
         nav1color: "#f0f9f6",
@@ -90,24 +81,30 @@ Page({
         }
       }
     }
-    this.is_myfriend(_id)
-    setTimeout(()=>{
-      if(this.is_friend==false) {
+    async function change_follow() {
+      if(that.data.friendlist[num].follow==-1){
+        for(var i=0;i<app.globalData.my_follow.length;++i) {
+          if(app.globalData.my_follow[i]==_id) {
+            app.globalData.my_follow.splice(i,1)
+          }
+        }
+      }
+      else{
         app.globalData.my_follow.push(_id)
       }
-    },200)
-    setTimeout(()=>{
-      db.collection('user').where({
-        _id: app.globalData.my_id
-      })
-      .update({
-        data: {
-          my_follow: _.set(app.globalData.my_follow)
-        }
-      })
-    },500)
+    }
+    await change_follow()
+    // console.log(app.globalData.my_follow)
+    db.collection('user').where({
+      _id: app.globalData.my_id
+    })
+    .update({
+      data: {
+        my_follow: _.set(app.globalData.my_follow)
+      }
+    })
   },
-  update_recommend() {
+  async update_recommend() {
     wx.cloud.init({
       env: 'cloud1-3gbbimin78182c5d'
     })
@@ -117,39 +114,36 @@ Page({
     let my_tag=app.globalData.my_tags
     var array=[]
 
-    db.collection('user').where({
+    await db.collection('user').where({
       _id:_.neq(app.globalData.my_id).and(_.nin(app.globalData.my_hmd)).and(_.nin(app.globalData.my_follow)),
       isfind:_.eq(true),
       friend_tag: _.all([my_tag[0]]).or(_.all([my_tag[1]])).or(_.all([my_tag[2]])).or(_.all([my_tag[3]])).or(_.all([my_tag[4]])).or(_.all([my_tag[5]]))
     })
-    .get({
-      success: function(res) {
-        for(var j=0;j<res.data.length;++j) {
-          var friend= {
-            'id': res.data[j]._id,
-            'name': res.data[j].name,
-            'intro': res.data[j].intro,
-            'friend_tag': res.data[j].tags,
-            'head': res.data[j].head_img,
-            'num':j,
-            'follow':-1
-          }
-          array.push(friend)
+    .get().then((res)=>{
+      for(var j=0;j<res.data.length;++j) {
+        var friend= {
+          'id': res.data[j]._id,
+          'name': res.data[j].name,
+          'intro': res.data[j].intro,
+          'friend_tag': res.data[j].tags,
+          'head': res.data[j].head_img,
+          'num':j,
+          "sex": res.data[j].sex,
+          'follow':-1
         }
+        array.push(friend)
       }
     })
-    setTimeout(()=>{
-      this.setData({
-        datalist1: array,
-        nav1bgc: "#f0f9f6",
-        nav1color: "#588c7e",
-        nav2bgc: "#588c7e",
-        nav2color: "#f0f9f6",
-      })
-    },500)
+    this.setData({
+      datalist1: array,
+      nav1bgc: "#f0f9f6",
+      nav1color: "#588c7e",
+      nav2bgc: "#588c7e",
+      nav2color: "#f0f9f6",
+    })
   },
   recommend() {
-    this.data.flag*=-1
+    this.data.flag=-1
     this.setData({
       friendlist: this.data.datalist1,
       nav1bgc: "#f0f9f6",
@@ -158,7 +152,7 @@ Page({
       nav2color: "#f0f9f6",
     })
   },
-  update_recent() {
+  async update_recent() {
     wx.cloud.init({
       env: 'cloud1-3gbbimin78182c5d'
     })
@@ -170,47 +164,44 @@ Page({
     var activitiy_table=Object.values(app.globalData.my_activities)
     var recent_id=[]
     var array=[]
-    
-    for(var i=0;i<activitiy_id.length;++i){
-      db.collection(activitiy_table[i]).where({
-        _id: activitiy_id[i]
-      })
-      .get({
-        success:(res)=>{
-          recent_id.push.apply(recent_id,Object.keys(res.data[0].members[0]))
-        }
-      })
-    }
-    setTimeout(()=>{
-      db.collection('user').where({
-        _id:_.neq(app.globalData.my_id).and(_.nin(app.globalData.my_hmd)).and(_.nin(app.globalData.my_follow)).and(_.in(recent_id)),
-        isfind:_.eq(true)
-      })
-      .get({
-        success:(res)=>{
-          for(var j=0;j<res.data.length;++j) {
-            var friend= {
-              'id': res.data[j]._id,
-              'name': res.data[j].name,
-              'intro': res.data[j].intro,
-              'friend_tag': res.data[j].tags,
-              'head': res.data[j].head_img,
-              'num':j,
-              'follow':-1
-            }
-            array.push(friend)
+    async function wait_recent(){
+      for(var i=0;i<app.globalData.activity_title.length;++i){
+        await db.collection(app.globalData.activity_title[i]).where({
+          _id: _.in(app.globalData.my_activities)
+        })
+        .get().then((res)=>{
+          for(var j=0;j<res.data.length;++j){
+            recent_id.push.apply(recent_id,res.data[j].members)
           }
+        })
+      }
+    }
+    await wait_recent()
+    await db.collection('user').where({
+      _id:_.neq(app.globalData.my_id).and(_.nin(app.globalData.my_hmd)).and(_.nin(app.globalData.my_follow)).and(_.in(recent_id)),
+      isfind:_.eq(true)
+    })
+    .get().then((res)=>{
+      for(var j=0;j<res.data.length;++j) {
+        var friend= {
+          'id': res.data[j]._id,
+          'name': res.data[j].name,
+          'intro': res.data[j].intro,
+          'friend_tag': res.data[j].tags,
+          'head': res.data[j].head_img,
+          'num':j,
+          "sex": res.data[j].sex,
+          'follow':-1
         }
-      })
-    },500)
-    setTimeout(()=>{
-      this.setData({
-        datalist2: array
-      })
-    },1000)
+        array.push(friend)
+      }
+    })
+    this.setData({
+      datalist2: array
+    })
   },
   recent() {
-    this.data.flag*=-1
+    this.data.flag=1
     this.setData({
       friendlist: this.data.datalist2,
       nav1color: "#f0f9f6",
@@ -223,12 +214,10 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
-    this.update_recommend()
-    this.update_recent()
-    setTimeout(()=>{
-      this.recommend()
-    },500)
+  async onLoad(options) {
+    // await this.update_recommend()
+    // this.recommend()
+    // await this.update_recent()
   },
 
   /**
@@ -241,8 +230,10 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
-
+  async onShow() {
+    this.update_recent()
+    await this.update_recommend()
+    this.recommend()
   },
 
   /**

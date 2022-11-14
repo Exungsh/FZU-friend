@@ -25,3 +25,6 @@
     </view>
  </view>
 </view>
+<view style="height: 30px;line-height: 10px; text-align: center;color: #588c7e;font-size: 12px;margin-top: 15px;">
+我是有底线的 :-)
+</view>

@@ -8,11 +8,67 @@ Page({
     float_flag: 0,
     join_activity_id: "",
     activity_detail: {
-      name: "傻逼微信小程序",
-      people_now: 1,
-      people_need: 11,
-      date: "2022-11-12",
-      intro: "不如礼拜天，一个雪糕的境界再高，他也不可能高过礼拜天的方糕。一个人不吃礼拜天的方糕，他可能是觉得自己已经达到山顶了，但其实还在山底。雪糕店那么多雪糕进去逛一圈我只买礼拜天，钟薛高被我视若无睹，可怜的十几块钱的网红雪糕被礼拜天的方糕踩在脚下狠狠地碾压。是的，礼拜天在宣告他的皇帝地位，it deserves this，待到每年的夏季，所有雪糕就会举办一场加冕仪式，欢迎他们的皇帝——礼拜天方糕。吃雪糕，我只吃礼拜天方糕。"
+      "name": "啥比微信小程序",
+      "people_now": 1,
+      "people_need": 11,
+      "date": "2022-11-12", //后面加上具体时间点
+      "place": "32#504",
+      "intro": "一想到要起床上班，我你吗的这个火噌的一下冒起来了我这个火我真的噌的一下我这个火我真的噌的一下我这个火我真的噌的一下我这个火我真的噌的一下我这个火我真的噌的一下我这个火我真的噌的一下",
+      people: [{
+          "id": "0",
+          "name": "people0",
+          "gender": "1",
+          "head": ""
+        },
+        {
+          "id": "1",
+          "name": "people1",
+          "gender": "1",
+          "head": ""
+        },
+        {
+          "id": "0",
+          "name": "people0",
+          "gender": "1",
+          "head": ""
+        },
+        {
+          "id": "0",
+          "name": "people0",
+          "gender": "1",
+          "head": ""
+        },
+        {
+          "id": "0",
+          "name": "people0",
+          "gender": "1",
+          "head": ""
+        },
+        {
+          "id": "0",
+          "name": "people0",
+          "gender": "1",
+          "head": ""
+        },
+        {
+          "id": "0",
+          "name": "people0",
+          "gender": "1",
+          "head": ""
+        },
+        {
+          "id": "0",
+          "name": "people0",
+          "gender": "1",
+          "head": ""
+        },
+        {
+          "id": "0",
+          "name": "people0",
+          "gender": "1",
+          "head": ""
+        }
+      ]
     },
     //
     bigtag: "0",
@@ -214,10 +270,9 @@ Page({
 
     async function f() {
       const res = await db.collection('all_sport').get();
-      console.log(res);
       lengthAllSport = res.data.length;
       for (var k = 0; k < lengthAllSport; ++k) {
-        console.log('name', k, " ", res.data[k].name); {
+        {
           element.id = res.data[k]._id;
           element.name = res.data[k].name;
           element.head = res.data[k].head;
@@ -231,10 +286,7 @@ Page({
           date: element.date,
           intro: element.intro,
         }
-        console.log('element', k, " ", element);
-        console.log('temp', k, " ", temp);
         a.push(temp);
-        console.log('a', k, " ", a);
       }
       sportAller.push(a);
     }
@@ -295,10 +347,9 @@ Page({
 
     async function f() {
       const res = await db.collection('all_sport').get();
-      console.log(res);
       lengthAllSport = res.data.length;
       for (var k = 0; k < lengthAllSport; ++k) {
-        console.log('name', k, " ", res.data[k].name); {
+        {
           element.id = res.data[k]._id;
           element.name = res.data[k].name;
           element.head = res.data[k].head;
@@ -312,10 +363,7 @@ Page({
           date: element.date,
           intro: element.intro,
         }
-        console.log('element', k, " ", element);
-        console.log('temp', k, " ", temp);
         a.push(temp);
-        console.log('a', k, " ", a);
       }
       sportAller.push(a);
     }
@@ -365,10 +413,9 @@ Page({
 
     async function f() {
       const res = await db.collection('all_ch').get();
-      console.log(res);
       lengthAllSport = res.data.length;
       for (var k = 0; k < lengthAllSport; ++k) {
-        console.log('name', k, " ", res.data[k].name); {
+        {
           element.id = res.data[k]._id;
           element.name = res.data[k].name;
           element.head = res.data[k].head;
@@ -382,10 +429,7 @@ Page({
           date: element.date,
           intro: element.intro,
         }
-        console.log('element', k, " ", element);
-        console.log('temp', k, " ", temp);
         a.push(temp);
-        console.log('a', k, " ", a);
       }
       sportAller.push(a);
     }
@@ -430,10 +474,9 @@ Page({
 
     async function f() {
       const res = await db.collection('all_entertainment').get();
-      console.log(res);
       lengthAllSport = res.data.length;
       for (var k = 0; k < lengthAllSport; ++k) {
-        console.log('name', k, " ", res.data[k].name); {
+        {
           element.id = res.data[k]._id;
           element.name = res.data[k].name;
           element.head = res.data[k].head;
@@ -447,10 +490,7 @@ Page({
           date: element.date,
           intro: element.intro,
         }
-        console.log('element', k, " ", element);
-        console.log('temp', k, " ", temp);
         a.push(temp);
-        console.log('a', k, " ", a);
       }
       sportAller.push(a);
     }
@@ -484,14 +524,11 @@ Page({
     var lengthAllSport = 0;
     wx.cloud.init();
     const db = wx.cloud.database();
-    // console.log('database_id',)
-    // console.log('code',code[2])
     async function f() {
       const res = await db.collection(database_id[code[0]][code[2]]).get();
-      console.log(res);
       lengthAllSport = res.data.length;
       for (var k = 0; k < lengthAllSport; ++k) {
-        console.log('name', k, " ", res.data[k].name); {
+        {
           element.id = res.data[k]._id;
           element.name = res.data[k].name;
           element.head = res.data[k].head;
@@ -505,10 +542,7 @@ Page({
           date: element.date,
           intro: element.intro,
         }
-        console.log('element', k, " ", element);
-        console.log('temp', k, " ", temp);
         a.push(temp);
-        console.log('a', k, " ", a);
       }
       sportAller.push(a);
     }
@@ -524,18 +558,135 @@ Page({
     });
   },
   //显示悬浮窗
-  showfloat: function (e) {
+  showfloat: async function (e) {
     var id = e.currentTarget.id;
     console.log(id);
+    wx.cloud.init();
+    const db = wx.cloud.database();
+    // console.log(this.data.isChecked);
+    function set_detail(res) {
+      detail = {
+        "name": res.data[0].name,
+        "people_now": res.data[0].people_cnt,
+        "people_need": res.data[0].people_need,
+        "date": res.data[0].date,
+        "place": res.data[0].place,
+        "intro": res.data[0].intro,
+        people: res.data[0].people,
+        "_id": res.data[0]._id
+      }
+    }
+    var database_id = [
+      ['all_sport', 'Running', 'Basketball', 'Badminton', 'Table_Tennis', 'Volleyball', 'Soccer', 'Fitness', 'other_movement'],
+      ['all_ch', 'hot_pot', 'Barbecue', 'drinks', 'Japanese_cuisine', 'Sichuan_cuisine', 'fried_chicken', 'malatang', 'other_ch'],
+      ['all_entertainment', 'Games', 'movies', 'script_murder', 'board_games', 'KTV', 'room_escape', 'live_house', 'other_entertainment']
+    ]
+    var page_location = this.data.isChecked;
+    var res = await db.collection(database_id[page_location[0]][page_location[2]]).where({
+      "_id": id
+    }).get();
+    var detail = {};
+    set_detail(res);
+
     this.setData({
-      float_flag: 1
+      float_flag: 1,
+      activity_detail: detail
     })
     //获取活动详情数据
   },
+
+
+
+
   //关闭悬浮窗
   closefloat() {
     this.setData({
       float_flag: 0
     })
+  },
+  async float_confirm() {
+    var activity_id = this.data.activity_detail._id;
+    var app = getApp();
+    wx.cloud.init();
+    const db = wx.cloud.database();
+    var database_id = [
+      ['all_sport', 'Running', 'Basketball', 'Badminton', 'Table_Tennis', 'Volleyball', 'Soccer', 'Fitness', 'other_movement'],
+      ['all_ch', 'hot_pot', 'Barbecue', 'drinks', 'Japanese_cuisine', 'Sichuan_cuisine', 'fried_chicken', 'malatang', 'other_ch'],
+      ['all_entertainment', 'Games', 'movies', 'script_murder', 'board_games', 'KTV', 'room_escape', 'live_house', 'other_entertainment']
+    ]
+    var page_location = this.data.isChecked;
+    const _ = db.command;
+
+    const res = await db.collection(database_id[page_location[0]][page_location[2]]).doc(activity_id).get();
+    // console.log(app.globalData.my_id);
+    const res2 = await db.collection('user').where({
+      _id: app.globalData.my_id
+    }).get();
+    console.log(app.globalData.my_id)
+    console.log(res2.data)
+    console.log(res2.data[0].activities);
+    console.log(activity_id);
+    console.log(res2.data[0].activities.indexOf(activity_id));
+    //================================================================================================
+    if (res.data.people_cnt < res.data.people_need) {
+      if (res2.data[0].activities.indexOf(activity_id) == 1) {
+        wx.showToast({
+          title: '已经参加过了！',
+          icon: 'success',
+          duration: 1000
+        })
+      } else {
+        //
+        db.collection(database_id[page_location[0]][page_location[2]]).doc(activity_id).update({
+          data: {
+            people_cnt: _.inc(1),
+            people: _.push({
+              "id": app.globalData.my_id,
+              "name": app.globalData.my_name,
+              "gender":"1",
+              "head": app.globalData.head_img
+            }),
+            members: _.push(app.globalData.my_id)
+          },
+        });
+        db.collection('user').doc(app.globalData.my_id).update({
+          data: {
+            activities: _.push(activity_id)
+          }
+        });
+        if (page_location[2] != 0) {
+          //如果不是大类，在大类里面也更新一下
+          db.collection(database_id[page_location[0]][0]).doc(activity_id).update({
+            data: {
+              people_cnt: _.inc(1),
+              people: _.push({
+                "id": app.globalData.my_id,
+                "name": app.globalData.my_name,
+                "gender":"1",
+                "head": app.globalData.head_img
+              }),
+              members: _.push(app.globalData.my_id)
+            },
+          });
+        }
+        wx.showToast({
+          title: '参加成功!',
+          icon: 'success',
+          duration: 1000
+        })
+      };
+
+    } else {
+      wx.showToast({
+        title: '活动满人了！',
+        icon: 'error',
+        duration: 1000
+      })
+    }
+    //================================================================================================
+    this.setData({
+      float_flag: 0
+    })
+    //
   }
 })

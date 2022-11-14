@@ -49,7 +49,10 @@ Page({
         }
       })
     }
-    console.log(this.data.blacklist[num].in_hmd)
+    var array = this.data.blacklist
+    this.setData({
+      blacklist: array
+    })
   },
   test() {
     console("hello")
@@ -91,13 +94,14 @@ Page({
             "name": res.data[i].name,
             "intro": res.data[i].intro,
             "friend_tag": res.data[i].tags,
+            "sex": res.data[i].sex,
             "in_hmd": 1
           }
           array.push(hmd)
         }
       }
     ).then(()=>{
-      console.log("wuyu")
+      // console.log("wuyu")
       that.setData({
         blacklist: array
       })

@@ -44,6 +44,24 @@ Page({
     })
     console.log(this.data.numble);
   },
+  comfire_wx: function (e) {
+    this.setData({
+      wx_account: e.detail.value
+    })
+    wx.cloud.init({
+      env: 'cloud1-3gbbimin78182c5d'
+    })
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('user').where({
+      _id: app.globalData.my_id
+    })
+    .update({
+      data: {
+        wx: _.set(this.data.wx_account)
+      }
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载

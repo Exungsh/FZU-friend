@@ -10,11 +10,11 @@
         {{item.name}}</view>
         <view style="height: 30rpx;width: 320rpx;line-height: 30rpx;font-size: 22rpx;">{{item.intro}}</view>
       </view>
-      <view class="follow" data-_id="{{item.id}}" data-num="{{item.num}}"  bindtap="follow" style="background-color: {{item.follow==-1?'#588c7e':'#f0f9f6'}};color: {{item.follow==-1?'#f0f9f6':'#588c7e'}};border: {{item.follow==-1?'':'#588c7e solid 1px'}};height: 60rpx;width: 120rpx;border-radius: 30rpx; box-sizing: border-box;">{{item.follow==-1?'Follow':'Unfollow'}}</view>
+      <view class="follow" data-_id="{{item.id}}" data-num="{{item.num}}"  bindtap="follow" style="background-color: {{item.in_friend==-1?'#588c7e':'#f0f9f6'}};color: {{item.in_friend==-1?'#f0f9f6':'#588c7e'}};border: {{item.in_friend==-1?'':'#588c7e solid 1px'}};height: 60rpx;width: 120rpx;border-radius: 30rpx; box-sizing: border-box;">{{item.in_friend==-1?'Follow':'Unfollow'}}</view>
     </view>
     <view class="tags">
       <ul>
-        <li wx:for="{{item.taglist}}">
+        <li wx:for="{{item.friend_tag}}">
           <view>{{item}}</view>
         </li>
       </ul>

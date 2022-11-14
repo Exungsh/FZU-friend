@@ -2,20 +2,20 @@
 <view style="height: 40rpx;"></view>
 
 <view class="content">
-  <view class="activity" wx:for="{[]}" wx:key = "id">
+  <view class="activity" wx:for="{{fanlist}}" wx:key = "id">
     <view class="title">
-      <image src="" class="head"></image>
-      <view class="item">
-        <view class="item_name">
-        姓名</view>
-        <view class="item_intro">个性签名</view>
+      <image src="{{item.head}}" class="head"></image>
+      <view style="float: left;height: 80rpx;width: 320rpx;margin-left: 30rpx;">
+        <view style="height: 50rpx;width: 320rpx;font-size: 36rpx;">
+        {{item.name}}</view>
+        <view style="height: 30rpx;width: 320rpx;line-height: 30rpx;font-size: 22rpx;">{{item.intro}}</view>
       </view>
-      <view class="follow">关注</view>
+      <view class="follow" data-_id="{{item.id}}" data-num="{{item.num}}"  bindtap="follow" style="background-color: {{item.in_follow==-1?'#588c7e':'#f0f9f6'}};color: {{item.in_follow==-1?'#f0f9f6':'#588c7e'}};border: {{item.in_follow==-1?'':'#588c7e solid 1px'}};height: 60rpx;width: 120rpx;border-radius: 30rpx; box-sizing: border-box;">{{item.in_follow==-1?'Follow':'Unfollow'}}</view>
     </view>
     <view class="tags">
       <ul>
-        <li wx:for="{[]}">
-          <view>tag</view>
+        <li wx:for="{{item.friend_tag}}">
+          <view>{{item}}</view>
         </li>
       </ul>
     </view>

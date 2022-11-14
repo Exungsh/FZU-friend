@@ -1,16 +1,18 @@
 // pages/my/myProfile/myProfile.js
-const app=getApp()
-
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    name: '',
+    hasUserInfo: false,
+    info: '',
+    src: '',
+    nickName: '',
     intro: '...',
-    head_img: '',
-    mytag: [],
+    mytag_sport: [],
+    mytag_food: [],
+    mytag_entertain: [],
     now_state:null,
     tag: [
       {value: 'sport', name: '运动'},
@@ -18,13 +20,14 @@ Page({
       {value: 'entertain', name: '娱乐'}
     ],
     tag_sport: [
-      {value: 'badminton', name: '羽毛球'}, {value: 'basketball', name: '篮球'}, {value: 'table tennis', name: '乒乓球'}, {value: 'running', name: '跑步'}, {value: 'volleyball', name: '排球'}, {value: 'fitness', name: '健身'}, {value: 'football', name: '足球'}
+      {value: 'badminton', name: '羽毛球'}, {value: 'basketball', name: '篮球'}, {value: 'table tennis', name: '乒乓球'}, {value: 'running', name: '跑步'}, {value: 'fitness', name: '健身'},{value: 'volleyball', name: '排球'}, {value: 'football', name: '足球'},  {value: 'tennis', name: '网球'}, {value: 'swimming', name: '游泳'}, {value: 'others', name: '其他'}
     ],
     tag_food: [
-      {value: 'barbecue', name: '烧烤'}, {value: 'malatang', name: '麻辣烫'}, {value: 'drinks', name: '饮品'}, {value: 'hot pot', name: '火锅'}, {value: 'Japanese cuisine', name: '日料'}, {value: 'Sichuan Cuisine', name: '川菜'}, {value: 'fried chicken', name: '炸鸡'}
+      {value: 'barbecue', name: '烧烤'}, {value: 'malatang', name: '麻辣烫'}, {value: 'milk tea', name: '奶茶'}, {value: 'hot pot', name: '火锅'}, {value: 'coffee', name: '咖啡'}, {value: 'Japanese cuisine', name: '日料'}, {value: 'Sichuan Cuisine', name: '川菜'}, {value: 'snack', name: '小吃'}, {value: 'fried chicken', name: '炸鸡'}, {value: 'buffet', name: '自助餐'}, {value: 'others', name: '其他'}
     ],
     tag_entertain: [
-      {value: 'games', name: '游戏'}, {value: 'movie', name: '电影'}, {value: 'script_murder', name: '剧本杀'}, {value: 'board_games', name: '桌游'}, {value: 'KTV', name: 'KTV'}, {value: 'room_escape', name: '密室逃脱'}, {value: 'live house', name: 'live house'}
+       {value: 'movie', name: '电影'}, {value: 'The script to kill', name: '剧本杀'}, {value: 'role-playing games', name: '桌游'}, {value: 'KTV', name: 'KTV'}, {value: 'Secret room escape', name: '密室逃脱'}, {value: 'live house', name: 'live house'}, 
+       {value: 'shopping', name: '逛街'}, {value: 'others', name: '其他'}
     ]
   },
 
@@ -35,53 +38,11 @@ Page({
     console.log("昵称为： ", this.data.name)
   },
 
-  comfire_name:function(e) {
-    this.setData({
-      name: e.detail.value
-    })
-    app.globalData.my_name= this.data.name
-    console.log(app.globalData.my_name)
-    wx.cloud.init({
-      env: 'cloud1-3gbbimin78182c5d'
-    })
-    const db = wx.cloud.database()
-    const _ = db.command
-    db.collection('user').where({
-      _id: app.globalData.my_id
-    })
-    .update({
-      data: {
-        name: _.set(this.data.name)
-      }
-    })
-  },
-
   getIntro: function(e) {
     this.setData({
       intro: e.detail.value
     })
     console.log("简介为： ", this.data.intro)
-  },
-
-  comfire_intro: function(e) {
-    this.setData({
-      intro: e.detail.value
-    })
-    app.globalData.userInfo= this.data.intro
-    console.log(app.globalData.userInfo)
-    wx.cloud.init({
-      env: 'cloud1-3gbbimin78182c5d'
-    })
-    const db = wx.cloud.database()
-    const _ = db.command
-    db.collection('user').where({
-      _id: app.globalData.my_id
-    })
-    .update({
-      data: {
-        intro: _.set(this.data.intro)
-      }
-    })
   },
 
   chooseTag: function(e) {
@@ -138,41 +99,85 @@ Page({
     })
   },
 
-  radioChange_tag_sport(e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value)
-    const tag_sport = this.data.tag_sport
-    for (let i = 0, len = tag_sport.length; i < len; ++i) {
-      tag_sport[i].checked = tag_sport[i].value === e.detail.value
+  checkboxChange_tag_sport(e) {
+    console.log('radio发生change事件，携带value值为：', e.detail.value);
+    const value = e.detail.value;
+    let mytag_sport = [];
+    const tag_sport = this.data.tag_sport;
+    for (let i = 0, len = value.length; i < len; ++i) {
+      for (let j = 0, len2 = tag_sport.length; j < len2; ++j) {
+        if (value[i] == tag_sport[j].value) {
+          mytag_sport.push(tag_sport[j].name);
+          break;
+        }
+        else continue;
+      }
     }
     this.setData({
-      tag_sport
+      mytag_sport
     })
   },
-  radioChange_tag_food(e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value)
-    const tag_food = this.data.tag_food
-    for (let i = 0, len = tag_food.length; i < len; ++i) {
-      tag_food[i].checked = tag_food[i].value === e.detail.value
+  checkboxChange_tag_food(e) {
+    console.log('radio发生change事件，携带value值为：', e.detail.value);
+    const value = e.detail.value;
+    let mytag_food = [];
+    const tag_food = this.data.tag_food;
+    for (let i = 0, len = value.length; i < len; ++i) {
+      for (let j = 0, len2 = tag_food.length; j < len2; ++j) {
+        if (value[i] == tag_food[j].value) {
+          mytag_food.push(tag_food[j].name);
+          break;
+        }
+        else continue;
+      }
     }
     this.setData({
-      tag_food
+      mytag_food
     })
   },
-  radioChange_tag_entertain(e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value)
-    const tag_entertain = this.data.tag_entertain
-    for (let i = 0, len = tag_entertain.length; i < len; ++i) {
-      tag_entertain[i].checked = tag_entertain[i].value === e.detail.value
+  checkboxChange_tag_entertain(e) {
+    console.log('radio发生change事件，携带value值为：', e.detail.value);
+    const value = e.detail.value;
+    let mytag_entertain = [];
+    const tag_entertain = this.data.tag_entertain;
+    for (let i = 0, len = value.length; i < len; ++i) {
+      for (let j = 0, len2 = tag_entertain.length; j < len2; ++j) {
+        if (value[i] == tag_entertain[j].value) {
+          mytag_entertain.push(tag_entertain[j].name);
+          break;
+        }
+        else continue;
+      }
     }
     this.setData({
-      tag_entertain
+      mytag_entertain
+    })
+  },
+  getMyInfor: function() {
+    wx.getUserProfile({
+      desc: '获取用户信息',
+      success: (res) => {
+        let userInfo = res.userInfo;
+        // console.log(userInfo);
+        console.log(this.data.nickName)
+        this.setData({
+          hasUserInfo: true,
+          info: userInfo,
+          src: userInfo.avatarUrl,
+          nickName: userInfo.nickName
+        })
+        console.log(this.data.nickName)
+      },
+      fail: function() {
+        console.log("fail");
+      } 
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    
+
   },
 
   /**
@@ -186,12 +191,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.setData({
-      name: app.globalData.my_name,
-      intro: app.globalData.userInfo,
-      head_img: app.globalData.head_img,
-      mytag: app.globalData.my_tags
-    })
+
   },
 
   /**

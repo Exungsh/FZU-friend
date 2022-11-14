@@ -9,7 +9,6 @@
   background-color: #f0f9f6;
   padding-top: 40rpx;
   margin-bottom: 20rpx;
-  box-shadow: 5px 5px 5px rgba(81, 81, 81, 0.321);
 }
 
 .activity .head {
@@ -20,7 +19,7 @@
   background-color:#588c7e;
 }
 
-.activity .unfollow {
+.activity .follow {
   float: left;
   height: 60rpx;
   width: 120rpx;
@@ -58,27 +57,8 @@
   height: 40rpx;
   padding: 0 20rpx;
   border-radius: 20rpx;
-  border: #588c7e solid 1.5px;
+  box-sizing: border-box;
+  border: #588c7e solid 1px;
   line-height: 40rpx;
   font-size: 25rpx;
-}
-
-.item{
-  float: left;
-  height: 80rpx;
-  width: 320rpx;
-  margin-left: 30rpx;
-}
-
-.item_intro{
-  height: 30rpx;
-  width: 320rpx;
-  line-height: 30rpx;
-  font-size: 22rpx;
-}
-
-.item_name{
-  height: 50rpx;
-  width: 320rpx;
-  font-size: 36rpx;
 }

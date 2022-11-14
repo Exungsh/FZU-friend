@@ -51,7 +51,7 @@
   <view class="item">
     微信号
     <view class="numble">
-      <input placeholder="请输入微信号" type="numeber" bindinput="getNumble" style="font-size: 13px;display: inline-block;position: relative; top: 2px;left: -20rpx;"></input>
+      <input placeholder="请输入微信号" type="numeber" bindinput="getNumble" bindconfirm="comfire_wx" style="font-size: 13px;display: inline-block;position: relative; top: 2px;left: -20rpx;"></input>
     </view>
   </view>
 

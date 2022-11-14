@@ -223,7 +223,7 @@ Page({
       tag_entertain
     })
   },
-  formSubmit(e) {
+  async formSubmit(e) {
     wx.request({
       url: 'url',
       method: 'GET',
@@ -239,27 +239,36 @@ Page({
     wx.cloud.init();
     const db = wx.cloud.database();
     console.log('名', e.detail.value.big_tag);
-    //插入大类
-    db.collection(e.detail.value.big_tag).add({
-      data: {
+    var app = getApp();
+    var insert_data = {
         name: e.detail.value.name,
         head: "",
         date: e.detail.value.date,
-        intro: e.detail.value.detail
-      }
+        intro: e.detail.value.detail,
+        people: [{
+          "id": app.globalData.my_id,
+          "name": app.globalData.my_name,
+          "gender": "1",
+          "head": app.globalData.head_img,
+        }],
+        members:[app.globalData.my_id],
+        people_cnt: 1,
+        people_need: e.detail.value.joinNum,
+        place: e.detail.value.place
+    }
+    //插入大类
+    await db.collection(e.detail.value.big_tag).add({
+      data: insert_data
     })
     //插入小类
-    db.collection(e.detail.value.small_tag).add({
-      data: {
-        name: e.detail.value.name,
-        head: "",
-        date: e.detail.value.date,
-        intro: e.detail.value.detail
-      }
+    await db.collection(e.detail.value.small_tag).add({
+      data: insert_data
     })
   },
-  publish(){
-    wx.navigateBack({
-    })
+  publish() {
+    setTimeout(() => {
+      wx.navigateBack({})
+    }, 100);
+
   }
 })

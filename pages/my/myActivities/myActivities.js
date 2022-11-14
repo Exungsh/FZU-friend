@@ -50,42 +50,85 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
+  // onShow() {
+  //   wx.cloud.init({
+  //     env: 'cloud1-3gbbimin78182c5d'
+  //   })
+  //   const db = wx.cloud.database()
+  //   const _ = db.command
+  //   var activitiy_id=Object.keys(app.globalData.my_activities)
+  //   var activitiy_table=Object.values(app.globalData.my_activities)
+  //   var array = []
+  //   var that = this
+  //   // console.log(activitiy_table)
+  //   new Promise(function(resolve,reject) {
+  //     for(var i=0;i<activitiy_id.length;++i) {
+  //       db.collection(activitiy_table[i]).where({
+  //         _id: activitiy_id[i]
+  //       }).get().then(
+  //         (res)=>{
+  //           var activity={
+  //             "id": res.data[0]._id,
+  //             "name": res.data[0].name,
+  //             "head": res.data[0].headimage,
+  //             "date": "res.data[0].date",
+  //             "intro": res.data[0].intro
+  //           }
+  //           array.push(activity)
+  //         }
+  //       )
+  //     }
+  //     // while(array.length!=activitiy_id.length){
+  //     //   console.log(array.length)
+  //     setTimeout(() => {
+  //       // resolve()
+  //     }, 1000);
+  //   })
+  //   .then((resolve,reject)=>{
+  //     that.setData({
+  //       myactivitylist:array
+  //     })
+  //     console.log(array)
+  //     // setTimeout(() => {
+  //     //   console.log(array)
+        
+  //     // }, 0);
+  //     // console.log(that.data.myactivitylist)
+  //   })
+  // },
+
+
+  async onShow() {
     wx.cloud.init({
       env: 'cloud1-3gbbimin78182c5d'
     })
     const db = wx.cloud.database()
     const _ = db.command
-    var activitiy_id=Object.keys(app.globalData.my_activities)
-    var activitiy_table=Object.values(app.globalData.my_activities)
     var array = []
     var that = this
     // console.log(activitiy_table)
-    new Promise(function(resolve,reject) {})
-    .then((resolve,reject)=>{
-      for(var i=0;i<activitiy_id.length;++i) {
-        db.collection(activitiy_table[i]).where({
-          _id: activitiy_id[i]
-        }).get().then(
-          (res)=>{
-            var activity={
-              "id": res.data[0]._id,
-              "name": res.data[0].name,
-              "head": res.data[0].headimage,
-              "date": "res.data[0].date",
-              "intro": res.data[0].intro
+    async function hh() {
+      for(var i=0;i<app.globalData.activity_title.length;++i){
+        await db.collection(app.globalData.activity_title[i]).where({
+          _id: _.in(app.globalData.my_activities)
+        }).get().then((res)=>{
+          for(var j=0;j<res.data.length;++j){
+            var activity = {
+              "id": res.data[j]._id,
+              "name": res.data[j].name,
+              "head": res.data[j].headimage,
+              "date": res.data[j].date,
+              "intro": res.data[j].intro
             }
             array.push(activity)
           }
-        )
+        })
       }
-    })
-    .then((resolve,reject)=>{
-      // console.log(array)
-      that.setData({
-        myactivitylist:array
-      })
-      console.log(that.data.myactivitylist)
+    }
+    await hh()
+    console.log(array)
+    that.setData({
+      myactivitylist:array
     })
   },
 
