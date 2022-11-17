@@ -113,11 +113,10 @@ Page({
     const $ = db.command.aggregate
     let my_tag=app.globalData.my_tags
     var array=[]
-
     await db.collection('user').where({
       _id:_.neq(app.globalData.my_id).and(_.nin(app.globalData.my_hmd)).and(_.nin(app.globalData.my_follow)),
-      isfind:_.eq(true),
-      friend_tag: _.all([my_tag[0]]).or(_.all([my_tag[1]])).or(_.all([my_tag[2]])).or(_.all([my_tag[3]])).or(_.all([my_tag[4]])).or(_.all([my_tag[5]]))
+      is_find:_.eq(true),
+      tags: _.all([my_tag[0]]).or(_.all([my_tag[1]])).or(_.all([my_tag[2]])).or(_.all([my_tag[3]])).or(_.all([my_tag[4]])).or(_.all([my_tag[5]]))
     })
     .get().then((res)=>{
       for(var j=0;j<res.data.length;++j) {
@@ -179,7 +178,7 @@ Page({
     await wait_recent()
     await db.collection('user').where({
       _id:_.neq(app.globalData.my_id).and(_.nin(app.globalData.my_hmd)).and(_.nin(app.globalData.my_follow)).and(_.in(recent_id)),
-      isfind:_.eq(true)
+      is_find:_.eq(true)
     })
     .get().then((res)=>{
       for(var j=0;j<res.data.length;++j) {

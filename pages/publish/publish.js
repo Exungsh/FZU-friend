@@ -241,29 +241,62 @@ Page({
     console.log('名', e.detail.value.big_tag);
     var app = getApp();
     var insert_data = {
-        name: e.detail.value.name,
-        head: "",
-        date: e.detail.value.date,
-        intro: e.detail.value.detail,
-        people: [{
-          "id": app.globalData.my_id,
-          "name": app.globalData.my_name,
-          "gender": "1",
-          "head": app.globalData.head_img,
-        }],
-        members:[app.globalData.my_id],
-        people_cnt: 1,
-        people_need: e.detail.value.joinNum,
-        place: e.detail.value.place
+      host: app.globalData.my_id,
+      name: e.detail.value.name,
+      head: app.globalData.head_img,
+      date: e.detail.value.date,
+      intro: e.detail.value.detail,
+      people: [{
+        "id": app.globalData.my_id,
+        "name": app.globalData.my_name,
+        "gender": "1",
+        "head": app.globalData.head_img,
+      }],
+      members: [app.globalData.my_id],
+      people_cnt: 1,
+      people_need: e.detail.value.joinNum,
+      place: e.detail.value.place,
+      small_tag: e.detail.value.small_tag,
+      big_tag: e.detail.value.big_tag
     }
     //插入大类
     await db.collection(e.detail.value.big_tag).add({
       data: insert_data
-    })
+    });
     //插入小类
     await db.collection(e.detail.value.small_tag).add({
       data: insert_data
+    });
+
+    const _ = db.command;
+    var act = await db.collection(e.detail.value.big_tag).where({
+      host: app.globalData.my_id,
+      name: e.detail.value.name,
+      date: e.detail.value.date,
+      intro: e.detail.value.detail,
+      people: [{
+        "id": app.globalData.my_id,
+        "name": app.globalData.my_name,
+        "gender": "1",
+        "head": app.globalData.head_img,
+      }],
+      members: [app.globalData.my_id],
+      people_cnt: 1,
+      people_need: e.detail.value.joinNum,
+      place: e.detail.value.place
+    }).get();
+    console.log(act.data)
+
+    app.globalData.my_activities.push(act.data[0]._id);
+
+    await db.collection('user').where({
+      _id: app.globalData.my_id
+    }).update({
+      data: {
+        activities: _.set(app.globalData.my_activities)
+      }
     })
+
   },
   publish() {
     setTimeout(() => {

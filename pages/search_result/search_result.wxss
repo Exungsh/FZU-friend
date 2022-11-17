@@ -49,3 +49,50 @@
   word-break: break-all;
   overflow: hidden;
 }
+
+.float_title {
+  display: inline-block;
+  width: 70%;
+  height: 100%;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #487267;
+}
+
+.float_close {
+  display: inline-block;
+  width: 15%;
+  height: 100%;
+  text-align: center;
+  font-size: 24px;
+}
+
+.float_baseinfor {
+  height: 60rpx;
+  line-height: 60rpx;
+  padding: 0 8%;
+  font-size: 14px;
+}
+.float_intro{
+  height: 180rpx;
+  line-height: 60rpx;
+  padding: 0 50rpx;
+  font-size: 14px;
+  overflow-y: scroll;
+}
+.float_people{
+  display: inline-block;
+  height: 80px;
+  width: 60px;
+  margin-right: 15px;
+}
+.float_button{
+  box-sizing: border-box;
+  display: inline-block;
+  height: 100%;
+  width: 50%;
+  line-height: 50px;
+  text-align: center;
+  font-size: 15px;
+}

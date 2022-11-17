@@ -617,52 +617,98 @@ Page({
     var page_location = this.data.isChecked;
     const _ = db.command;
 
-    const res = await db.collection(database_id[page_location[0]][page_location[2]]).doc(activity_id).get();
-    // console.log(app.globalData.my_id);
+    const res = await db.collection(database_id[page_location[0]][page_location[2]]).doc(activity_id).get(); //该分块的数据
     const res2 = await db.collection('user').where({
-      _id: app.globalData.my_id
+      _openid: app.globalData.my_id
     }).get();
-    console.log(app.globalData.my_id)
-    console.log(res2.data)
-    console.log(res2.data[0].activities);
-    console.log(activity_id);
-    console.log(res2.data[0].activities.indexOf(activity_id));
+
+    var judgeInt = false;
+
+    //变量：大类，用于判断user里面是否存在activities（因为user是用大类的id来标识的）
+    var dalei = await db.collection(res.data.big_tag).where({
+      date: res.data.date,
+      host: res.data.host,
+      intro: res.data.intro,
+      name: res.data.name,
+      place: res.data.place
+    }).get();
+    await judge();
+    async function judge() {
+      for (var k = 0; k < res2.data[0].activities.length; k++) {
+        if (dalei.data[0]._id == res2.data[0].activities[k]) {
+          judgeInt = true;
+          console.log("res2.data[0].activities[k]", res2.data[0].activities[k])
+        }
+      }
+    }
+    // console.log("dalei：", dalei.data);
+    // console.log("judgeInt", judgeInt);
+    // console.log("res2.data", res2.data, "dalei.data._id", dalei.data[0]._id);
     //================================================================================================
     if (res.data.people_cnt < res.data.people_need) {
-      if (res2.data[0].activities.indexOf(activity_id) == 1) {
+      if (judgeInt) {
         wx.showToast({
           title: '已经参加过了！',
           icon: 'success',
           duration: 1000
         })
       } else {
-        //
         db.collection(database_id[page_location[0]][page_location[2]]).doc(activity_id).update({
           data: {
             people_cnt: _.inc(1),
             people: _.push({
               "id": app.globalData.my_id,
               "name": app.globalData.my_name,
-              "gender":"1",
+              "gender": "1",
               "head": app.globalData.head_img
             }),
             members: _.push(app.globalData.my_id)
           },
         });
-        db.collection('user').doc(app.globalData.my_id).update({
-          data: {
-            activities: _.push(activity_id)
-          }
-        });
-        if (page_location[2] != 0) {
-          //如果不是大类，在大类里面也更新一下
-          db.collection(database_id[page_location[0]][0]).doc(activity_id).update({
+        //===================================================================================================================
+        // 如果是大类↓ push大类的activitiesid要在小类也更新。。。 await注意
+        if (page_location[2] == 0) {
+          await db.collection('user').doc(app.globalData.my_id).update({
+            data: {
+              activities: _.push(activity_id)
+            }
+          });
+          app.globalData.my_activities.push(activity_id); //因为是大类，所以可以直接用这个push
+          await db.collection(res.data.small_tag).where({
+            date: res.data.date,
+            host: res.data.host,
+            intro: res.data.intro,
+            name: res.data.name,
+            place: res.data.place
+          }).update({
             data: {
               people_cnt: _.inc(1),
               people: _.push({
                 "id": app.globalData.my_id,
                 "name": app.globalData.my_name,
-                "gender":"1",
+                "gender": "1",
+                "head": app.globalData.head_img
+              }),
+              members: _.push(app.globalData.my_id)
+            },
+          })
+        }
+
+        //如果不是大类，在大类里面也更新一下
+        else if (page_location[2] != 0) {
+          await db.collection(database_id[page_location[0]][0]).where({
+            date: res.data.date,
+            host: res.data.host,
+            intro: res.data.intro,
+            name: res.data.name,
+            place: res.data.place
+          }).update({
+            data: {
+              people_cnt: _.inc(1),
+              people: _.push({
+                "id": app.globalData.my_id,
+                "name": app.globalData.my_name,
+                "gender": "1",
                 "head": app.globalData.head_img
               }),
               members: _.push(app.globalData.my_id)

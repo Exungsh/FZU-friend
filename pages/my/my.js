@@ -88,7 +88,8 @@ Page({
       follownumble: app.globalData.my_follow.length,
       followednumble: app.globalData.my_fan.length,
       switchAllChecked: app.globalData.is_find,
-      head_img: app.globalData.head_img
+      head_img: app.globalData.head_img,
+      wx: app.globalData.wx
     })
   },
 

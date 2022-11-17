@@ -13,10 +13,70 @@
           {{item.time}}
         </view>
       </view>
-      <view class="join">Join</view>
+      <view class="join" bindtap="showfloat" id="{{item.id}}">Join</view>
     </view>
     <view class="intro">
       {{item.introduce}}
+    </view>
+  </view>
+</view>
+
+<!-- 活动详情悬浮窗 -->
+<view class="float_window" style="display: {{float_flag==1?'block':'none'}}; position: fixed; background-color:#f0f9f6;border-radius: 40rpx; height: 90%;width: 80%;left: 10%;top: 5%;box-shadow: 0.000vw 0.000vw 72.275vw 72.275vw rgba(100, 109, 102, 0.335);z-index: 2;">
+  <!-- 标题、关闭 -->
+  <view style="height: 80rpx;margin-top: 10rpx;line-height: 80rpx;margin-bottom: 30rpx;">
+    <view style="display: inline-block;width: 15%;"></view>
+    <view class="float_title">{{activity_detail.name}}</view>
+    <view class="float_close" bindtap="closefloat">×</view>
+  </view>
+  <!-- 人数、日期、介绍 -->
+  <view style="color: #487267;">
+    <view class="float_baseinfor">
+      <text style="font-weight: bold;">活动人数：</text>
+      <text style="color: #7aac9e;">{{activity_detail.people_now}}</text> / <text>{{activity_detail.people_need}}</text>
+    </view>
+    <view class="float_baseinfor">
+      <text style="font-weight: bold;">活动日期：</text>
+      <text>{{activity_detail.date}}</text>
+    </view>
+    <view class="float_baseinfor">
+      <text style="font-weight: bold;">活动时间：</text>
+      <text>{{activity_detail.time}}</text>
+    </view>
+    <view class="float_baseinfor">
+      <text style="font-weight: bold;">活动地点：</text>
+      <text>{{activity_detail.place}}</text>
+    </view>
+    <view class="float_baseinfor">
+      <text style="font-weight: bold;">活动详情：</text>
+    </view>
+    <view class="float_intro">
+      <view>
+        <text>{{activity_detail.intro}}</text>
+      </view>
+    </view>
+  </view>
+  <!-- 参加人员 -->
+  <view class="float_baseinfor" style="margin-bottom: 10rpx;">
+      <text style="font-weight: bold;color: #487267;">参加人员：</text>
+    </view>
+  <view style="padding: 0 8%;height: 100px;width: 84%; overflow-x: scroll;white-space: nowrap;">
+    <view class="float_people" wx:for="{{activity_detail.people}}">
+      <view>
+        <image src="{{item.head}}" style="width: 60px;height: 60px;background-color: #588c7e;border-radius: 50%;"></image>
+      </view>
+      <view style="width: 60px;height: 20px;line-height: 12px;font-size: 12px;text-align: center;color:#487267;">
+      {{item.name}}
+      </view>
+    </view>
+    <!-- 确定、退出 -->
+    <view style="height: 50px;width: 100%;position: absolute;bottom: 0; left: 0;">
+      <view class="float_button" style="color: #487267;" bindtap="float_confirm">
+        确定参加
+      </view>
+      <view class="float_button" style="color: #7cafa0;" bindtap="closefloat">
+        我再看看
+      </view>
     </view>
   </view>
 </view>

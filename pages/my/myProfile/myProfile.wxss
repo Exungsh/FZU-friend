@@ -149,7 +149,7 @@
 /* 弹窗确认 */
 .confirm {
   margin: 30px auto;
-  width: 150px;
+  width: 40%;
   height: 80rpx;
   background-color: #588c7e;
   line-height: 80rpx;

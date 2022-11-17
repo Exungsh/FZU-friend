@@ -6,23 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    fanlist:[{
-      "id":"0",
-      "name":"friend",
-      "head":"",
-      "intro":"test",
-      "gender":"1",//性别
-      "taglist":['tag1','tag2']
-    },
-    {
-      "id":"0",
-      "name":"friend",
-      "head":"",
-      "intro":"test",
-      "gender":"1",//性别
-      "taglist":['tag1','tag2']
-    }
-    ]
+    fanlist:[]
   },
   async follow(e) {
     wx.cloud.init({

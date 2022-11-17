@@ -2,7 +2,7 @@
 
 <view class="top">
   <view class="head">
-    <image src="{{src}}"></image>
+    <image src="{{head_img}}"></image>
   </view>
 </view>
 
@@ -11,7 +11,7 @@
 <view class="black">
   昵称
   <view class="editvalue">
-    <input placeholder="{{nickName}}" bindinput="getName"></input>
+    <input placeholder="{{name}}" bindinput="getName" bindconfirm="comfire_name"></input>
   </view>
 </view>
 
@@ -20,10 +20,8 @@
   <view class="editvalue">
     <radio-group bindchange="radioChange_tag" name="big_tag" style="position: relative;left: -16px;top: -6px;">
       <label>
-        <radio value="1" />
-        <text decode="true">男&nbsp;</text>
-        <radio value="0" />
-        <text decode="true">女&nbsp;</text>
+        <radio value="1" bindtap="change1" checked="{{choose1}}">男</radio>
+        <radio value="0" bindtap="change2" checked="{{choose2}}">女</radio>
       </label>
     </radio-group>
   </view>
@@ -32,7 +30,7 @@
 <view class="black">
   简介
   <view class="editvalue">
-    <input placeholder="..." bindinput="getIntro"></input>
+    <input placeholder="{{intro}}" bindinput="getIntro" bindconfirm="comfire_intro"></input>
   </view>
 </view>
 
@@ -41,7 +39,7 @@
   <view bindtap="popWindow" style="display: inline-block;height: 40rpx;width: 40rpx;box-sizing: border-box;line-height: 40rpx;text-align: center;background-color: #588c7e;color: #f0f9f6;border-radius: 50%;">+</view>
 </view>
 <view class="tagblack">
-  <view class="tag" wx:for="{{mytag_sport}}">
+  <!-- <view class="tag" wx:for="{{mytag_sport}}">
     {{item}}
   </view>
   <view class="tag" wx:for="{{mytag_food}}">
@@ -49,7 +47,10 @@
   </view>
   <view class="tag" wx:for="{{mytag_entertain}}">
     {{item}}
-  </view>
+  </view> -->
+  <block wx:for="{{mytag}}" wx:key="index">
+    <view class="tag" wx:for="{{item}}" wx:for-item="item2" wx:key="item2.index">{{item2}}</view>
+  </block>
   
 </view>
 
@@ -60,41 +61,22 @@
   <!--弹窗内部内容-->
   <view class="bigtag"> 
     <radio-group bindchange="radioChange_tag" style="flex: 1;padding-left: 30rpx;" name="big_tag">
-        <label wx:for="{{tag}}" wx:key="{{tag.value}}">
-            <radio value="{{item.value}}" color="#588c7e"/>
+        <label wx:for="{{tag}}" wx:key="{{tag.value}}" >
+            <radio value="{{item.name}}" color="#588c7e" checked="{{item.checked}}"/>
             <text decode="true">{{item.name}}&nbsp;</text>
         </label>
     </radio-group>
   </view>
 
-  <view wx:if="{{tag[0].checked}}" class="smalltag">
-    <checkbox-group  bindchange="checkboxChange_tag_sport" style="flex: 1;padding-left: 30rpx;" name="small_tag">
-        <label wx:for="{{tag_sport}}" wx:key="{{tag_sport.value}}">
-            <radio value="{{item.value}}" color="#588c7e"/>
-            <text decode="true" style="margin-right:10rpx">{{item.name}}&nbsp;</text>
-        </label>
+  <view wx:for="{{small_tag}}" wx:if="{{tag[index].checked}}" class="smalltag">
+    <checkbox-group bindchange="checkboxChange" style="flex: 1;padding-left: 30rpx;" name="small_tag" data-big="{{index}}">
+      <label wx:for="{{item}}" wx:key="{{index}}" wx:for-item="item2">
+        <checkbox value="{{item2.name}}" color="#588c7e" checked="{{item2.checked}}" />
+        <text decode="true" style="margin-right:10rpx">{{item2.name}}&nbsp;</text>
+      </label>
     </checkbox-group>
   </view>
 
-  <view wx:if="{{tag[1].checked}}" class="smalltag">
-    <checkbox-group  bindchange="checkboxChange_tag_food" style="flex: 1;padding-left: 30rpx;" name="small_tag">
-        <label wx:for="{{tag_food}}" wx:key="{{tag_food.value}}">
-            <radio value="{{item.value}}" color="#588c7e"/>
-            <text decode="true" style="margin-right:10rpx">{{item.name}}&nbsp;</text>
-        </label>
-    </checkbox-group>
-  </view>
-
-  <view wx:if="{{tag[2].checked}}" class="smalltag">
-    <checkbox-group  bindchange="checkboxChange_tag_entertain" style="flex: 1;padding-left: 30rpx;" name="small_tag">
-        <label wx:for="{{tag_entertain}}" wx:key="{{tag_entertain.value}}">
-            <radio value="{{item.value}}" color="#588c7e"/>
-            <text decode="true" style="margin-right:10rpx">{{item.name}}&nbsp;</text>
-        </label>
-    </checkbox-group>
-  </view>
-
-  <view class="confirm" bindtap="hideModal" style="position: relative;bottom:10rpx">确认</view>
+  <view class="confirm" bindtap="hideModal" style="position: absolute;bottom: 10px;left: 30%;">确认</view>
 
 </view>
-

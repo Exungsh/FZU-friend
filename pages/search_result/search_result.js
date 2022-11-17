@@ -5,7 +5,10 @@ Page({
    */
   data: {
     search: "",
-    result: []
+    result: [],
+    float_flag:0,
+    activity_detail:{},
+    join_activity_id: ""
   },
 
   /**
@@ -98,6 +101,7 @@ Page({
       console.log(this.data.result);
     };
   },
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -137,5 +141,108 @@ Page({
     wx.redirectTo({
       url: '/pages/search/search',
     })
-  }
+  },
+    //显示悬浮窗
+    showfloat: async function (e) {
+      this.setData({
+        float_flag: 1
+      })
+      //获取活动详情数据
+    },
+  
+  
+  
+  
+    //关闭悬浮窗
+    closefloat() {
+      this.setData({
+        float_flag: 0
+      })
+    },
+
+    async float_confirm() {
+      var activity_id = this.data.activity_detail._id;
+      var app = getApp();
+      wx.cloud.init();
+      const db = wx.cloud.database();
+      var database_id = [
+        ['all_sport', 'Running', 'Basketball', 'Badminton', 'Table_Tennis', 'Volleyball', 'Soccer', 'Fitness', 'other_movement'],
+        ['all_ch', 'hot_pot', 'Barbecue', 'drinks', 'Japanese_cuisine', 'Sichuan_cuisine', 'fried_chicken', 'malatang', 'other_ch'],
+        ['all_entertainment', 'Games', 'movies', 'script_murder', 'board_games', 'KTV', 'room_escape', 'live_house', 'other_entertainment']
+      ]
+      var page_location = this.data.isChecked;
+      const _ = db.command;
+  
+      const res = await db.collection(database_id[page_location[0]][page_location[2]]).doc(activity_id).get();
+      // console.log(app.globalData.my_id);
+      const res2 = await db.collection('user').where({
+        _id: app.globalData.my_id
+      }).get();
+      console.log(app.globalData.my_id)
+      console.log(res2.data)
+      console.log(res2.data[0].activities);
+      console.log(activity_id);
+      console.log(res2.data[0].activities.indexOf(activity_id));
+      //================================================================================================
+      if (res.data.people_cnt < res.data.people_need) {
+        if (res2.data[0].activities.indexOf(activity_id) == 1) {
+          wx.showToast({
+            title: '已经参加过了！',
+            icon: 'success',
+            duration: 1000
+          })
+        } else {
+          //
+          db.collection(database_id[page_location[0]][page_location[2]]).doc(activity_id).update({
+            data: {
+              people_cnt: _.inc(1),
+              people: _.push({
+                "id": app.globalData.my_id,
+                "name": app.globalData.my_name,
+                "gender":"1",
+                "head": app.globalData.head_img
+              }),
+              members: _.push(app.globalData.my_id)
+            },
+          });
+          db.collection('user').doc(app.globalData.my_id).update({
+            data: {
+              activities: _.push(activity_id)
+            }
+          });
+          if (page_location[2] != 0) {
+            //如果不是大类，在大类里面也更新一下
+            db.collection(database_id[page_location[0]][0]).doc(activity_id).update({
+              data: {
+                people_cnt: _.inc(1),
+                people: _.push({
+                  "id": app.globalData.my_id,
+                  "name": app.globalData.my_name,
+                  "gender":"1",
+                  "head": app.globalData.head_img
+                }),
+                members: _.push(app.globalData.my_id)
+              },
+            });
+          }
+          wx.showToast({
+            title: '参加成功!',
+            icon: 'success',
+            duration: 1000
+          })
+        };
+  
+      } else {
+        wx.showToast({
+          title: '活动满人了！',
+          icon: 'error',
+          duration: 1000
+        })
+      }
+      //================================================================================================
+      this.setData({
+        float_flag: 0
+      })
+      //
+    }
 })
