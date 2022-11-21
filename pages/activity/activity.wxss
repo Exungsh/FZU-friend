@@ -1,0 +1,115 @@
+/* pages/activity/activity.wxss */
+/* float_card */
+.card{
+  display: flex;
+  background-color: #f0f9f6;
+  margin: 60rpx 30rpx;
+  padding: 35rpx 50rpx;
+  flex-direction: column;
+}
+.card-title{
+  font-size: 20px;
+  margin-bottom: 36rpx;
+  color: #487267;
+}
+.card-date,.card-place,.card-intro{
+  font-size: 14px;
+  color:#588c7e;
+  padding-bottom: 15rpx;
+  border-bottom: 1rpx solid #ddd;
+  margin-bottom: 20rpx;
+}
+
+.card-img{
+  width: 100%;
+  height: 300rpx;
+}
+.card-read{
+  font-size:12px;
+  color:rgb(145, 167, 152);
+}
+/* small_float_card */
+.small_float{
+  height: 100px;
+  width: 20px;
+  background-color: #fff;
+}
+/* 当然是显示更多的三个点点啦 */
+.morepoint {
+  position: absolute;
+  left: 83%;
+  font-size: 15px;
+  font-weight:bolder;
+  color: #487267;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+}
+.float_window {
+  position: fixed; 
+  background-color:#f0f9f6;
+  border-radius: 40rpx; 
+  height: 90%;width: 80%;left: 10%;top: 5%;
+  box-shadow: 0.000vw 0.000vw 72.275vw 72.275vw rgba(100, 109, 102, 0.335);
+}
+
+.float_title {
+  display: inline-block;
+  width: 70%;
+  height: 100%;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #487267;
+}
+
+.float_close {
+  display: inline-block;
+  width: 15%;
+  height: 100%;
+  text-align: center;
+  font-size: 24px;
+}
+
+.float_baseinfor {
+  height: 60rpx;
+  line-height: 60rpx;
+  padding: 0 8%;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 7px;
+}
+.float_intro{
+  height: 180rpx;
+  line-height: 60rpx;
+  padding: 0 50rpx;
+  font-size: 14px;
+  overflow-y: scroll;
+}
+.float_people{
+  display: inline-block;
+  height: 80px;
+  width: 60px;
+  margin-right: 15px;
+}
+.float_button{
+  box-sizing: border-box;
+  display: inline-block;
+  height: 100%;
+  width: 50%;
+  line-height: 50px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.change_place {
+  display: inline-block;
+  text-align: center;
+  border: #487267 solid 1px;
+  width: 70%;
+  height: 50rpx;
+  line-height: 50rpx;
+  border-radius: 30rpx;
+  margin-top: 5rpx;
+}

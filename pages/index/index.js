@@ -11,7 +11,8 @@ Page({
       "name": "啥比微信小程序",
       "people_now": 1,
       "people_need": 11,
-      "date": "2022-11-12", //后面加上具体时间点
+      "date": "2022-11-12", 
+      "time": " ",
       "place": "32#504",
       "intro": "一想到要起床上班，我你吗的这个火噌的一下冒起来了我这个火我真的噌的一下我这个火我真的噌的一下我这个火我真的噌的一下我这个火我真的噌的一下我这个火我真的噌的一下我这个火我真的噌的一下",
       people: [{
@@ -573,7 +574,8 @@ Page({
         "place": res.data[0].place,
         "intro": res.data[0].intro,
         people: res.data[0].people,
-        "_id": res.data[0]._id
+        "_id": res.data[0]._id,
+        "time":res.data[0].time
       }
     }
     var database_id = [

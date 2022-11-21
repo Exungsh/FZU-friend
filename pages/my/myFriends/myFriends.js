@@ -6,6 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    now:1,
+    total:0,
     friendlist:[]
   },
   async follow(e) {
@@ -82,7 +84,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
+  async onShow() {
     wx.cloud.init({
       env: 'cloud1-3gbbimin78182c5d'
     })
@@ -90,9 +92,18 @@ Page({
     const _ = db.command
     var array = []
     var that = this;
+
+    var a_friend=[]
+    var a_fan=[]
+    //可以添加更新friend和fan
+
+
+    var countResult = db.collection('user').where({
+      _id:_.in(app.globalData.my_friend)
+    }).count()
     db.collection('user').where({
       _id:_.in(app.globalData.my_friend)
-    }).get().then(
+    }).skip(0).limit(app.globalData.max_limit).get().then(
       (res)=>{
         for(var i=0;i<res.data.length;++i){
           var friend={
@@ -103,14 +114,17 @@ Page({
             "intro": res.data[i].intro,
             "friend_tag": res.data[i].tags,
             "sex": res.data[i].sex,
-            "in_friend": 1
+            "in_friend": 1,
+            "is_fzu": res.data[i].is_fzu
           }
           array.push(friend)
         }
       }
     ).then(()=>{
       that.setData({
-        friendlist: array
+        friendlist: array,
+        total: countResult.total,
+        now: 1
       })
     })
   },
@@ -132,15 +146,111 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh() {
+  async onPullDownRefresh() {
+    wx.cloud.init({
+      env: 'cloud1-3gbbimin78182c5d'
+    })
+    const db = wx.cloud.database()
+    const _ = db.command
+    var array = []
+    var that = this;
 
+    var a_friend=[]
+    var a_fan=[]
+    async function wait_ff(){
+      var countResult = await db.collection('user').where({
+        my_follow: _.all([app.globalData.my_id])
+      }).count()
+      var total = Math.ceil(countResult.total/20)
+      for(var i=0;i<total;++i) {
+        var res = await db.collection('user').where(
+          {my_follow: _.all([app.globalData.my_id])}
+        ).skip(i*20).limit(20).get()
+        for(var j=0;j<res.data.length;++j) {
+          a_fan.push(res.data[j]._id)
+          for(var k=0,l=j;k<app.globalData.my_follow.length;++k){
+            if(app.globalData.my_follow[k]==res.data[l]._id) {
+              a_friend.push(res.data[l]._id)
+            }
+          }
+        }     
+      }
+    }
+    await wait_ff()
+    app.globalData.my_fan=a_fan
+    app.globalData.my_friend=a_friend
+    var countResult = db.collection('user').where({
+      _id:_.in(app.globalData.my_friend)
+    }).count()
+    db.collection('user').where({
+      _id:_.in(app.globalData.my_friend)
+    }).skip(0).limit(app.globalData.max_limit).get().then(
+      (res)=>{
+        for(var i=0;i<res.data.length;++i){
+          var friend={
+            "num": i,
+            "id": res.data[i]._id,
+            "head": res.data[i].head_img,
+            "name": res.data[i].name,
+            "intro": res.data[i].intro,
+            "friend_tag": res.data[i].tags,
+            "sex": res.data[i].sex,
+            "in_friend": 1,
+            "is_fzu": res.data[i].is_fzu
+          }
+          array.push(friend)
+        }
+      }
+    ).then(()=>{
+      that.setData({
+        friendlist: array,
+        total: countResult.total,
+        now: 1
+      })
+    })
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom() {
-
+  async onReachBottom() {
+    wx.cloud.init({
+      env: 'cloud1-3gbbimin78182c5d'
+    })
+    const db = wx.cloud.database()
+    const _ = db.command
+    var array = this.data.friendlist
+    if(this.data.now*app.globalData.max_limit>this.data.total){
+      
+      return 
+    }
+    else {
+      db.collection('user').where({
+        _id:_.in(app.globalData.my_friend)
+      }).skip(this.data.now*app.globalData.max_limit).limit(app.globalData.max_limit).get().then(
+        (res)=>{
+          for(var i=0;i<res.data.length;++i){
+            var friend={
+              "num": this.data.now*app.globalData.max_limit+i,
+              "id": res.data[i]._id,
+              "head": res.data[i].head_img,
+              "name": res.data[i].name,
+              "intro": res.data[i].intro,
+              "friend_tag": res.data[i].tags,
+              "sex": res.data[i].sex,
+              "in_follow": 1,
+              "is_fzu": res.data[i].is_fzu
+            }
+            array.push(friend)
+          }
+        }
+      ).then(()=>{
+        this.data.now++;
+        this.setData({
+          friendlist:array
+        })
+      })
+    }
   },
 
   /**

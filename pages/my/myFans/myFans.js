@@ -6,9 +6,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    now:1,
+    total:0,
     fanlist:[]
   },
   async follow(e) {
+
     wx.cloud.init({
       env: 'cloud1-3gbbimin78182c5d'
     })
@@ -16,6 +19,7 @@ Page({
     const _ = db.command
     var num=e.currentTarget.dataset.num
     var that=this
+    console.log("123");
     if(this.data.fanlist[num].in_follow==1) {//取关
       this.data.fanlist[num].in_follow*=-1
       async function del_follow() {
@@ -99,9 +103,18 @@ Page({
     const _ = db.command
     var array = []
     var that = this;
-    var res1=db.collection('user').where({
-      _id:_.in(app.globalData.my_fan).and(_.in(app.globalData.my_friend))
-    }).get().then(
+
+    var a_friend=[]
+    var a_fan=[]
+    //可以添加更新friend和fan
+
+
+    var countResult = db.collection('user').where({
+      _id:_.in(app.globalData.my_fan)
+    }).count()
+    db.collection('user').where({
+      _id:_.in(app.globalData.my_fan)
+    }).skip(0).limit(app.globalData.max_limit).get().then(
       (res)=>{
         for(var i=0;i<res.data.length;++i){
           var fan={
@@ -112,36 +125,23 @@ Page({
             "intro": res.data[i].intro,
             "friend_tag": res.data[i].tags,
             "sex": res.data[i].sex,
-            "in_follow": 1
+            "in_follow": -1,
+            "is_fzu": res.data[i].is_fzu
           }
           array.push(fan)
-        }
-      }
-    )
-    var res2=db.collection('user').where({
-      _id:_.in(app.globalData.my_fan).and(_.nin(app.globalData.my_friend))
-    }).get().then(
-      (res)=>{
-        for(var i=0;i<res.data.length;++i){
-          var fan={
-            "num": i,
-            "id": res.data[i]._id,
-            "head": res.data[i].head_img,
-            "name": res.data[i].name,
-            "intro": res.data[i].intro,
-            "friend_tag": res.data[i].tags,
-            "sex": res.data[i].sex,
-            "in_follow": -1
+          for(var j=0,k=i;j<app.globalData.my_friend.length;++j){
+            if(array[k].id==app.globalData.my_friend[j]) {
+              array[k].in_follow=1
+            }
           }
-          array.push(fan)
         }
       }
-    )
-    await res1
-    await res2
-    console.log(array)
-    that.setData({
-      fanlist: array
+    ).then(()=>{
+      that.setData({
+        fanlist: array,
+        total: countResult.total,
+        now: 1
+      })
     })
   },
 
@@ -162,15 +162,121 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh() {
+  async onPullDownRefresh() {
+    wx.cloud.init({
+      env: 'cloud1-3gbbimin78182c5d'
+    })
+    const db = wx.cloud.database()
+    const _ = db.command
+    var array = []
+    var that = this;
 
+    var a_friend=[]
+    var a_fan=[]
+    async function wait_ff(){
+      var countResult = await db.collection('user').where({
+        my_follow: _.all([app.globalData.my_id])
+      }).count()
+      var total = Math.ceil(countResult.total/20)
+      for(var i=0;i<total;++i) {
+        var res = await db.collection('user').where(
+          {my_follow: _.all([app.globalData.my_id])}
+        ).skip(i*20).limit(20).get()
+        for(var j=0;j<res.data.length;++j) {
+          a_fan.push(res.data[j]._id)
+          for(var k=0,l=j;k<app.globalData.my_follow.length;++k){
+            if(app.globalData.my_follow[k]==res.data[l]._id) {
+              a_friend.push(res.data[l]._id)
+            }
+          }
+        }     
+      }
+    }
+    await wait_ff()
+    app.globalData.my_fan=a_fan
+    app.globalData.my_friend=a_friend
+    var countResult = db.collection('user').where({
+      _id:_.in(app.globalData.my_fan)
+    }).count()
+    db.collection('user').where({
+      _id:_.in(app.globalData.my_fan)
+    }).skip(0).limit(app.globalData.max_limit).get().then(
+      (res)=>{
+        for(var i=0;i<res.data.length;++i){
+          var fan={
+            "num": i,
+            "id": res.data[i]._id,
+            "head": res.data[i].head_img,
+            "name": res.data[i].name,
+            "intro": res.data[i].intro,
+            "friend_tag": res.data[i].tags,
+            "sex": res.data[i].sex,
+            "in_follow": -1,
+            "is_fzu": res.data[i].is_fzu
+          }
+          array.push(fan)
+          for(var j=0,k=i;j<app.globalData.my_friend.length;++j){
+            if(array[k].id==app.globalData.my_friend[j]) {
+              array[k].in_follow=1
+            }
+          }
+        }
+      }
+    ).then(()=>{
+      that.setData({
+        fanlist: array,
+        total: countResult.total,
+        now: 1
+      })
+    })
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom() {
-
+  async onReachBottom() {
+    wx.cloud.init({
+      env: 'cloud1-3gbbimin78182c5d'
+    })
+    const db = wx.cloud.database()
+    const _ = db.command
+    var array = this.data.fanlist
+    if(this.data.now*app.globalData.max_limit>this.data.total){
+      
+      return 
+    }
+    else {
+      db.collection('user').where({
+        _id:_.in(app.globalData.my_fan)
+      }).skip(this.data.now*app.globalData.max_limit).limit(app.globalData.max_limit).get().then(
+        (res)=>{
+          for(var i=0;i<res.data.length;++i){
+            var fan={
+              "num": this.data.now*app.globalData.max_limit+i,
+              "id": res.data[i]._id,
+              "head": res.data[i].head_img,
+              "name": res.data[i].name,
+              "intro": res.data[i].intro,
+              "friend_tag": res.data[i].tags,
+              "sex": res.data[i].sex,
+              "in_follow": -1,
+              "is_fzu": res.data[i].is_fzu
+            }
+            array.push(fan)
+            for(var j=0,k=this.data.now*app.globalData.max_limit+i;j<app.globalData.my_friend.length;++j){
+              if(array[k].id==app.globalData.my_friend[j]) {
+                array[k].in_follow=1
+              }
+            }
+          }
+        }
+      ).then(()=>{
+        this.data.now++;
+        this.setData({
+          fanlist:array
+        })
+      })
+    }
   },
 
   /**

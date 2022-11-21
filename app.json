@@ -4,17 +4,18 @@
     "pages/index/index",
     "pages/friend/friend",
     "pages/my/my",
+    "pages/activity/activity",
     "pages/my/myProfile/myProfile",
     "pages/my/myActivities/myActivities",
     "pages/my/blacklist/blacklist",
     "pages/my/myFans/myFans",
     "pages/my/myFollow/myFollow",
     "pages/my/myFriends/myFriends",
-    "pages/test/test",
     "pages/logs/logs",
     "pages/publish/publish",
     "pages/search/search",
-    "pages/search_result/search_result"
+    "pages/search_result/search_result",
+    "pages/comment/comment"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -37,6 +38,12 @@
       "iconPath": "icon/huodongxiangqu_1.png",
       "pagePath": "pages/index/index",
       "text": "活动"
+    },
+    {
+      "selectedIconPath": "icon/Leftbar_cloud_selected.png",
+      "iconPath": "icon/Leftbar_cloud_unselected.png",
+      "pagePath": "pages/activity/activity",
+      "text": "已加入"
     },
     {
       "selectedIconPath": "icon/Leftbar_cloud_selected.png",

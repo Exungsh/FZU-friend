@@ -13,6 +13,10 @@ Page({
     head_img: '',
     hasUserInfo: false,
     mytag: [[], [], []],
+    chosen_tag: [[], [], []],
+    tagNum: 0,
+    chosenNum: 0,
+    limit: 5,
     now_state: null,
     tag: [
       {value: 'sport', name: '运动'},
@@ -182,23 +186,60 @@ Page({
   },
 
  // 弹窗事件相关
- popWindow(e){
+  popWindow(e){
+    // 每次弹窗都初始化radiogroup
+    console.log("pop");
     let tag = this.data.tag;
-    let i = 0;
     for (let i = 0, len = tag.length; i < len; ++ i) {
       tag[i].checked = false;
     }
     this.setData({
       tag
     })
-    var that = this 
-    that.setData({
+    // 将mytag中的值对应的checkbox打勾并让chosen_tag与mytag同步
+    const mytag = this.data.mytag;
+    const tagNum = this.data.tagNum;
+    const limit = this.data.limit;
+    let small_tag = this.data.small_tag;
+    this.setData({
+      chosen_tag: mytag,
+      chosenNum: tagNum
+    })
+    // 若此时tagNum已经到达limit，则让除mytag外的checkbox不能被点击
+    if (tagNum == limit) {
+      // 先全都不能被点击
+      for (let i = 0, len = small_tag.length; i < len; i++) {
+        for (let j = 0, len2 = small_tag[i].length; j < len2; j++) {
+          small_tag[i][j].disabled = true; 
+        }
+      }
+      // mytag内的可以被点击
+      for (let i = 0, len = mytag.length; i < len; i++) {
+        for (let j = 0, len2 = mytag[i].length; j < len2; j++) {
+          for (let k = 0, len3 = small_tag[i].length; k < len3; k++) {
+            if (mytag[i][j] == small_tag[i][k].name) {
+              small_tag[i][k].disabled = false;
+            }
+          }
+        }
+      }
+    }
+    this.setData({
+      small_tag,
       now_state:true
     })
-    console.log(that.data.now_state);
   },
+
   //点击黑色背景触发的事件
   async hideModal(e){
+    const chosen_tag = this.data.chosen_tag;
+    const chosenNum = this.data.chosenNum;
+    console.log("hide");
+    this.setData({
+      mytag: chosen_tag,
+      tagNum: chosenNum
+    })
+    console.log(this.data.mytag, this.data.tagNum);
     wx.cloud.init({
         env: 'cloud1-3gbbimin78182c5d'
     })
@@ -231,13 +272,13 @@ Page({
     async function wait_array() {
         for(var i=0;i<mytag.length;++i) {
             for(var j=0;j<mytag[i].length;++j) {
-                array.push(mytag[i][j])
+              array.push(mytag[i][j])
             }
         }
     }
     await wait_array()
     app.globalData.my_tags=array
-    console.log(array)
+    // console.log(array)
     db.collection('user').where({
         _id: app.globalData.my_id
     })
@@ -250,7 +291,7 @@ Page({
 
   //选择标签事件
   radioChange_tag(e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value)
+    // 让被选中的radio所对应的checkgroup根据chosen_tag初始化checked
     let tag = this.data.tag;
     for (let i= 0, len = tag.length; i < len; ++ i) {
       tag[i].checked = false;
@@ -260,44 +301,113 @@ Page({
     })
     let i = 0;
     for (let len = tag.length; i < len; ++i) {
-      // tag[i].checked = tag[i].value === e.detail.value
-      if (tag[i].name === e.detail.value) break;
+      if (tag[i].name === e.detail.value) {
+        tag[i].checked = true;
+        break;
+      }
     }
-    const mytag = this.data.mytag;
+    
+    const chosen_tag = this.data.chosen_tag;
     let small_tag = this.data.small_tag;
     for (let j = 0, len2 = small_tag[i].length; j < len2; j++) {
       small_tag[i][j].checked = false;
     }
     
-    for (let j = 0, len2 = mytag[i].length; j < len2; j++) {
+    for (let j = 0, len2 = chosen_tag[i].length; j < len2; j++) {
       for (let k = 0, len3 = small_tag[i].length; k < len3; k++) {
-        if (small_tag[i][k].name == mytag[i][j]) {
+        if (small_tag[i][k].name == chosen_tag[i][j]) {
           small_tag[i][k].checked = true;
-          console.log(small_tag[i][k]);
           break;
         }  
       }
     }
     
-    tag[i].checked = true;
+    
     this.setData({
       tag,
       small_tag
     })
-    console.log(this.data.tag, this.data.small_tag);
   },
 
   checkboxChange(e) {
-    // console.log(e.currentTarget.dataset.big);
-    console.log('radio发生change事件，携带value值为：', e.detail.value);
+    let chosen_tag = this.data.chosen_tag;
+    let chosenNum = this.data.chosenNum;
+    const limit = this.data.limit;
     const big = e.currentTarget.dataset.big;
     const value = e.detail.value;
-    let mytag = this.data.mytag;
-    mytag[big] = value
+    let small_tag = this.data.small_tag;
+    // 如果checkbox的选中数增多，如果此时选中数小于limit，则修改chosen_tag并打勾
+    if (value.length > chosen_tag[big].length) {
+      if (chosenNum < limit) {
+        chosenNum += 1;
+        chosen_tag[big] = value;
+        const add = value[value.length - 1]
+        for (let i = 0, len = small_tag[big].length; i < len; i++) {
+          if (small_tag[big][i].name == add) {
+            small_tag[big][i].checked = true;
+            break;
+          }
+        }
+        // 若增大后的chosenNum到达limit，则让除chosen_tag外的checkbox不能被点击
+        if (chosenNum == limit) {
+          // 先全禁
+          for (let i = 0, len = small_tag.length; i < len; i++) {
+            for (let j = 0, len2 = small_tag[i].length; j < len2; j++) {
+              small_tag[i][j].disabled = true; 
+            }
+          }
+          // 再去解禁chosen_tag对应的checkbox
+          for (let i = 0, len = chosen_tag.length; i < len; i++) {
+            for (let j = 0, len2 = chosen_tag[i].length; j < len2; j++) {
+              for (let k = 0, len3 = small_tag[i].length; k < len3; k++) {
+                if (chosen_tag[i][j] == small_tag[i][k].name) {
+                  small_tag[i][k].disabled = false;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    // 如果选中数减少，则去寻找被取消的checkbox，让其取消打勾
+    else if (value.length < chosen_tag[big].length){
+      let drop;
+      for (let i = 0, len = chosen_tag[big].length; i < len; i++) {
+        let flag = 0;
+        for (let j = 0, len2 = value.length; j < len2; j++) {
+          if (value[j] == chosen_tag[big][i]) {
+            flag = 1;
+            break
+          }
+        }
+        if (!flag) {
+          drop = chosen_tag[big][i];
+          break;
+        }
+      }
+      for (let i = 0, len = small_tag[big].length; i < len; i++) {
+        if (small_tag[big][i].name == drop) {
+          small_tag[big][i].checked = false;
+          break;
+        }
+      }
+      // 如果减少前的chosenNum达到limit，则全体解禁
+      if (chosenNum == limit) {
+        for (let i = 0, len = small_tag.length; i < len; i++) {
+          for (let j = 0, len2 = small_tag[i].length; j < len2; j++) {
+            small_tag[i][j].disabled = false;
+          }
+        }
+      }
+      chosen_tag[big] = value;
+      chosenNum -= 1;
+    } 
+
     this.setData({
-      mytag
+      chosen_tag,
+      chosenNum,
+      small_tag
     })
-    console.log(mytag);
   },
   /**
    * 生命周期函数--监听页面加载
@@ -310,7 +420,15 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
+    const mytag = this.data.mytag;
+    let num = 0;
+    for (let i = 0, len = mytag.length; i < len; i++) {
+      num += mytag[i].length
+    }
+    this.setData({
+      tagNum: num
+    })
+    console.log(this.data.mytag, this.data.tagNum);
   },
 
   /**
@@ -348,6 +466,17 @@ Page({
       head_img: app.globalData.head_img,
       mytag: array
     })
+  },
+  tagConfirm() {
+    const chosen_tag = this.data.chosen_tag;
+    const chosenNum = this.data.chosenNum;
+    console.log("hide");
+    this.setData({
+      mytag: chosen_tag,
+      tagNum: chosenNum
+    })
+    console.log(this.data.mytag, this.data.tagNum);
+    this.hideModal();
   },
 
   /**

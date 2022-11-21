@@ -1,0 +1,42 @@
+<!--pages/comment/comment.wxml-->
+<!-- 悬浮窗 -->
+<!-- 总高度245px -->
+<view class="card" style="left: {{card_display}};">
+  <view class="head">
+    <view class='card-title'>{{ datadict.name }}</view>
+    <view class="close" bindtap="close_float">×</view>
+  </view>
+  <text class='card-date' style="font-size: 12px;border: 0;padding: 0;margin-bottom: 15rpx;">{{ datadict.date }} {{datadict.time}}</text>
+  <text class='card-place'>活动地点：{{ datadict.place }}</text>
+  <view>
+    <view style="font-size: 14px;color: #487267;margin-bottom: 15rpx;">
+      <text>参加人员：</text>
+    </view>
+    <view style="height: 100px; overflow-x: scroll;white-space: nowrap;">
+      <view class="card_people" wx:for="{{datadict.people}}">
+        <view>
+          <image src="{{item.head}}" class="people_head" id="{{item.id}}">
+          </image>
+          <view class="people_gender" style="background-color: {{item.gender==1?'#70C9F3':'#F5BEDF'}};"></view>
+        </view>
+        <view class="people_name">
+          {{item.name}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 缩略悬浮窗 -->
+<view class="small_float" bindtap="open_float" style="display: {{small_display}};">ㄑ</view>
+<!-- 占位窗口 -->
+<view class="float_holder" style="margin-top: {{holder_display}};"></view>
+<!-- 消息列表 -->
+<view class="comment" wx:for="{{datadict.comment}}">
+  <text class="comment_name">{{item.name}} : </text><text class="comment_text">{{item.comment}}</text>
+</view>
+<view style="height: 60px;"></view>
+<!-- 发表评论 -->
+<view class="post">
+  <input type="text" name="comment" class="post_input" bindconfirm="post_send" bindinput="post_input" value="{{post_value}}"/>
+  <view class="post_submit" bindtap="post_send">↑</view>
+</view>

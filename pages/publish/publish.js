@@ -257,7 +257,8 @@ Page({
       people_need: e.detail.value.joinNum,
       place: e.detail.value.place,
       small_tag: e.detail.value.small_tag,
-      big_tag: e.detail.value.big_tag
+      big_tag: e.detail.value.big_tag,
+      time: e.detail.value.time,
     }
     //插入大类
     await db.collection(e.detail.value.big_tag).add({
@@ -296,12 +297,10 @@ Page({
         activities: _.set(app.globalData.my_activities)
       }
     })
-
-  },
-  publish() {
     setTimeout(() => {
       wx.navigateBack({})
     }, 100);
-
+  },
+  publish() {
   }
 })

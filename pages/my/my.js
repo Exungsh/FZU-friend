@@ -7,14 +7,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    name: "Exungsh", 
-    intro: '...',
-    friendnumble: 51,
-    follownumble: 48,
-    followednumble: 104,
+    name: "", 
+    intro: '',
+    friendnumble: 0,
+    follownumble: 0,
+    followednumble: 0,
     switchAllChecked: true,
     head_img: "",
-    wx_account: ''
+    wx_account: '',
+    is_fzu: false
   },
 
   //swich开关
@@ -80,7 +81,36 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
+  async onShow() {
+    wx.cloud.init({
+      env: 'cloud1-3gbbimin78182c5d'
+    })
+    const db = wx.cloud.database()
+    const _ = db.command
+    var a_friend=[]
+    var a_fan=[]
+    async function wait_ff(){
+      var countResult = await db.collection('user').where({
+        my_follow: _.all([app.globalData.my_id])
+      }).count()
+      var total = Math.ceil(countResult.total/20)
+      for(var i=0;i<total;++i) {
+        var res = await db.collection('user').where(
+          {my_follow: _.all([app.globalData.my_id])}
+        ).skip(i*20).limit(20).get()
+        for(var j=0;j<res.data.length;++j) {
+          a_fan.push(res.data[j]._id)
+          for(var k=0,l=j;k<app.globalData.my_follow.length;++k){
+            if(app.globalData.my_follow[k]==res.data[l]._id) {
+              a_friend.push(res.data[l]._id)
+            }
+          }
+        }     
+      }
+    }
+    await wait_ff()
+    app.globalData.my_fan=a_fan
+    app.globalData.my_friend=a_friend
     this.setData({
       name: app.globalData.my_name,
       intro: app.globalData.userInfo,
@@ -89,7 +119,8 @@ Page({
       followednumble: app.globalData.my_fan.length,
       switchAllChecked: app.globalData.is_find,
       head_img: app.globalData.head_img,
-      wx: app.globalData.wx
+      wx_account: app.globalData.wx,
+      is_fzu: app.globalData.is_fzu
     })
   },
 
@@ -110,8 +141,47 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh() {
-
+  async onPullDownRefresh() {
+    wx.cloud.init({
+      env: 'cloud1-3gbbimin78182c5d'
+    })
+    const db = wx.cloud.database()
+    const _ = db.command
+    var a_friend=[]
+    var a_fan=[]
+    async function wait_ff(){
+      var countResult = await db.collection('user').where({
+        my_follow: _.all([app.globalData.my_id])
+      }).count()
+      var total = Math.ceil(countResult.total/20)
+      for(var i=0;i<total;++i) {
+        var res = await db.collection('user').where(
+          {my_follow: _.all([app.globalData.my_id])}
+        ).skip(i*20).limit(20).get()
+        for(var j=0;j<res.data.length;++j) {
+          a_fan.push(res.data[j]._id)
+          for(var k=0,l=j;k<app.globalData.my_follow.length;++k){
+            if(app.globalData.my_follow[k]==res.data[l]._id) {
+              a_friend.push(res.data[l]._id)
+            }
+          }
+        }     
+      }
+    }
+    await wait_ff()
+    app.globalData.my_fan=a_fan
+    app.globalData.my_friend=a_friend
+    this.setData({
+      name: app.globalData.my_name,
+      intro: app.globalData.userInfo,
+      friendnumble: app.globalData.my_friend.length,
+      follownumble: app.globalData.my_follow.length,
+      followednumble: app.globalData.my_fan.length,
+      switchAllChecked: app.globalData.is_find,
+      head_img: app.globalData.head_img,
+      wx_account: app.globalData.wx,
+      is_fzu: app.globalData.is_fzu
+    })
   },
 
   /**
