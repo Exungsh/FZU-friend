@@ -16,7 +16,7 @@
       </view>
       <view class="follow" data-_id="{{item.id}}" data-num="{{item.num}}"  bindtap="follow" style="background-color: {{item.follow==-1?'#588c7e':'#f0f9f6'}};color: {{item.follow==-1?'#f0f9f6':'#588c7e'}};border: {{item.follow==-1?'':'#588c7e solid 1px'}};height: 60rpx;width: 120rpx;border-radius: 30rpx; box-sizing: border-box;">{{item.follow==-1?'Follow':'Unfollow'}}</view>
     </view>
-    <view class="tags">
+    <view class="tags" style="overflow-x: scroll; white-space: nowrap;">
       <ul>
         <li wx:for="{{item.friend_tag}}">
           <view>{{item}}</view>
@@ -26,5 +26,5 @@
  </view>
 </view>
 <view style="height: 30px;line-height: 10px; text-align: center;color: #588c7e;font-size: 12px;margin-top: 15px;">
-我是有底线的 :-)
+Tip：最近一起参加过活动的人会出现在“最近”列表
 </view>

@@ -27,40 +27,41 @@ Page({
     [{value: 'barbecue', name: '烧烤'}, {value: 'malatang', name: '麻辣烫'}, {value: 'milk tea', name: '奶茶'}, {value: 'hot pot', name: '火锅'}, {value: 'coffee', name: '咖啡'}, {value: 'Japanese cuisine', name: '日料'}, {value: 'Sichuan Cuisine', name: '川菜'}, {value: 'snack', name: '小吃'}, {value: 'fried chicken', name: '炸鸡'}, {value: 'buffet', name: '自助餐'}], 
     [{value: 'movie', name: '电影'}, {value: 'The script to kill', name: '剧本杀'}, {value: 'role-playing games', name: '桌游'}, {value: 'KTV', name: 'KTV'}, {value: 'Secret room escape', name: '密室逃脱'}, {value: 'live house', name: 'live house'}, {value: 'shopping', name: '逛街'}]]
   },
-
-  getMyInfor: function() {
+  onChooseAvatar(e) {
     wx.cloud.init({
-        env: 'cloud1-3gbbimin78182c5d'
+      env: 'cloud1-3gbbimin78182c5d'
     })
-    const db = wx.cloud.database()
+    const db = wx.cloud.database();
     const _ = db.command
-    wx.getUserProfile({
-      desc: '获取用户信息',
-      success: (res) => {
-        let userInfo = res.userInfo;
-        this.setData({
-            hasUserInfo: true,
-            head_img: userInfo.avatarUrl,
-            name: userInfo.nickName
-        })
-        app.globalData.my_name=userInfo.nickName
-        app.globalData.head_img=userInfo.avatarUrl
-        db.collection('user').where({
-            _id: app.globalData.my_id
-          })
-          .update({
-            data: {
-              name: _.set(this.data.name),
-              head_img:_.set(this.data.head_img)
-            }
-          })
-      },
-      fail: function() {
-        console.log("fail");
-      } 
+    var that=this
+    var old_head = app.globalData.head_img
+
+    wx.cloud.uploadFile({
+      cloudPath: Date.now()+'.png', // 上传至云端的路径
+      filePath: e.detail.avatarUrl, // 小程序临时文件路径
+    })
+    .then((res)=>{
+      that.setData({
+        head_img: res.fileID
+      })
+      app.globalData.head_img=res.fileID
+      console.log(res.fileID)
+      db.collection('user').where({
+        _id: app.globalData.my_id
+      })
+      .update({
+        data: {
+          head_img: _.set(res.fileID),
+        }
+      })
+    })
+    .then(()=>{
+      wx.cloud.deleteFile({
+        fileList: [old_head],
+      }) 
     })
   },
-
+  
   getName: function(e) {
     this.setData({
       name: e.detail.value
@@ -496,8 +497,41 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh() {
-
+  async onPullDownRefresh() {
+    if(app.globalData.my_sex==1) {
+      this.setData({
+          choose1: true,
+          choose2: false
+      })
+    }
+    else {
+        this.setData({
+            choose1: false,
+            choose2: true
+        })
+    }
+    var array=[[],[],[]]
+    async function wait_tag(){
+        for(var i=0;i<app.globalData.my_tags.length;++i) {
+            for(var j=0;j<3;++j) {
+                for(var k=0;k<app.globalData.all_tags[j].length;++k) {
+                    if(app.globalData.my_tags[i]==app.globalData.all_tags[j][k]) {
+                        array[j].push(app.globalData.my_tags[i])
+                    }
+                }
+            }
+        }
+    }
+    await wait_tag()
+    this.setData({
+      name: app.globalData.my_name,
+      intro: app.globalData.userInfo,
+      head_img: app.globalData.head_img,
+      mytag: array
+    })
+    setTimeout(()=>{
+      wx.stopPullDownRefresh()
+    },app.globalData.refresh_time)
   },
 
   /**

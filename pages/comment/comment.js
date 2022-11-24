@@ -5,99 +5,26 @@ const app = getApp()
 Page({
   data: {
     datadict: {
-      // name: "活动_Activity_test",
-      // date: "2044-44-44",
-      // time: "26:89",
-      // place: "FFFFFzu",
-      // intro: "hahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaha",
-      people: [
-        // {
-        //   "id": "0",
-        //   "name": "people0",
-        //   "gender": "0",
-        //   "head": ""
-        // },
-        // {
-        //   "id": "1",
-        //   "name": "people1",
-        //   "gender": "1",
-        //   "head": ""
-        // },
-        // {
-        //   "id": "0",
-        //   "name": "people0",
-        //   "gender": "1",
-        //   "head": ""
-        // },
-        // {
-        //   "id": "0",
-        //   "name": "people0",
-        //   "gender": "1",
-        //   "head": ""
-        // },
-        // {
-        //   "id": "0",
-        //   "name": "people0",
-        //   "gender": "1",
-        //   "head": ""
-        // },
-        // {
-        //   "id": "0",
-        //   "name": "people0",
-        //   "gender": "1",
-        //   "head": ""
-        // },
-        // {
-        //   "id": "0",
-        //   "name": "people0",
-        //   "gender": "1",
-        //   "head": ""
-        // },
-        // {
-        //   "id": "0",
-        //   "name": "people0",
-        //   "gender": "1",
-        //   "head": ""
-        // },
-        // {
-        //   "id": "0",
-        //   "name": "people0",
-        //   "gender": "1",
-        //   "head": ""
-        // },
-      ],
-      comment: [
-        // {
-        //   name: "Exungsh",
-        //   comment: "This is a test."
-        // },
-        // {
-        //   name: "Exungsh",
-        //   comment: "This is a test when there is a very looooong comment."
-        // },
-        // {
-        //   name: "Exungsh",
-        //   comment: "This is a test when there is a very looooong comment."
-        // },
-        // {
-        //   name: "Exungsh",
-        //   comment: "This is a test."
-        // },
-        // {
-        //   name: "Exungsh",
-        //   comment: "This is a test when there is a very looooong comment."
-        // }
-      ],
+      people: [],
+      comment: [],
+    },
+    detail_dict:{
+      name:"Exungsh",
+      sex:"1",
+      head:"",
+      intro:"This is a test",
+      follow_flag:0,
+      black_flag:0
     },
     post_value: "",
     name: "",
     id: "",
     head: "",
-    members: [
-
-    ],
+    members: [],
     form_kind: "",
-    active_id: ""
+    active_id: "",
+    detail_flag:0,
+    detail_id:""
   },
   close_float() {
     this.setData({
@@ -139,7 +66,7 @@ Page({
   async get_activeinfo(form_kind, active_id) {
     return new Promise(function (reslove, reject) {
       var datadict = {}
-      wx.cloud.database().collection('all_entertainment').doc('4e51c63663778908005be1bd10c5b7bd').get().then(res => {
+      wx.cloud.database().collection(form_kind).doc(active_id).get().then(res => {
         console.log('获取信息成功');
         datadict.comment = res.data.comment
         datadict.members = res.data.members
@@ -156,14 +83,13 @@ Page({
   },
   async onLoad(options) {
     var that = this
-    //  that.data.form_kind = options.form_kind
-    //  that.data.active_id = options.active_id
+    console.log( options.form_kind,options.active_id);
     that.setData({
       name: app.globalData.my_name,
       id: app.globalData.my_id,
       head: app.globalData.head_img
     })
-    await this.get_activeinfo().then(res => {
+    await this.get_activeinfo(options.form_kind,options.active_id).then(res => {
       console.log(res)
       that.data.datadict.date = res.date
       that.data.datadict.comment = res.comment
@@ -225,5 +151,138 @@ Page({
     this.setData({
       post_value:""
     })
+  },
+  close_detail(){
+    this.setData({
+      detail_flag:0
+    })
+  },
+  async open_detail(e){
+    wx.cloud.init({
+      env: 'cloud1-3gbbimin78182c5d'
+    })
+    const db = wx.cloud.database()
+    const _ = db.command
+    var _id=e.currentTarget.id
+    var is_follow=-1;
+    var is_hmd=-1;
+    var that=this
+    console.log(app.globalData.my_hmd)
+    async function wait(){
+      for(var i=0;i<app.globalData.my_follow.length;++i){
+        if(app.globalData.my_follow[i]==_id){
+          is_follow=1;
+        }
+      }
+      for(var i=0;i<app.globalData.my_hmd.length;++i){
+        if(app.globalData.my_hmd[i]==_id){
+          is_hmd=1;
+        }
+      }
+    }
+    await wait()
+    db.collection('user').where({
+      _id: _id
+    }).get()
+    .then((res)=>{
+      var people={
+        id:_id,
+        name:res.data[0].name,
+        sex:res.data[0].sex,
+        head:res.data[0].head_img,
+        intro:res.data[0].intro,
+        follow_flag:is_follow,
+        black_flag:is_hmd
+      }
+      this.setData({
+        detail_dict: people,
+        detail_flag: 1,
+        detail_id:e.currentTarget.id
+      })
+    })
+  },
+  async follow(){
+    wx.cloud.init({
+      env: 'cloud1-3gbbimin78182c5d'
+    })
+    const db = wx.cloud.database()
+    const _ = db.command
+    var that=this
+    if(app.globalData.my_id==this.data.detail_id){
+      wx.showToast({
+        title: '不能添加自己为好友',
+        duration: 1000
+      })
+    }
+    else{
+      async function wait(){
+        if(that.data.detail_dict.follow_flag==1){//准备取关
+          for(var i=0;i<app.globalData.my_follow.length;++i){
+            if(app.globalData.my_follow[i]==that.data.detail_dict.id){
+              app.globalData.my_follow.splice(i,1)
+            }
+          }
+        }
+        else{//关注
+          app.globalData.my_follow.push(that.data.detail_dict.id)
+        }
+      }
+      await wait()
+      var people=this.data.detail_dict
+      people.follow_flag*=-1
+      db.collection('user').where({
+        _id: app.globalData.my_id
+      })
+      .update({
+        data: {
+          my_follow: _.set(app.globalData.my_follow)
+        }
+      })
+      this.setData({
+        detail_dict: people
+      })
+    }
+  },
+  async black(){
+    wx.cloud.init({
+      env: 'cloud1-3gbbimin78182c5d'
+    })
+    const db = wx.cloud.database()
+    const _ = db.command
+    var that=this
+    if(app.globalData.my_id==this.data.detail_id){
+      wx.showToast({
+        title: '不能把自己拉黑',
+        duration: 1000
+      })
+    }
+    else{
+      async function wait(){
+        if(that.data.detail_dict.black_flag==1){//准备取关
+          for(var i=0;i<app.globalData.my_hmd.length;++i){
+            if(app.globalData.my_hmd[i]==that.data.detail_dict.id){
+              app.globalData.my_hmd.splice(i,1)
+            }
+          }
+        }
+        else{//关注
+          app.globalData.my_hmd.push(that.data.detail_dict.id)
+        }
+      }
+      await wait()
+      var people=this.data.detail_dict
+      people.black_flag*=-1
+      db.collection('user').where({
+        _id: app.globalData.my_id
+      })
+      .update({
+        data: {
+          hmd: _.set(app.globalData.my_hmd)
+        }
+      })
+      this.setData({
+        detail_dict: people
+      })
+    }
   }
 })

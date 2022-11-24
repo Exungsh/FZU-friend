@@ -38,7 +38,7 @@
 .morepoint {
   position: absolute;
   left: 83%;
-  font-size: 15px;
+  font-size: 14px;
   font-weight:bolder;
   color: #487267;
   height: 30px;

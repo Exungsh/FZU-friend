@@ -1,7 +1,7 @@
 <!--pages/activity/activity.wxml-->
-<view class="card" wx:for="{{ msgList }}"  wx:key="id" bindtap="jumpToDetail">
+<view class="card" wx:for="{{ msgList }}"  wx:key="id" bindtap="jumpToDetail" data-id="{{item.id}}">
     <text class='card-title'>{{ item.title }}</text>
-    <view catchtap="bindor"class="morepoint" id="{{item.id}}">
+    <view catchtap="bindor"class="morepoint" id="{{item.host}}">
       ···
     </view>
     <text class='card-date'>活动时间：{{ item.date }} {{item.time}}</text>
@@ -9,6 +9,9 @@
     <!-- <image  class="card-img" src='{{ item.image }}'  mode="aspectFill"></image> -->
     <text class='card-intro'>活动描述：{{ item.intro }}</text>
     <text class='card-read arrow'>轻触查看详情</text>
+</view>
+<view style="height: 30px;line-height: 10px; text-align: center;color: #588c7e;font-size: 12px;margin-top: -10px;">
+  Tip：参加的活动会出现在这里
 </view>
 
 <!-- 悬浮窗来啦 -->

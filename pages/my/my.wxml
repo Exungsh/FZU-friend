@@ -1,17 +1,22 @@
-<!--pages/my/my.wxml-->
-<view style="height: 40rpx;"></view>
+<!--pages/test/test.wxml-->
+<!-- 头像 -->
 <view class="top">
-  <view class="head">
-    <image src="{{head_img}}"></image>
-  </view>
-  <view class="title">
-    <view class="name">
+  <view class="card">
+    <view class="head">
+      <view>
+        <image src="{{head_img}}"></image>
+      </view>
+      <view class="gender">
+      </view>
+    </view>
+    <view class="detail">
+      <view class="name">
       {{name}}
-    </view>
-    <view class="intro">
-      简介: {{intro}}
-    </view>
-    <view class="focus">
+      </view>
+      <view class="intro">
+      简介：{{intro}}
+      </view>
+      <view class="focus">
       <navigator url="../my/myFriends/myFriends" open-type="navigate" hover-class="navigator-hover" style="margin-right: 10rpx;">
         {{friendnumble}} 朋友 |
       </navigator>
@@ -26,38 +31,38 @@
         {{followednumble}} 粉丝
       </navigator>
     </view>
-  </view>
-</view>
-<view class="privacy">
-  账户
-</view>
-<view class="jump_details">
-  <navigator url="../my/myProfile/myProfile" open-type="navigate" hover-class="navigator-hover" style="font-size: 14px;color: #487267;">个人资料</navigator>
-  <view class="arrow"></view>
-</view>
-<view class="jump_details">
-  <navigator url="../my/myActivities/myActivities" open-type="navigate" hover-class="navigator-hover" style="font-size: 14px;color: #487267;">我的活动</navigator>
-  <view class="arrow"></view>
-</view>
-<view class="jump_details">
-  <navigator url="../my/blacklist/blacklist" open-type="navigate" hover-class="navigator-hover" style="font-size: 14px;color: #487267;">黑名单</navigator>
-  <view class="arrow"></view>
-</view>
-<view class="privacy">
-  隐私
-</view>
-
-<view class="jump_details">
-  <view class="item">
-    微信号
-    <view class="numble">
-      <input placeholder="{{wx_account}}" type="numeber" bindinput="getNumble" bindconfirm="comfire_wx" style="font-size: 13px;display: inline-block;position: relative; top: 2px;left: -20rpx;"></input>
     </view>
   </view>
-
-
-  <view class="item">
-    <text style="display: inline-block; width: 80%;">他人是否可在朋友界面找到你</text>
-    <switch checked bindchange="switchChange" color="#588c7e"></switch>
+</view>
+<!-- 按钮 -->
+<view class="buttons">
+  <view class="button button_left" bindtap="myprofile">
+    <view>
+      <image src="/icon/zhanghu.png"></image>
+    </view>
+    <view class="button_name">我的资料</view>
+    <view class="button_intro">昵称、头像、简介等</view>
+  </view>
+  <view class="button" bindtap="blacklist">
+    <view>
+      <image src="/icon/heimingdan.png"></image>
+    </view>
+    <view class="button_name">黑名单</view>
+    <view class="button_intro">在用户详情中拉黑</view>
+  </view>
+  <view class="button button_left" bindtap="fzu_identify">
+    <view>
+      <image src="{{!is_fzu?'/icon/16gl-questionMark.png':'/icon/renzheng.png'}}"></image>
+    </view>
+    <view class="button_name">福大认证</view>
+    <view class="button_intro">认证后可参加活动</view>
+  </view>
+  <view class="button">
+    <view>
+      <image src="/icon/suoding.png"></image>
+      <switch checked="{{switchAllChecked}}" bindchange="switchChange" color="#588c7e"></switch>
+    </view>
+    <view class="button_name">隐私</view>
+    <view class="button_intro">能否在"朋友"界面中找到你</view>
   </view>
 </view>

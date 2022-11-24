@@ -6,12 +6,12 @@
   </view>
 </view>
 
-<view class="getinfor" bindtap="getMyInfor">获取微信头像昵称</view>
+<button class="getinfor" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar" style="text-align:center;height:60rpx;border-radius:50rpx;padding: 4rpx;">获取福友阁头像</button>
 
 <block>
   <view class="black">
     <text class="editvalue">昵称</text>
-    <input placeholder="{{name}}" bindinput="getName" bindconfirm="comfire_name"></input>
+    <input type = "nickname" placeholder="{{name}}" bindinput="getName" bindconfirm="comfire_name"></input>
   </view>
   <view class="black">
   <text class="editvalue">性别</text>
@@ -24,7 +24,7 @@
 </view>
   <view class="black">
     <text class="editvalue">简介</text>
-    <input placeholder="{{intro}}" bindinput="getIntro" bindconfirm="comfire_intro"></input>
+    <input placeholder="{{intro}}" bindinput="getIntro" bindconfirm="comfire_intro" confirm-type="done"></input>
   </view>
 </block>
 

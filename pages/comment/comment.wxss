@@ -92,13 +92,104 @@
   margin-top: -12px;
 }
 
+/* person_detail */
+.box{
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: rgba(97, 89, 89, 0.28);
+  z-index: 5;
+}
+.person_detail {
+  box-sizing: border-box;
+  position: relative;
+  width: 70%;
+  height: 160px;
+  left: 15%;
+  top: 35%;
+  background-color: #f0f9f6;
+  z-index: 10;
+  border-radius: 25rpx;
+  padding: 20px;
+  box-shadow: 0 0 55px 0 #a2a8a6;
+}
+
+.detail_head {
+  float: left;
+  box-sizing: border-box;
+  height: 100px;
+  width: 80px;
+}
+
+.detail_gender {
+  position: relative;
+  left: 60px;
+  top: -20px;
+  height: 20px;
+  width: 20px;
+  background-color: #588c7e;
+  border-radius: 50%;
+}
+
+.detail_head image {
+  background-color: #588c7e;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+}
+
+.detail_more {
+  box-sizing: border-box;
+  float: left;
+  margin-left: 15px;
+  height: 100px;
+  width: 150px;
+  padding-top: 10px;
+}
+.detail_name{
+  height: 30px;
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: bold;
+  color: #487267;
+}
+.detail_intro{
+  font-size: 14px;
+  color: #588c7e;
+  height: 50px;
+  overflow: hidden;
+}
+.buttons{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.buttons view{
+  float: left;
+  height: 45px;
+  width: 45%;
+  line-height: 45px;
+  text-align:center;
+  border-radius: 25px;
+}
+.follow{
+  margin-right: 10%;
+  color: #487267;
+}
+.black{
+  color:#8bada4
+}
+
+
 /* small_float_card */
 .small_float {
   display: none;
   box-sizing: border-box;
   height: 100px;
   width: 30px;
-  background-color:#588c7e;
+  background-color: #588c7e;
   position: fixed;
   right: 0;
   top: 80px;
@@ -109,6 +200,7 @@
   color: #f0f9f6;
   border-radius: 15px 0 0 15px;
 }
+
 
 /* float_holder */
 .float_holder {
@@ -124,48 +216,53 @@
   padding: 10px 15px;
   background-color: #f0f9f6;
   border-radius: 15px;
-  overflow-wrap:break-word;
+  overflow-wrap: break-word;
 }
-.comment_name{
+
+.comment_name {
   line-height: 20px;
   font-size: 14px;
   color: #487267;
 }
-.comment_text{
+
+.comment_text {
   line-height: 20px;
   font-size: 14px;
   color: #588c7e;
 }
+
 /* post */
-.post{
+.post {
   position: fixed;
   box-sizing: border-box;
   bottom: 0;
-  height:60px;
+  height: 60px;
   width: 100%;
   background-color: #f0f9f6;
-  border-radius: 15px 15px 0 0 ;
+  border-radius: 15px 15px 0 0;
   padding: 10px;
   box-shadow: 0 0 55px 0 #a2a8a6;
 }
-.post_input{
+
+.post_input {
   box-sizing: border-box;
   display: block;
   float: left;
   height: 40px;
   width: 87%;
-  border:#588c7e solid 1px;
+  border: #588c7e solid 1px;
   border-radius: 10px;
   margin-right: 3%;
-  padding:0 10px;
+  padding: 0 10px;
   color: #487267;
 }
-.post_submit{
+
+.post_submit {
   display: block;
   float: left;
   height: 40px;
   width: 10%;
-  background-color:#588c7e;
+  background-color: #588c7e;
   color: #f0f9f6;
   font-size: 16px;
   font-weight: bold;

@@ -1,104 +1,107 @@
-/* pages/my/my.wxss */
-/* 头像等个人信息所处行 */
-.top {
-  height: 240rpx;
-  background-color: #f0f9f6;
+/* pages/test/test.wxss */
+page{
+  background-color: #ebf5f1;
 }
-
-/* 头像背景框 */
+.top{
+  height: 100px;
+  background-color:#588c7e;
+  margin-bottom: 140rpx;
+}
+.card{
+  box-sizing: border-box;
+  width: 360px;
+  height: 140px;
+  margin: 0 auto;
+  position: relative;
+  top: 30px;
+  border-radius: 20rpx;
+  padding: 20px 0;
+}
 .head{
-  display:block;
   float: left;
-  height: 180rpx;
-  width: 180rpx;
-  margin: 30rpx 35rpx;
+  height: 110px;
+  width: 110px;
   border-radius: 50%;
   background-color:#588c7e;
 }
-/* 头像图片 */
 .head image{
-  height: 180rpx;
-  width: 180rpx;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  border: #ebf5f1 solid 5px;
+}
+.gender{
+  height: 20px;
+  width: 20px;
+  background-color:#70C9F3;
+  position: relative;
+  left: 75px;
+  top:-25px;
   border-radius: 50%;
 }
-
-/* 头像右侧个人信息集 */
-.title{
+.detail{
+  box-sizing: border-box;
+  display: block;
   float: left;
-  height: 190rpx;
-  width: 500rpx;
-  margin:35rpx 0;
+  height: 100px;
+  padding: 10px 20px;
+  width: 200px;
 }
-
 .name{
-  height: 80rpx;
-  width: 500rpx;
-  line-height: 80rpx;
-  font-size: 20px;
-  color: #487267;
+  font-size: 22px;
   font-weight: bold;
+  color: #f0f9f6;
+  margin-bottom: 12px;
+  width: 200px;
+  margin-top: 6px;
 }
-
 .intro{
-  height: 40rpx;
-  width: 500rpx;
-  line-height: 40rpx;
-  font-size: 13px;
-  color:#487267;
+  width: 220px;
+  font-size: 12px;
+  color: #487267;
+  text-overflow:ellipsis; word-wrap:break-word
 }
-
-/* 朋友、关注、粉丝 */
+.buttons{
+  width: 650rpx;
+  margin: 0 auto;
+}
+.button{
+  display: block;
+  float: left;
+  box-sizing: border-box;
+  height: 200rpx;
+  width: 310rpx;
+  padding: 30rpx;
+  background: #f0f9f6;
+  border-radius: 25rpx;
+  box-shadow: #588c7e8a 0 0 5px;
+  margin-bottom: 30rpx;
+}
+.button_left{
+  margin-right: 30rpx;
+}
+.button_name{
+  font-weight: bold;
+  color: #588c7e;
+}
+.button_intro{
+  margin-top: 8rpx;
+  font-size: 11px;
+  color: #a2c5bc;
+}
+.button image{
+  height: 45rpx;
+  width: 45rpx;
+  margin-bottom: 10rpx;
+}
 .focus{
   display: inline-block;
   height: 60rpx;
   line-height: 60rpx;
-  font-size: 13px;
+  font-size: 12px;
   color:#487267;
 }
-
-/* 需跳转页面的标签 */
-.jump_details{
-  background-color:#f0f9f6;
-  line-height: 80rpx;
-  border-radius: 3px;
-  margin-bottom: 1px;
-  padding-left: 5%;
+switch{
+  position:absolute;
+  right: 10%;
 }
-/* 隐私相关 */
-.privacy{
-  box-sizing: border-box;
-  padding-left: 35rpx;
-  width: 100%;
-  height: 60rpx;
-  line-height: 60rpx;
-  font-size: 15px;
-  font-weight: bold;
-  color: #487267;
-  margin-top: 30rpx;
-}
-.item{
-  height: 40px;
-  line-height: 40px;
-  font-size: 14px;
-  color:#487267;
-}
-
-.numble{
-  display: inline-block;
-  position: relative; left:40px; top: 3px;
-  text-align: left;
-  font-size: 15px;
-}
-
-/* 分界线 */
-.home-header-line {
-  background: #e0e3da;
-  width: 90%;
-  height: 2rpx;
-}
-
-/* 开关键 */
-.switch_C{
-  display: inline-block;
-}
-

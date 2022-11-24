@@ -42,6 +42,7 @@
   color: #f0f9f6;
   font-size: 14px;
   font-weight: 400;
+  transition-duration: 0.2s;
 }
 
 #nav_1 button {
@@ -51,7 +52,7 @@
 
 /* tag选择 */
 .select {
-  height: 80rpx;
+  height: 74rpx;
   width: 90%;
   background-color: #f0f9f6;
   margin: 0 auto;
@@ -66,6 +67,7 @@
 }
 
 .tag {
+  box-sizing: border-box;
   height: 74rpx;
   padding: 0 35rpx;
   display: inline-block;
@@ -73,6 +75,7 @@
   font-size: 12px;
   text-align: center;
   color: #97c2b5;
+  transition-duration: 0.2s;
 }
 
 .active {
@@ -148,6 +151,7 @@
   font-size: 25rpx;
 }
 
+/* 发布活动 */
 .publish {
   position: fixed;
   bottom: 50rpx;
@@ -160,6 +164,25 @@
   line-height: 74rpx;
   text-align: center;
   font-size: 50rpx;
+}
+
+/* 悬浮窗 */
+.float {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: rgba(97, 89, 89, 0.28);
+}
+
+.float_window {
+  position: fixed;
+  background-color: #f0f9f6;
+  border-radius: 40rpx;
+  height: 90%;
+  width: 80%;
+  left: 10%;
+  top: 5%;
 }
 
 .float_title {
@@ -186,20 +209,23 @@
   padding: 0 8%;
   font-size: 14px;
 }
-.float_intro{
+
+.float_intro {
   height: 180rpx;
   line-height: 60rpx;
   padding: 0 50rpx;
   font-size: 14px;
   overflow-y: scroll;
 }
-.float_people{
+
+.float_people {
   display: inline-block;
   height: 80px;
   width: 60px;
   margin-right: 15px;
 }
-.float_button{
+
+.float_button {
   box-sizing: border-box;
   display: inline-block;
   height: 100%;
@@ -207,4 +233,13 @@
   line-height: 50px;
   text-align: center;
   font-size: 15px;
+}
+/* 提示信息 */
+.tip {
+  height: 30px;
+  line-height: 10px;
+  text-align: center;
+  color: #588c7e;
+  font-size: 12px;
+  margin-top: 15px;
 }

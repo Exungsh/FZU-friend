@@ -15,7 +15,7 @@
     <view style="height: 100px; overflow-x: scroll;white-space: nowrap;">
       <view class="card_people" wx:for="{{datadict.people}}">
         <view>
-          <image src="{{item.head}}" class="people_head" id="{{item.id}}">
+          <image src="{{item.head}}" class="people_head" id="{{item.id}}" bindtap="open_detail">
           </image>
           <view class="people_gender" style="background-color: {{item.gender==1?'#70C9F3':'#F5BEDF'}};"></view>
         </view>
@@ -26,6 +26,28 @@
     </view>
   </view>
 </view>
+<!-- 个人详情 -->
+<view class="box" catchtap="close_detail" catchtouchmove="true" style="display:{{detail_flag==0?'none':'block'}}">
+  <view class="person_detail" catchtap="true">
+    <view style="height: 100px;">
+      <view class="detail_head">
+        <image src="{{detail_dict.head}}"></image>
+        <view class="detail_gender" style="background-color: {{detail_dict.sex==1?'#70C9F3':'#F5BEDF'}};"></view>
+      </view>
+      <view class="detail_more">
+        <view class="detail_name">
+          {{detail_dict.name}}
+        </view>
+        <text class="detail_intro">{{detail_dict.intro}}</text>
+      </view>
+    </view>
+    <view class="buttons">
+      <view class="follow" catchtap="follow">{{detail_dict.follow_flag==-1?'关注':'取关'}}</view>
+      <view class="black" catchtap="black">{{detail_dict.black_flag==-1?'拉黑':'取黑'}}</view>
+    </view>
+  </view>
+</view>
+
 <!-- 缩略悬浮窗 -->
 <view class="small_float" bindtap="open_float" style="display: {{small_display}};">ㄑ</view>
 <!-- 占位窗口 -->
@@ -37,6 +59,6 @@
 <view style="height: 60px;"></view>
 <!-- 发表评论 -->
 <view class="post">
-  <input type="text" name="comment" class="post_input" bindconfirm="post_send" bindinput="post_input" value="{{post_value}}"/>
+  <input type="text" name="comment" class="post_input" bindconfirm="post_send" bindinput="post_input" value="{{post_value}}" confirm-type="send" />
   <view class="post_submit" bindtap="post_send">↑</view>
 </view>

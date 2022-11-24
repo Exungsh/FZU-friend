@@ -17,6 +17,14 @@
     "pages/search_result/search_result",
     "pages/comment/comment"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于认证是否为FZU学生"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#588c7e",

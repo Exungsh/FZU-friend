@@ -188,9 +188,6 @@ App({
         }
       }
       await wait_ff()
-      wx.switchTab({
-        url: '/pages/my/my',
-      })
     } 
     else {
       that.globalData.my_id= openid
@@ -248,7 +245,8 @@ App({
     ],
     is_find: true,
     is_fzu: false,
-    max_limit: 6
+    max_limit: 6,
+    refresh_time: 200,
   }
 })
 

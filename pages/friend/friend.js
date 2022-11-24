@@ -286,6 +286,9 @@ Page({
       await this.update_recent()
       this.recent()
     }
+    setTimeout(()=>{
+      wx.stopPullDownRefresh()
+    },app.globalData.refresh_time)
   },
 
   /**

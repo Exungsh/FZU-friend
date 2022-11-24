@@ -1,4 +1,5 @@
 // pages/message/message.js
+const app = getApp()
 Page({
 
   /**
@@ -18,84 +19,13 @@ Page({
     choice_participant: ["退出活动"],
 
     //活动相关
-    activity_detail: {
-      "name": "啥比微信小程序",
-      "people_now": 9,
-      "people_need": 11,
-      "date": "2022-11-12",
-      "time": "11:35",
-      "place": "32#504",
-      "intro": "一想到要起床上班，我你吗的这个火噌的一下冒起来了我这个火我真的噌的一下我这个火我真的噌的一下我这个火我真的噌的一下我这个火我真的噌的一下我这个火我真的噌的一下我这个火我真的噌的一下",
-      people: [{
-          "id": "0",
-          "name": "people0",
-          "gender": "1",
-          "head": ""
-        },
-        {
-          "id": "1",
-          "name": "people1",
-          "gender": "1",
-          "head": ""
-        },
-        {
-          "id": "0",
-          "name": "people0",
-          "gender": "1",
-          "head": ""
-        },
-        {
-          "id": "0",
-          "name": "people0",
-          "gender": "1",
-          "head": ""
-        },
-        {
-          "id": "0",
-          "name": "people0",
-          "gender": "1",
-          "head": ""
-        },
-        {
-          "id": "0",
-          "name": "people0",
-          "gender": "1",
-          "head": ""
-        },
-        {
-          "id": "0",
-          "name": "people0",
-          "gender": "1",
-          "head": ""
-        },
-        {
-          "id": "0",
-          "name": "people0",
-          "gender": "1",
-          "head": ""
-        },
-        {
-          "id": "0",
-          "name": "people0",
-          "gender": "1",
-          "head": ""
-        }
-      ]
-    },
-    msgList: [{
-        id: '1',
-        title: "活动 111",
-        date: "2017-12-12",
-        time: "44:44",
-        place: "China",
-        intro: "越努力越幸运。一起来打羽毛球啊啊。越努力越幸运。一起来打羽毛球啊啊。越努力越幸运。一起来打羽毛球啊啊。越努力越幸运。一起来打羽毛球啊啊。越努力越幸运。一起来打羽毛球啊啊。越努力越幸运。一起来打羽毛球啊啊。越努力越幸运。一起来打羽毛球啊啊。",
-        host: "1" //发起人id
-      }
-    ]
+    activity_detail: {},
+    msgList: [],
+    active_list:[]
   },
-  bindor: function (e) {
+   bindor:function(e) {
     var choiceor = []
-    var con = this.data.host_flag
+    var con = e.currentTarget.id
     var that = this
     if(con == 1) {
       this.setData({
@@ -108,7 +38,6 @@ Page({
         choiceor: this.data.choice_participant
       })
     }
-
     wx.showActionSheet({
       itemList: this.data.choiceor,
       success: function (res) {
@@ -179,16 +108,93 @@ Page({
     that.closefloat()
   },
   //跳转到对应活动留言板
-  jumpToDetail: function () {
+  jumpToDetail: function (e) {
+    console.log(e.currentTarget.dataset.id);
+    var form_kind = this.data.msgList[e.currentTarget.dataset.id].form_kind
+    var active_id = this.data.active_list[e.currentTarget.dataset.id]
     wx.navigateTo({
-      url: '../comment/comment',
+      url: '../comment/comment?form_kind=' + form_kind + '&active_id=' + active_id,
     })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  // 活动信息查找
+  async active_detail(active_id, id) {
+    return new Promise(function (resolve, reject) {
+      const db1 = wx.cloud.database().collection('all_sport')
+      const db2 = wx.cloud.database().collection('all_ch')
+      const db3 = wx.cloud.database().collection('all_entertainment')
+      var msg = {}
+        db1.doc(active_id).get().then(res => {
+        msg.id = id
+        msg.title = res.data.name
+        msg.place = res.data.place
+        msg.date = res.data.date
+        msg.time = res.data.time
+        msg.intro = res.data.intro
+        msg.host = res.data.host,
+        msg.members = res.data.members,
+        msg.people_now = res.data.people_cnt,
+        msg.people_need = res.data.people_need,
+        msg.form_kind = 'all_sport'
+        console.log('all_sport表查找到活动', id);
+        resolve(msg)
+      }).catch(res => {})
+       db2.doc(active_id).get().then(res => {
+        msg.id = id
+        msg.title = res.data.name
+        msg.place = res.data.place
+        msg.date = res.data.date
+        msg.host = res.data.host
+        msg.time = res.data.time
+        msg.intro = res.data.intro
+        msg.members = res.data.members,
+        msg.people_now = res.data.people_cnt,
+        msg.people_need = res.data.people_need,
+        msg.form_kind = 'all_ch'
+        console.log('all_ch表查找到活动', id);
+        resolve(msg)
+      }).catch(res => {})
+      db3.doc(active_id).get().then(res => {
+        msg.id = id
+        msg.title = res.data.name
+        msg.place = res.data.place
+        msg.date = res.data.date
+        msg.host = res.data.host
+        msg.time = res.data.time
+        msg.intro = res.data.intro
+        msg.members = res.data.members,
+        msg.people_now = res.data.people_cnt,
+        msg.people_need = res.data.people_need,
+        msg.form_kind = 'all_entertainment'
+        console.log('all_entertainment表查找到活动', id);
+        resolve(msg)
+      }).catch(res => {})
+    })
+  },
 
+ // 生命周期函数--监听页面加载
+ async onLoad (options) {
+  var active_list = app.globalData.my_activities
+  this.data.active_list = active_list
+  var openid = app.globalData.my_id
+  var msglist = []
+  console.log(active_list);
+  for (var i = 0; i < active_list.length; i++) {
+    var msg = {}
+    msg = await this.active_detail(active_list[i],i)
+    msglist.push(msg)
+  }
+  for(var i = 0; i<msglist.length;i++){
+    if(openid == msglist[i].host){
+      msglist[i].host = '1'
+    }
+    else{
+      msglist[i].host = '0'
+    }
+  }
+  this.setData({
+    msgList: msglist
+  })
+  console.log(this.data.msgList);
   },
 
   /**
@@ -201,9 +207,30 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
-  },
+  async onShow() {
+    var active_list = app.globalData.my_activities
+    this.data.active_list = active_list
+    var openid = app.globalData.my_id
+    var msglist = []
+    console.log(active_list);
+    for (var i = 0; i < active_list.length; i++) {
+      var msg = {}
+      msg =  await this.active_detail(active_list[i],i)
+      msglist.push(msg)
+    }
+    for(var i = 0; i<msglist.length;i++){
+      if(openid == msglist[i].host){
+        msglist[i].host = '1'
+      }
+      else{
+        msglist[i].host = '0'
+      }
+    }
+    this.setData({
+      msgList: msglist
+    })
+    console.log(this.data.msgList);
+    },
 
   /**
    * 生命周期函数--监听页面隐藏

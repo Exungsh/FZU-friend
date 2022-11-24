@@ -229,6 +229,9 @@ Page({
         now: 1
       })
     })
+    setTimeout(()=>{
+      wx.stopPullDownRefresh()
+    },app.globalData.refresh_time)
   },
 
   /**
