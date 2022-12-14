@@ -37,8 +37,8 @@
 
 .black {
   box-sizing: border-box;
-  width: 100vw;
   height: 80rpx;
+  margin: 0 auto;
   margin-bottom: 10px;
   display: flex;
   background-color: #f0f9f6;

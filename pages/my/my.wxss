@@ -9,7 +9,7 @@ page{
 }
 .card{
   box-sizing: border-box;
-  width: 360px;
+  width: 650rpx;
   height: 140px;
   margin: 0 auto;
   position: relative;

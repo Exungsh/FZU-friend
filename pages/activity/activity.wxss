@@ -3,9 +3,10 @@
 .card{
   display: flex;
   background-color: #f0f9f6;
-  margin: 60rpx 30rpx;
+  margin: 40rpx 30rpx;
   padding: 35rpx 50rpx;
   flex-direction: column;
+  border-radius: 15rpx;
 }
 .card-title{
   font-size: 20px;
@@ -38,18 +39,18 @@
 .morepoint {
   position: absolute;
   left: 83%;
-  font-size: 14px;
-  font-weight:bolder;
-  color: #487267;
-  height: 30px;
-  width: 30px;
-  text-align: center;
+  height: 40rpx;
+  width: 40rpx;
+}
+.morepoint image{
+  height: 40rpx;
+  width: 40rpx;
 }
 .float_window {
   position: fixed; 
   background-color:#f0f9f6;
   border-radius: 40rpx; 
-  height: 90%;width: 80%;left: 10%;top: 5%;
+  height: 70%;width: 80%;left: 10%;top: 15%;
   box-shadow: 0.000vw 0.000vw 72.275vw 72.275vw rgba(100, 109, 102, 0.335);
 }
 
@@ -112,4 +113,10 @@
   line-height: 50rpx;
   border-radius: 30rpx;
   margin-top: 5rpx;
+}
+.change_intro{
+  box-sizing: border-box;
+  height: 100px;
+  text-align: justify;
+  padding: 20rpx;
 }

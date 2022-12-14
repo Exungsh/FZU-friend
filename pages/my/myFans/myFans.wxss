@@ -9,7 +9,7 @@
   background-color: #f0f9f6;
   padding-top: 40rpx;
   margin-bottom: 20rpx;
-  box-shadow: 5px 5px 5px rgba(81, 81, 81, 0.321);
+  border-radius: 10rpx;
 }
 
 .activity .head {
@@ -51,16 +51,17 @@
 
 .tags li {
   float: left;
-  margin-right: 15rpx;
+  margin-right: 10rpx;
 }
 
 .tags li view {
   height: 40rpx;
   padding: 0 20rpx;
   border-radius: 20rpx;
-  border: #588c7e solid 1.5px;
+  box-sizing: border-box;
+  border: #588c7e solid 1px;
   line-height: 40rpx;
-  font-size: 25rpx;
+  font-size: 20rpx;
 }
 
 .item{
@@ -81,4 +82,12 @@
   height: 50rpx;
   width: 320rpx;
   font-size: 36rpx;
+}
+.tip {
+  height: 30px;
+  line-height: 10px;
+  text-align: center;
+  color: #588c7e;
+  font-size: 12px;
+  margin-top: 15px;
 }

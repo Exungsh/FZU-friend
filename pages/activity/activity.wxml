@@ -1,8 +1,8 @@
 <!--pages/activity/activity.wxml-->
-<view class="card" wx:for="{{ msgList }}"  wx:key="id" bindtap="jumpToDetail" data-id="{{item.id}}">
+<view class="card" wx:for="{{ msgList }}"  wx:key="id" bindtap="jumpToDetail" data-id="{{item._id}}" data-form_kind="{{item.form_kind}}">
     <text class='card-title'>{{ item.title }}</text>
-    <view catchtap="bindor"class="morepoint" id="{{item.host}}">
-      ···
+    <view catchtap="bindor"class="morepoint" id="{{item.host}}" data-activity="{{item._id}}" data-big_tag="{{item.big_tag}}" data-small_tag="{{item.small_tag}}">
+      <image src="/icon/more.png"></image>
     </view>
     <text class='card-date'>活动时间：{{ item.date }} {{item.time}}</text>
     <text class='card-place'>活动地点：{{ item.place }}</text>
@@ -19,14 +19,14 @@
   <!-- 标题、关闭 -->
   <view style="height: 80rpx;margin-top: 10rpx;line-height: 80rpx;margin-bottom: 30rpx;">
     <view style="display: inline-block;width: 15%;"></view>
-    <view class="float_title">{{activity_detail.name}}</view>
+    <view class="float_title">{{name}}</view>
     <view class="float_close" bindtap="closefloat">×</view>
   </view>
   <!-- 人数、日期、介绍 -->
   <view style="color: #487267;">
     <view class="float_baseinfor">
       <text style="font-weight: bold;">活动人数：</text>
-        <text style="color: #7aac9e;">{{activity_detail.people_now}}</text> / <text>{{activity_detail.people_need}}</text>
+        <text style="color: #7aac9e;">{{people_now}}</text> / <text>{{people_need}}</text>
     </view>
     <view class="float_baseinfor">
       <text style="font-weight: bold;width: 30%;">活动日期：</text>
@@ -46,38 +46,19 @@
     </view>
     <view class="float_baseinfor">
       <text style="font-weight: bold;width: 30%;">活动地点：</text>
-      <input type="text" value='{{place}}' 	bindconfirm="bindPlaceChange" class="change_place"/>
+      <input type="text" value='{{place}}' 	bindinput="bindPlaceChange" class="change_place"/>
     </view>
     <view class="float_baseinfor">
-      <text style="font-weight: bold;">活动详情：</text>
+      <text style="font-weight: bold;width: 30%;">活动详情：</text>
+      <textarea type="text" value='{{intro}}' 	bindinput="bindIntroChange" class="change_place change_intro"></textarea>
     </view>
-    <view class="float_intro">
-      <view>
-        <text>{{activity_detail.intro}}</text>
-      </view>
-    </view>
-  </view>
-  <!-- 参加人员 -->
-  <view class="float_baseinfor" style="margin-bottom: 10rpx;">
-      <text style="font-weight: bold;color: #487267;">参加人员：</text>
-    </view>
-  <view style="padding: 0 8%;height: 100px;width: 84%; overflow-x: scroll;white-space: nowrap;">
-    <view class="float_people" wx:for="{{activity_detail.people}}">
-      <view>
-        <image src="{{item.head}}" style="width: 60px;height: 60px;background-color: #588c7e;border-radius: 50%;"></image>
-      </view>
-      <view style="width: 60px;height: 20px;line-height: 12px;font-size: 12px;text-align: center;color:#487267;">
-      {{item.name}}
-      </view>
-    </view>
-    <!-- 确定、退出 -->
     <view style="height: 50px;width: 100%;position: absolute;bottom: 0; left: 0;">
-      <view class="float_button" style="color: #487267;" bindtap="float_confirm">
-        确定修改
+        <view class="float_button" style="color: #487267;" bindtap="float_confirm">
+          确定修改
+        </view>
+        <view class="float_button" style="color: #7cafa0;" bindtap="closefloat">
+          我再看看
+        </view>
       </view>
-      <view class="float_button" style="color: #7cafa0;" bindtap="closefloat">
-        我再看看
-      </view>
-    </view>
   </view>
 </view>

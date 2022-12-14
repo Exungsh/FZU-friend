@@ -7,7 +7,7 @@
 <view class="guess" style="background-color: #f0f9f6;margin: 0 35rpx;padding: 35rpx 20rpx;border-radius: 35rpx;">
   <view style="margin-left:20rpx;color: #4b756a;font-size: 14px;margin-bottom: 8rpx;font-weight: 600;">猜你喜欢</view>
   <view style="height: 10px;"></view>
-  <view style="display: flex;flex-wrap: wrap;justify-content:space-around;">
-    <view bindtap="favor_tap" wx:for="{{favor}}" style="font-size: 13px;width: 40vw;height:40px;line-height: 40px;border-radius: 30px;text-align: center;margin-bottom: 10px;background-color:#dcece8;color:#4b756a;" data-value="{{item}}">{{item}}</view>
+  <view style="display: flex;flex-wrap: wrap;width: 100%;margin-left: 2%;">
+    <view bindtap="favor_tap" wx:for="{{favor}}" style="font-size: 13px;width: 46%;height:40px;line-height: 40px;border-radius: 30px;text-align: center;margin-bottom: 10px;margin-right: 4%; background-color:#dcece8;color:#4b756a;float: left;" data-value="{{item}}">{{item}}</view>
   </view>
 </view>

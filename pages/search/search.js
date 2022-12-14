@@ -1,4 +1,5 @@
 // pages/search/search.js
+const app = getApp()
 Page({
 
   /**
@@ -6,13 +7,17 @@ Page({
    */
   data: {
     search: "",
-    favor: ["羽毛球", "原神", "袁神", "LOLM"]
+    favor: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+
+    this.setData({
+      favor:app.globalData.my_tags
+    })
     wx.request({
       url: 'url',
       method: 'GET',

@@ -15,7 +15,8 @@ Page({
     switchAllChecked: false,
     head_img: "",
     wx_account: '',
-    is_fzu: 0
+    is_fzu: 0,
+    sex:""
   },
   is_qishan(x,y) {
     var lt_x=119.1860 //B
@@ -194,7 +195,8 @@ Page({
       switchAllChecked: app.globalData.is_find,
       head_img: app.globalData.head_img,
       wx_account: app.globalData.wx,
-      is_fzu: app.globalData.is_fzu
+      is_fzu: app.globalData.is_fzu,
+      sex:app.globalData.my_sex
     })
   },
 

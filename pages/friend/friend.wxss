@@ -41,6 +41,7 @@
   background-color: #f0f9f6;
   padding-top: 40rpx;
   margin-bottom: 20rpx;
+  border-radius: 10rpx;
 }
 
 .activity .head {
@@ -92,5 +93,5 @@
   box-sizing: border-box;
   border: #588c7e solid 1px;
   line-height: 40rpx;
-  font-size: 25rpx;
+  font-size: 20rpx;
 }

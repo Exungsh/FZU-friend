@@ -36,26 +36,26 @@
   "tabBar": {
     "list": [
     {
-      "selectedIconPath": "icon/Leftbar_mine_selected.png",
-      "iconPath": "icon/Leftbar_mine_unselected.png",
+      "selectedIconPath": "icon/pengyoufill.png",
+      "iconPath": "icon/pengyou.png",
       "pagePath": "pages/friend/friend",
       "text": "朋友"
     },
     {
-      "selectedIconPath": "icon/huodongxiangqu.png",
-      "iconPath": "icon/huodongxiangqu_1.png",
+      "selectedIconPath": "icon/renwu.png",
+      "iconPath": "icon/renwu_1.png",
       "pagePath": "pages/index/index",
       "text": "活动"
     },
     {
-      "selectedIconPath": "icon/Leftbar_cloud_selected.png",
-      "iconPath": "icon/Leftbar_cloud_unselected.png",
+      "selectedIconPath": "icon/cooperation-full2.png",
+      "iconPath": "icon/cooperation.png",
       "pagePath": "pages/activity/activity",
       "text": "已加入"
     },
     {
-      "selectedIconPath": "icon/Leftbar_cloud_selected.png",
-      "iconPath": "icon/Leftbar_cloud_unselected.png",
+      "selectedIconPath": "icon/geren2.png",
+      "iconPath": "icon/geren.png",
       "pagePath": "pages/my/my",
       "text": "我的"
     }

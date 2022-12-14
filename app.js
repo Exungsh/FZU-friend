@@ -220,9 +220,9 @@ App({
     my_sex: 1,
     my_id: "",
     my_name: "未命名",
-    my_activities: {
+    my_activities: [
 
-    },
+    ],
     my_friend: [
 
     ],
@@ -246,7 +246,7 @@ App({
     is_find: true,
     is_fzu: false,
     max_limit: 6,
-    refresh_time: 200,
+    refresh_time: 100,
   }
 })
 

@@ -4,16 +4,16 @@
   <view class="card">
     <view class="head">
       <view>
-        <image src="{{head_img}}"></image>
+        <image src="{{head_img}}" bindtap="myprofile"></image>
       </view>
-      <view class="gender">
+      <view class="gender" style="background-color: {{sex==1?'#70C9F3':'#F5BEDF'}};">
       </view>
     </view>
     <view class="detail">
-      <view class="name">
+      <view class="name" bindtap="myprofile">
       {{name}}
       </view>
-      <view class="intro">
+      <view class="intro" bindtap="myprofile">
       简介：{{intro}}
       </view>
       <view class="focus">
@@ -63,6 +63,6 @@
       <switch checked="{{switchAllChecked}}" bindchange="switchChange" color="#588c7e"></switch>
     </view>
     <view class="button_name">隐私</view>
-    <view class="button_intro">能否在"朋友"界面中找到你</view>
+    <view class="button_intro">能否在"朋友"中找到你</view>
   </view>
 </view>

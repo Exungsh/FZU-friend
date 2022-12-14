@@ -45,8 +45,8 @@
 <!-- 发布活动 -->
 <view class="publish" bindtap="publish">+</view>
 <!-- 活动详情悬浮窗 -->
-<view class="float" catchtap='true' catchtouchmove='true' style="display: {{float_flag==1?'block':'none'}}; ">
-  <view class="float_window" style="display: {{float_flag==1?'block':'none'}}; ">
+<view class="float" catchtap='' style="display: {{float_flag==1?'block':'none'}};">
+  <view class="float_window" style="display: {{float_flag==1?'block':'none'}};">
     <!-- 标题、关闭 -->
     <view style="height: 80rpx;margin-top: 10rpx;line-height: 80rpx;margin-bottom: 30rpx;">
       <view style="display: inline-block;width: 15%;"></view>
@@ -84,13 +84,13 @@
     <view class="float_baseinfor" style="margin-bottom: 10rpx;">
       <text style="font-weight: bold;color: #487267;">参加人员：</text>
     </view>
-    <view style="padding: 0 8%;height: 100px;width: 84%; overflow-x: scroll;white-space: nowrap;">
+    <view style="padding: 0 8%;height: 110px;width: 84%; overflow-x: scroll;white-space: nowrap;">
       <view class="float_people" wx:for="{{activity_detail.people}}">
         <view>
           <image src="{{item.head}}" style="width: 60px;height: 60px;background-color: #588c7e;border-radius: 50%;"></image>
           <view style="position: relative;left: 45px;top: -15px; height: 15px;width: 15px;background-color: {{item.gender==1?'#70C9F3':'#F5BEDF'}};border-radius: 50%;"></view>
         </view>
-        <view style="width: 60px;height: 20px;line-height: 12px;font-size: 12px;text-align: center;color:#487267;">
+        <view style="width: 60px;height: 20px;line-height: 12px;font-size: 12px;text-align: center;color:#487267;overflow: hidden;">
           {{item.name}}
         </view>
       </view>

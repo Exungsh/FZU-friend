@@ -1,4 +1,5 @@
-/* pages/my/blacklist/blacklist.wxss *//**index.wxss**/
+/* pages/my/blacklist/blacklist.wxss */
+/**index.wxss**/
 .content {
   width: 90%;
   margin: 0 auto;
@@ -9,6 +10,7 @@
   background-color: #f0f9f6;
   padding-top: 40rpx;
   margin-bottom: 20rpx;
+  border-radius: 10rpx;
 }
 
 .activity .head {
@@ -16,7 +18,7 @@
   height: 80rpx;
   width: 80rpx;
   border-radius: 40rpx;
-  background-color:#588c7e;
+  background-color: #588c7e;
 }
 
 .activity .follow {
@@ -41,7 +43,7 @@
 }
 
 .tags {
-  height: 150rpx;
+  height: 40rpx;
   width: 560rpx;
   margin: 0 auto;
   margin-top: 20rpx;
@@ -50,7 +52,7 @@
 
 .tags li {
   float: left;
-  margin-right: 15rpx;
+  margin-right: 10rpx;
 }
 
 .tags li view {
@@ -60,5 +62,14 @@
   box-sizing: border-box;
   border: #588c7e solid 1px;
   line-height: 40rpx;
-  font-size: 25rpx;
+  font-size: 20rpx;
+}
+
+.tip {
+  height: 30px;
+  line-height: 10px;
+  text-align: center;
+  color: #588c7e;
+  font-size: 12px;
+  margin-top: 15px;
 }

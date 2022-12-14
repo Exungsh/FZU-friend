@@ -90,6 +90,7 @@
   text-align: center;
   color: #487267;
   margin-top: -12px;
+  overflow: hidden;
 }
 
 /* person_detail */
@@ -98,15 +99,15 @@
   width: 100%;
   position: fixed;
   top: 0;
-  background-color: rgba(97, 89, 89, 0.28);
+  background-color: rgba(192, 189, 189, 0.28);
   z-index: 5;
 }
 .person_detail {
   box-sizing: border-box;
   position: relative;
-  width: 70%;
+  width: 90%;
   height: 160px;
-  left: 15%;
+  left: 5%;
   top: 35%;
   background-color: #f0f9f6;
   z-index: 10;
@@ -144,7 +145,7 @@
   float: left;
   margin-left: 15px;
   height: 100px;
-  width: 150px;
+  width: 400rpx;
   padding-top: 10px;
 }
 .detail_name{

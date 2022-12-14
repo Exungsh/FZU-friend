@@ -43,7 +43,7 @@
     </view>
     <view class="buttons">
       <view class="follow" catchtap="follow">{{detail_dict.follow_flag==-1?'关注':'取关'}}</view>
-      <view class="black" catchtap="black">{{detail_dict.black_flag==-1?'拉黑':'取黑'}}</view>
+      <view class="black" catchtap="black">{{detail_dict.black_flag==-1?'拉黑':'放出来'}}</view>
     </view>
   </view>
 </view>

@@ -224,23 +224,25 @@ Page({
     })
   },
   async formSubmit(e) {
-    wx.request({
-      url: 'url',
-      method: 'GET',
-      date: e.detail.value,
-      success: (res) => {
-        console.log("success");
-      },
-      fail: (res) => {
-        console.log("fail");
-      }
-    })
+    // wx.request({
+    //   url: 'url',
+    //   method: 'GET',
+    //   date: e.detail.value,
+    //   success: (res) => {
+    //     console.log("success");
+    //   },
+    //   fail: (res) => {
+    //     console.log("fail");
+    //   }
+    // })
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
     wx.cloud.init();
     const db = wx.cloud.database();
     console.log('名', e.detail.value.big_tag);
     var app = getApp();
+    var a_id = app.globalData.my_id + Date.now();
     var insert_data = {
+      _id: a_id,
       host: app.globalData.my_id,
       name: e.detail.value.name,
       head: app.globalData.head_img,
@@ -259,6 +261,7 @@ Page({
       small_tag: e.detail.value.small_tag,
       big_tag: e.detail.value.big_tag,
       time: e.detail.value.time,
+      comment: []
     }
     //插入大类
     await db.collection(e.detail.value.big_tag).add({
@@ -270,26 +273,29 @@ Page({
     });
 
     const _ = db.command;
-    var act = await db.collection(e.detail.value.big_tag).where({
-      host: app.globalData.my_id,
-      name: e.detail.value.name,
-      date: e.detail.value.date,
-      intro: e.detail.value.detail,
-      people: [{
-        "id": app.globalData.my_id,
-        "name": app.globalData.my_name,
-        "gender": "1",
-        "head": app.globalData.head_img,
-      }],
-      members: [app.globalData.my_id],
-      people_cnt: 1,
-      people_need: e.detail.value.joinNum,
-      place: e.detail.value.place
-    }).get();
-    console.log(act.data)
+    // db.collection(e.detail.value.big_tag).where({
+    //   host: app.globalData.my_id,
+    //   name: e.detail.value.name,
+    //   date: e.detail.value.date,
+    //   intro: e.detail.value.detail,
+    //   people: [{
+    //     "id": app.globalData.my_id,
+    //     "name": app.globalData.my_name,
+    //     "gender": "1",
+    //     "head": app.globalData.head_img,
+    //   }],
+    //   members: [app.globalData.my_id],
+    //   people_cnt: 1,
+    //   people_need: e.detail.value.joinNum,
+    //   place: e.detail.value.place
+    // }).get({
+    //   success: (res) =>{
+    //     app.globalData.my_activities.push(res.data[0]._id);
+    //   }
+    // });
 
-    app.globalData.my_activities.push(act.data[0]._id);
 
+    app.globalData.my_activities.push(a_id)
     await db.collection('user').where({
       _id: app.globalData.my_id
     }).update({
@@ -297,10 +303,8 @@ Page({
         activities: _.set(app.globalData.my_activities)
       }
     })
-    setTimeout(() => {
-      wx.navigateBack({})
-    }, 100);
-  },
-  publish() {
+    wx.navigateBack({
+      delta: 1
+    })
   }
 })
